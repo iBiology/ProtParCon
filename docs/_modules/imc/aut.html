@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>imc.aut &mdash; iMC 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> iMC
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-just-happened">What just happened?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-else">What else?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-s-next">What’s next?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html#install-protparcon-to-a-virtual-environment-recommended">Install ProtParCon to a virtual environment (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html#things-that-are-good-to-know">Things that are good to know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage-python.html">Use ProtParCon in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#import-protparcon">Import ProtParCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#align-multiple-sequences">Align multiple sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#infer-maximum-likelihood-tree">Infer Maximum-Likelihood tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#reconstruct-ancestral-states">Reconstruct ancestral states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#simulate-protein-sequences">Simulate protein sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#topology-test">Topology test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#identify-molecular-convergence-in-proteins">Identify molecular convergence in proteins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage-shell.html">Using ProtParCon in terminal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-shell.html#check-protparcon-command-line-toolsets">Check ProtParCon command-line toolsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-shell.html#using-toolsets-in-terminal">Using toolsets in terminal</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#utilities">utilities</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">iMC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>imc.aut</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for imc.aut</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The module is designed to provide a common interface for performing topology</span>
+<span class="sd">test (`AU test`_) over protein alignments using various programs. </span>
+
+<span class="sd">Users are asked to provide a multiple sequence alignment (MSA) file, a NEWICK </span>
+<span class="sd">format tree file, and a topology test program&#39;s executable. If only one tree </span>
+<span class="sd">in the tree file was provided, a maximum-likelihood (ML) tree would be inferred </span>
+<span class="sd">and AU test will be performed to test the difference between the user specified </span>
+<span class="sd">tree and the ML tree. If a set of trees in NEWICK format was provided in the </span>
+<span class="sd">tree file, only these trees would be evaluated without reconstructing the ML </span>
+<span class="sd">tree. In both cases, only the p-value of AU test for the first tree will be </span>
+<span class="sd">returned.</span>
+
+<span class="sd">Users are recommended only to use function ``aut()`` and avoid to use any</span>
+<span class="sd">private functions inside the module. However, users are recommended to</span>
+<span class="sd">implement new private functions for additional topology test programs in which </span>
+<span class="sd">they are interested and incorporate them into the general use function </span>
+<span class="sd">``aut()``.</span>
+
+<span class="sd">.. _`AU test`: https://academic.oup.com/sysbio/article/51/3/492/1616895</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">Popen</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">indent</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">indent</span>
+
+<span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">Tree</span>
+<span class="kn">from</span> <span class="nn">imc.mlt</span> <span class="k">import</span> <span class="n">mlt</span>
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span>
+
+<span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
+
+<span class="n">HANDLERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)]</span>
+<span class="k">if</span> <span class="n">LOGFILE</span><span class="p">:</span>
+    <span class="n">HANDLERS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOGFILE</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">LOGFILEMODE</span><span class="p">))</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">handlers</span><span class="o">=</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">LEVEL</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;[iMC]&#39;</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
+
+
+<div class="viewcode-block" id="_iqtree"><a class="viewcode-back" href="../../api.html#imc.aut._iqtree">[docs]</a><span class="k">def</span> <span class="nf">_iqtree</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform topology test (AU test) using IQ-TREE_.</span>
+<span class="sd">    </span>
+<span class="sd">    :param msa: str, path to a FASTA format MSA file.</span>
+<span class="sd">    :param tree: str, path to a NEWICK format tree file.</span>
+<span class="sd">    :param exe: str, path to a topology test program&#39;s executable.</span>
+<span class="sd">    :param model: str, name of the model or path of the model file.</span>
+<span class="sd">    :param seed: int, the seed used to initiate the random number generator.</span>
+<span class="sd">    :return: tuple, p-value of the AU test (float), first tree (string), and</span>
+<span class="sd">        second tree (string).</span>
+<span class="sd">    </span>
+<span class="sd">    .. _IQ-TREE: www.iqtree.org/</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tree</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">tree</span><span class="p">),</span> <span class="s1">&#39;newick&#39;</span><span class="p">)</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">trees</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="s1">&#39;newick&#39;</span><span class="p">)</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">)</span>
+        
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">exe</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="s1">&#39;-zb&#39;</span><span class="p">,</span> <span class="s1">&#39;1000&#39;</span><span class="p">,</span> <span class="s1">&#39;-au&#39;</span><span class="p">,</span> <span class="s1">&#39;-nt&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;-pre&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;autest&#39;</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">model</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;TEST&#39;</span><span class="p">])</span>
+    
+    <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;One tree found in tree file, inferring ML tree.&#39;</span><span class="p">)</span>
+        <span class="n">msa</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">wd</span><span class="p">)</span>
+        <span class="n">mltree</span> <span class="o">=</span> <span class="n">mlt</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mltree</span><span class="p">:</span>
+            <span class="n">trees</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="s1">&#39;trees.newick&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="k">as</span> <span class="n">f1</span><span class="p">:</span>
+                    <span class="n">t1</span> <span class="o">=</span> <span class="n">f1</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t1</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;newick&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">trees</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">mltree</span><span class="p">)</span> <span class="k">as</span> <span class="n">f2</span><span class="p">:</span>
+                <span class="n">t2</span> <span class="o">=</span> <span class="n">f2</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">))</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-z&#39;</span><span class="p">,</span> <span class="n">trees</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Infer ML tree failed, AU TEST aborted.&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-z&#39;</span><span class="p">,</span> <span class="n">tree</span><span class="p">])</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running AU TEST (IQ-TREE) using the following command:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">wd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+                        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">indent</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Topology test (AU TEST) failed for </span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Parsing tree topology test (AU TEST) results.&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="s1">&#39;autest.iqtree&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;USER TREES&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="k">break</span>
+        
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">):</span>
+                        <span class="n">aup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+                        <span class="k">return</span> <span class="n">aup</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Parsing tree topology test (AU TEST) failed, no test&#39;</span>
+                      <span class="s1">&#39;result found.&#39;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid IQ-TREE executable (exe) </span><span class="si">{}</span><span class="s1">, topology test (AU TEST) &#39;</span>
+              <span class="s1">&#39;failed for </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="aut"><a class="viewcode-back" href="../../api.html#imc.aut.aut">[docs]</a><span class="k">def</span> <span class="nf">aut</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    General use function for performing topology test (AU test).</span>
+<span class="sd">    </span>
+<span class="sd">    :param msa: str, path to a FASTA format MSA file.</span>
+<span class="sd">    :param tree: str, path to a NEWICK format tree file.</span>
+<span class="sd">    :param exe: str, path to a topology test program&#39;s executable.</span>
+<span class="sd">    :param model: str, name of the model or path of the model file.</span>
+<span class="sd">    :param seed: int, the seed used to initiate the random number generator.</span>
+<span class="sd">    :param outfile: str, path to the output file for storing test result.</span>
+<span class="sd">        If not set, only return the result without save to a file.</span>
+<span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
+<span class="sd">        default: False, silent mode.</span>
+<span class="sd">    :return: tuple, p-value of the AU test (float), first tree (string), and </span>
+<span class="sd">        second tree (string).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">msa</span><span class="p">):</span>
+        <span class="n">msa</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">msa</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Alignment </span><span class="si">{}</span><span class="s1"> is not a file or does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">Tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Argument model accepts a string for the name of the model or &#39;</span>
+              <span class="s1">&#39;path of the model file&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="k">if</span> <span class="n">seed</span> <span class="k">else</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Invalid seed, generating seed using random number generator.&#39;</span><span class="p">)</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+        
+    <span class="n">aup</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">_iqtree</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+                <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;P-value: </span><span class="si">{:.4f}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                        <span class="s1">&#39;Tree1: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                        <span class="s1">&#39;Tree2: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aup</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Save AU TEST result to file failed due to:</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;</span><span class="se">\t</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">err</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">aup</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span></div>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">des</span> <span class="o">=</span> <span class="s1">&#39;Perform topology test (AU test) over protein alignments.&#39;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The minimum requirement for running iMC-aut is an executable of a AU test</span>
+<span class="s2">program, a multiple sequence alignment (MSA) file (in FASTA format), a tree</span>
+<span class="s2">file (in NEWICK format).</span>
+
+<span class="s2">If you only provide one tree in the tree file, a maximum-likelihood tree will</span>
+<span class="s2">be inferred and AU-TEST will be performed to test the difference between them.</span>
+<span class="s2">If a set of trees in NEWICK format was provided in the tree file, only these</span>
+<span class="s2">trees will be evaluated without reconstructing the ML tree. In both case, only</span>
+<span class="s2">the p-value of AU TEST for the first tree will be printed out.</span>
+
+<span class="s2">Without providing a output file path, AU test results will not be saved to</span>
+<span class="s2">local file system, but the results will be always printed out.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;imc-aut&#39;</span><span class="p">,</span>
+                                    <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXE MSA TREE [OPTIONS]&#39;</span><span class="p">,</span>
+                                    <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
+
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;EXE&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the executable of the topology test (AU &#39;</span>
+                            <span class="s1">&#39;test) program.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;MSA&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the alignment file in FASTA format.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;TREE&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the tree file or string in NEWICK format.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Name of the substitution model or filename of the &#39;</span>
+                            <span class="s1">&#39;model file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the output file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The seed for initiating the random number &#39;</span>
+                            <span class="s1">&#39;generator.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke verbose or silent (default) process mode.&#39;</span><span class="p">)</span>
+    
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">exe</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">MSA</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">TREE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">EXE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">m</span>
+    <span class="n">seed</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">o</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">v</span>
+    
+    <span class="n">aup</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">aut</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+                      <span class="n">outfile</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">aup</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

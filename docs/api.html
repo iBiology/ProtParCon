@@ -1,0 +1,1292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; iMC 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Using ProtParCon in terminal" href="usage-shell.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> iMC
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#what-just-happened">What just happened?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#what-else">What else?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#what-s-next">What’s next?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#install-protparcon-to-a-virtual-environment-recommended">Install ProtParCon to a virtual environment (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#things-that-are-good-to-know">Things that are good to know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage-python.html">Use ProtParCon in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#import-protparcon">Import ProtParCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#align-multiple-sequences">Align multiple sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#infer-maximum-likelihood-tree">Infer Maximum-Likelihood tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#reconstruct-ancestral-states">Reconstruct ancestral states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#simulate-protein-sequences">Simulate protein sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#topology-test">Topology test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#identify-molecular-convergence-in-proteins">Identify molecular convergence in proteins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage-shell.html">Using ProtParCon in terminal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage-shell.html#check-protparcon-command-line-toolsets">Check ProtParCon command-line toolsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-shell.html#using-toolsets-in-terminal">Using toolsets in terminal</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-imc.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-imc.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-imc.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-imc.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-imc.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-imc.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utilities">utilities</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">iMC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<p>This section documents the ProtParCon core API, and it is intended for
+developers and experienced users to extend ProtParCon.</p>
+<div class="section" id="module-imc.msa">
+<span id="msa"></span><h2>msa<a class="headerlink" href="#module-imc.msa" title="Permalink to this headline">¶</a></h2>
+<p>This module is designed to provide a common and easy way to use interface for
+aligning multiple sequences using various align programs.</p>
+<p>Users are only asked to provide an alignment programs’s executable and an 
+multiple sequence file in FASTA format. The general use function <code class="docutils literal notranslate"><span class="pre">msa()</span></code> 
+will always return the pathname of the alignment output file or exit with 
+an error code 1 and an error message logged.</p>
+<p>Users are recommended to only use function <code class="docutils literal notranslate"><span class="pre">msa()</span></code> and avoid to use any
+private functions inside the module. However, we strongly recommend users 
+to implement new private functions for additional alignment programs in which 
+they are interested and incorporate them into the general use function 
+<code class="docutils literal notranslate"><span class="pre">msa()</span></code>.</p>
+<dl class="function">
+<dt id="imc.msa._clustal">
+<code class="descclassname">imc.msa.</code><code class="descname">_clustal</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_clustal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._clustal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align multiple sequences using <a class="reference external" href="http://www.clustal.org/omega/">CLUSTAL (OMEGA)</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of a multiple sequence align
+program.</li>
+<li><strong>seq</strong> – str, path to the multiple sequence file (must in FASTA format).</li>
+<li><strong>seq</strong> – str, path to the aligned sequence output file (in FASTA format).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the aligned sequence output file (in FASTA format).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.msa._guess">
+<code class="descclassname">imc.msa.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._guess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Guess the name of a multiple sequence alignment (MSA) program according to 
+its executable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exe</strong> – str, path to the executable of a MSA program.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, name of the MSA program and the corresponding function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.msa._mafft">
+<code class="descclassname">imc.msa.</code><code class="descname">_mafft</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_mafft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._mafft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align multiple sequences using <a class="reference external" href="https://mafft.cbrc.jp/alignment/software/">MAFFT</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of a multiple sequence align
+program.</li>
+<li><strong>seq</strong> – str, path to the multiple sequence file (must in FASTA format).</li>
+<li><strong>seq</strong> – str, path to the aligned sequence output file (in FASTA format).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the aligned sequence output file (in FASTA format).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.msa._muscle">
+<code class="descclassname">imc.msa.</code><code class="descname">_muscle</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_muscle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._muscle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align multiple sequences using <a class="reference external" href="https://www.drive5.com/muscle/">MUSCLE</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of a multiple sequence align
+program.</li>
+<li><strong>seq</strong> – str, path to the multiple sequence file (must in FASTA format).</li>
+<li><strong>seq</strong> – str, path to the aligned sequence output file (in FASTA format).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the aligned sequence output file (in FASTA format).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.msa._tcoffee">
+<code class="descclassname">imc.msa.</code><code class="descname">_tcoffee</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_tcoffee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._tcoffee" title="Permalink to this definition">¶</a></dt>
+<dd><p>Align multiple sequences using <a class="reference external" href="http://www.tcoffee.org/Projects/tcoffee/">T-COFFEE</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of a multiple sequence align
+program.</li>
+<li><strong>seq</strong> – str, path to the multiple sequence file (must in FASTA format).</li>
+<li><strong>seq</strong> – str, path to the aligned sequence output file (in FASTA format).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the aligned sequence output file (in FASTA format).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.msa.msa">
+<code class="descclassname">imc.msa.</code><code class="descname">msa</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#msa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa.msa" title="Permalink to this definition">¶</a></dt>
+<dd><p>General use function for multiple sequence alignment (MSA).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of a MSA program.</li>
+<li><strong>seq</strong> – str, path to the multiple sequence file (must in FASTA format).</li>
+<li><strong>outfile</strong> – str, path to the aligned sequence output (FASTA) file,
+default: [basename].[aligner].fasta, where basename is the filename of 
+the sequence file without known FASTA file extension, aligner is the 
+name of the aligner program in lowercase, and fasta is the extension 
+for fasta format file.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the aligned sequence output file (in FASTA format).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-imc.asr">
+<span id="asr"></span><h2>asr<a class="headerlink" href="#module-imc.asr" title="Permalink to this headline">¶</a></h2>
+<p>This module is designed to provide a common and easy way to use interface for
+ancestral stated reconstruction (ASR) using various ASR programs.</p>
+<p>Users are only asked to provide an ASR programs’s executable, an aligned 
+multiple sequence file (in FASTA format), and a guide tree (in NEWICK) 
+format. The general use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> will always return dict object
+containing sequence records and a tree object (generated by <code class="docutils literal notranslate"><span class="pre">Bio.Phylo</span></code> 
+module inside <a class="reference external" href="https://biopython.org/">Biopython</a>) or exit with an error code 1 and an error 
+message logged.</p>
+<p>Users are recommended only to use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> and avoid to use any
+private function inside the module. However, users are strongly recommended
+to implement new private functions for additional ASR programs in which they are 
+interested and incorporate them into the general use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code>.</p>
+<dl class="function">
+<dt id="imc.asr._codeml">
+<code class="descclassname">imc.asr.</code><code class="descname">_codeml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_codeml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._codeml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruct ancestral sequences using CODEML (inside <a class="reference external" href="https://www.paml.com/">PAML</a> package).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of an ASR program.</li>
+<li><strong>msa</strong> – str, path to the MSA file (must in FASTA format).</li>
+<li><strong>tree</strong> – str, path to the tree file (must in NEWICK format) or a NEWICK
+format tree string (must start with “(” and end with “;”).</li>
+<li><strong>model</strong> – namedtuple, substitution model for ASR.</li>
+<li><strong>gamma</strong> – int, The number of categories for the discrete gamma rate
+heterogeneity model.</li>
+<li><strong>freq</strong> – str, the equilibrium frequencies of the twenty amino acids.</li>
+<li><strong>alpha</strong> – float, the shape (alpha) for the gamma rate heterogeneity.</li>
+<li><strong>outfile</strong> – str, path to the output file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a tree object, a dict for sequences, and a list or rates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See doc string of function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> for details of all arguments.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr._fastml">
+<code class="descclassname">imc.asr.</code><code class="descname">_fastml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_fastml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._fastml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruct ancestral sequences using <a class="reference external" href="http://fastml.tau.ac.il/">FastML</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of an ASR program.</li>
+<li><strong>msa</strong> – str, path to the MSA file (must in FASTA format).</li>
+<li><strong>tree</strong> – str, path to the tree file (must in NEWICK format) or a NEWICK
+format tree string (must start with “(” and end with “;”).</li>
+<li><strong>model</strong> – namedtuple, substitution model for ASR.</li>
+<li><strong>gamma</strong> – int, The number of categories for the discrete gamma rate
+heterogeneity model.</li>
+<li><strong>freq</strong> – str, the equilibrium frequencies of the twenty amino acids.</li>
+<li><strong>alpha</strong> – float, the shape (alpha) for the gamma rate heterogeneity.</li>
+<li><strong>outfile</strong> – str, path to the output file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a tree object and a dict for sequences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See doc string of function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> for details of all arguments.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr._guess">
+<code class="descclassname">imc.asr.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._guess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Guess the name of a ancestral states reconstruction (ASR) program according 
+to its executable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exe</strong> – str, path to the executable of an ASR program.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, name of the ASR program and the corresponding function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr._label">
+<code class="descclassname">imc.asr.</code><code class="descname">_label</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relabel internal nodes of a tree and map them to the corresponding name of 
+ancestral sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tree</strong> – str, a NEWICK format string or file for a tree (must start with
+“(” and end with ‘;’).</li>
+<li><strong>ancestors</strong> – dict, a dict object stores sequences.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a relabeled tree object and a dict object for sequences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr._parse">
+<code class="descclassname">imc.asr.</code><code class="descname">_parse</code><span class="sig-paren">(</span><em>wd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the rst file generated by CODEML.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wd</strong> – str, work directory of  CODEML (inside <a class="reference external" href="https://www.paml.com/">PAML</a> package).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, a tree object, a dict for sequences, and a list or rates.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr._raxml">
+<code class="descclassname">imc.asr.</code><code class="descname">_raxml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_raxml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._raxml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruct ancestral sequences using <a class="reference external" href="https://sco.h-its.org/exelixis/web/software/raxml/">RAxML</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of an ASR program.</li>
+<li><strong>msa</strong> – str, path to the MSA file (must in FASTA format).</li>
+<li><strong>tree</strong> – str, path to the tree file (must in NEWICK format) or a NEWICK
+format tree string (must start with “(” and end with “;”).</li>
+<li><strong>model</strong> – namedtuple, substitution model for ASR.</li>
+<li><strong>gamma</strong> – int, The number of categories for the discrete gamma rate
+heterogeneity model.</li>
+<li><strong>freq</strong> – str, the equilibrium frequencies of the twenty amino acids.</li>
+<li><strong>alpha</strong> – float, the shape (alpha) for the gamma rate heterogeneity.</li>
+<li><strong>outfile</strong> – str, path to the output file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a tree object and a dict for sequences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See doc string of function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> for details of all arguments.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr._write">
+<code class="descclassname">imc.asr.</code><code class="descname">_write</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestor</em>, <em>rates</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write tree (object) and ancestor (dict) to a output file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tree</strong> – object, tree object.</li>
+<li><strong>ancestor</strong> – dict, dict object for sequence records.</li>
+<li><strong>outfile</strong> – str, path to the output file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the output file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.asr.asr">
+<code class="descclassname">imc.asr.</code><code class="descname">asr</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma=4</em>, <em>alpha=1.8</em>, <em>freq=''</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#asr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr.asr" title="Permalink to this definition">¶</a></dt>
+<dd><p>General use function for (marginal) ancestral states reconstruction (ASR).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of an ASR program.</li>
+<li><strong>msa</strong> – str, path to the MSA file (must in FASTA format).</li>
+<li><strong>tree</strong> – str, path to the tree file (must in NEWICK format) or a NEWICK
+format tree string (must start with “(” and end with “;”).</li>
+<li><strong>model</strong> – str, substitution model for ASR. Either a path to a model
+file or a valid model string (name of an empirical model plus some 
+other options like gamma category and equilibrium frequency option).
+If a model file is in use, the file format of the model file depends
+on the ASR program, see the its documentation for details.</li>
+<li><strong>gamma</strong> – int, The number of categories for the discrete gamma rate
+heterogeneity model. Without setting gamma, RAxML will use CAT model
+instead, while CODEML will use 4 gamma categories.</li>
+<li><strong>freq</strong> – str, the base frequencies of the twenty amino acids.
+Accept empirical, or estimate, where empirical will set frequencies
+use the empirical values associated with the specified substitution
+model, and estimate will use a ML estimate of base frequencies.</li>
+<li><strong>alpha</strong> – float, the shape (alpha) for the gamma rate heterogeneity.</li>
+<li><strong>outfile</strong> – str, path to the output file. Whiteout setting, results
+of ancestral states reconstruction will be saved using the filename
+<cite>[basename].[asrer].tsv</cite>, where basename is the filename of MSA file
+without known FASTA file extension, asrer is the name of the ASR
+program (in lower case). The first line of the file will start with
+‘#TREE’ and followed by a TAB ( ) and then a NEWICK formatted tree
+string, the internal nodes were labeled. The second line of the tsv
+file is intentionally left as a blank line and the rest lines of the
+file are tab separated sequence IDs and amino acid sequences.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent (default) process mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, the paths of the ancestral states file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If a tree (with branch lengths and/or internal nodes labeled) is
+provided, the branch lengths and internal node labels) will be ignored.</p>
+<p class="last">If the model name combined with Gamma category numbers, i.e. JTT+G4,
+WAG+G8, etc., only the name of the model will be used. For all models
+contain G letter, a discrete Gamma model will be used to account for
+among-site rate variation. If there is a number after letter G,
+the number will be used to define number of categories in CODEML. For
+RAxML, the number of categories will always be set to 4 if G presented.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-imc.imc">
+<span id="imc"></span><h2>imc<a class="headerlink" href="#module-imc.imc" title="Permalink to this headline">¶</a></h2>
+<p>This module is designed to provide a common and easy way for identifying
+parallel and convergent amino acid replacements in orthologous protein
+sequences. In order to make this module for general use, function <code class="docutils literal notranslate"><span class="pre">imc()</span></code>
+is built on top of other modules to facilitate the identification of
+parallel and convergent amino acid replacements using a wide range of
+sequence data. Depending on the sequence data, optional parameters and external
+programs may be required.</p>
+<dl class="function">
+<dt id="imc.imc._load">
+<code class="descclassname">imc.imc.</code><code class="descname">_load</code><span class="sig-paren">(</span><em>tsv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load tree, rates, and data blocks from a tsv file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsv</strong> – str, path to the tsv file stores ancestral states or simulated
+sequences.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, tree, rates (list) and sequence records (defaultdict).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.imc._pairing">
+<code class="descclassname">imc.imc.</code><code class="descname">_pairing</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_pairing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._pairing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking whether two branches are sister branch pair or branch pair sharing
+the same evolutionary path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tree</strong> – object, a tree object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, a list of branches and a list of branch pairs.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.imc._sequencing">
+<code class="descclassname">imc.imc.</code><code class="descname">_sequencing</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree</em>, <em>aligner</em>, <em>ancestor</em>, <em>wd</em>, <em>asr_model</em>, <em>verbose</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_sequencing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._sequencing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify the type foe sequence file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sequence</strong> – str, path to a sequence data file.</li>
+<li><strong>tree</strong> – str, path to a NEWICK tree file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, sequence, alignment, ancestor, and simulation data file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.imc._tester">
+<code class="descclassname">imc.imc.</code><code class="descname">_tester</code><span class="sig-paren">(</span><em>obs</em>, <em>exp</em>, <em>values</em>, <em>alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_tester"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._tester" title="Permalink to this definition">¶</a></dt>
+<dd><p>One sample T-test to determine whether the observed value is statistically
+significantly different to the expected value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obs</strong> – int, observed value.</li>
+<li><strong>exps</strong> – list or tuple, a sequence of expected values.</li>
+<li><strong>alpha</strong> – float, significance level.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float, p value of the T-test.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.imc.imc">
+<code class="descclassname">imc.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>save=False</em>, <em>asr_model='JTT'</em>, <em>exp_model=''</em>, <em>n=100</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc.imc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify molecular parallel and convergent changes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sequence</strong> – <p>str, path to the sequence data file. Sequence data file
+here covers a wide range of files and formats:</p>
+<ul>
+<li>sequences: raw protein sequence file, need to be in FASTA format
+and a NEWICK format tree is also required for argument tree.</li>
+<li>msa: multiple sequence alignment file, need to be in FASTA format
+and a NEWICK format tree is also required for argument tree.</li>
+<li>ancestors: reconstructed ancestral states file, need to be in tsv
+(tab separated) file, the first line needs to start with #TREE,
+second line needs to be a blank line, and the rest lines in the
+file need to be tab separated sequence name (or ID) and amino
+acid sequences.</li>
+<li>simulations: simulated sequences, need to be in tsv file, the
+first line needs to start with #TREE, second line needs to be
+a blank line, each dataset need to be separated by a blank line
+and inside each dataset block, each line should consist of tab
+separated sequence name (or ID) and amino acid sequences.</li>
+</ul>
+</li>
+<li><strong>tree</strong> – str, NEWICK format tree string or tree file. This need to be
+set according to argument sequence. if sequence is raw sequence file or
+MSA file, tree is required for guiding ancestral states reconstruction.
+If sequence is ancestors or simulations, then tree is not necessary.</li>
+<li><strong>aligner</strong> – str, executable of an alignment program.</li>
+<li><strong>ancestor</strong> – str, executable of an ancestral states reconstruction
+program.</li>
+<li><strong>simulator</strong> – str, executable of an sequence simulation program.</li>
+<li><strong>toper</strong> – str, executable of an topology test program.</li>
+<li><strong>asr_model</strong> – str, model name or model file for ancestral states
+reconstruction.</li>
+<li><strong>aut_model</strong> – str, model name or model file for topology test.</li>
+<li><strong>exp_model</strong> – str, model name or model file for estimate expected
+changes based on simulation or replacement probability manupilation.</li>
+<li><strong>n</strong> – int, number of datasets (or duplicates) should be simulated.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a dict object of counts of parallel replacements, a dict
+object of counts of convergent replacements, a list consists of details
+of replacements (namedtuple) and the p-value of AU Test (float or None).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-imc.sim">
+<span id="sim"></span><h2>sim<a class="headerlink" href="#module-imc.sim" title="Permalink to this headline">¶</a></h2>
+<p>A simple module wrappers various programs for sequence simulation.</p>
+<p>The module is designed to provide a common interface for simulating amino acid
+sequences using various simulation programs. At this stage, the module only
+support simulate sequences using EVOLVER (inside PAML program) and Seq-Gen.</p>
+<p>The minimum requirement of this interface asks users to provide a NEWICK format
+tree string or tree file and a executable of a simulation program. Users can
+also pass additional options to simulate amino acid sequences under various
+cases.</p>
+<p>Users are recommended to only use function sim() and avoid to use any
+private functions inside the module. However, users are strongly recommended to
+implement new private functions for additional simulation programs and wrap
+them into the general use function aut().</p>
+<dl class="function">
+<dt id="imc.sim._evolver">
+<code class="descclassname">imc.sim.</code><code class="descname">_evolver</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>length</em>, <em>freq</em>, <em>model</em>, <em>n</em>, <em>seed</em>, <em>gamma</em>, <em>alpha</em>, <em>invp</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_evolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._evolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence simulation via EVOLVER.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of EVOLVER.</li>
+<li><strong>tree</strong> – str, path to the tree (must has branch lengths and in NEWICK
+format).</li>
+<li><strong>length</strong> – int, the number of the amino acid sites need to be simulated.</li>
+<li><strong>freq</strong> – list or None, base frequencies of 20 amino acids.</li>
+<li><strong>model</strong> – str, name of a model a filename of a model file.</li>
+<li><strong>n</strong> – int, number of datasets (or duplicates) need to be simulated.</li>
+<li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
+<li><strong>gamma</strong> – int, 0 means discrete Gamma model not in use, any
+positive integer larger than 1 will invoke discrete Gamma model and
+set the number of categories to gamma.</li>
+<li><strong>alpha</strong> – float, the Gamma shape parameter alpha, without setting, the
+value will be estimated by the program, in case an initial value is
+needed, the initial value of alpha will be set to 0.5.</li>
+<li><strong>invp</strong> – float, proportion of invariable site.</li>
+<li><strong>outfile</strong> – pathname of the output ML tree. If not set, default name
+[basename].[program].ML.newick, where basename is the filename of the
+sequence file without extension, program is the name of the ML inference
+program, and newick is the extension for NEWICK format tree file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the simulation output file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.sim._evolver_parse">
+<code class="descclassname">imc.sim.</code><code class="descname">_evolver_parse</code><span class="sig-paren">(</span><em>wd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_evolver_parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._evolver_parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the work directory of EVOLVER to get the simulated results.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wd</strong> – str, work directory of EVOLVER.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, a list of simulated sequences (dict) and a tree object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.sim._guess">
+<code class="descclassname">imc.sim.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._guess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Guess the name of a sequence simulation program according to its
+executable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exe</strong> – str, path to the executable of an simulation program.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, name of the simulation program and the corresponding
+function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.sim._seqgen">
+<code class="descclassname">imc.sim.</code><code class="descname">_seqgen</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>length</em>, <em>freq</em>, <em>model</em>, <em>n</em>, <em>seed</em>, <em>gamma</em>, <em>alpha</em>, <em>invp</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_seqgen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._seqgen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence simulation via EVOLVER.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of EVOLVER.</li>
+<li><strong>tree</strong> – str, path to the tree (must has branch lengths and in NEWICK
+format).</li>
+<li><strong>length</strong> – int, the number of the amino acid sites need to be simulated.</li>
+<li><strong>freq</strong> – list or None, base frequencies of 20 amino acids.</li>
+<li><strong>model</strong> – str, name of a model a filename of a model file.</li>
+<li><strong>n</strong> – int, number of datasets (or duplicates) need to be simulated.</li>
+<li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
+<li><strong>gamma</strong> – int, 0 means discrete Gamma model not in use, any
+positive integer larger than 1 will invoke discrete Gamma model and
+set the number of categories to gamma.</li>
+<li><strong>alpha</strong> – float, the Gamma shape parameter alpha, without setting, the
+value will be estimated by the program, in case an initial value is
+needed, the initial value of alpha will be set to 0.5.</li>
+<li><strong>invp</strong> – float, proportion of invariable site.</li>
+<li><strong>outfile</strong> – pathname of the output ML tree. If not set, default name
+[basename].[program].ML.newick, where basename is the filename of the
+sequence file without extension, program is the name of the ML inference
+program, and newick is the extension for NEWICK format tree file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the simulation output file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.sim.sim">
+<code class="descclassname">imc.sim.</code><code class="descname">sim</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>model='JTT'</em>, <em>msa=''</em>, <em>length=100</em>, <em>freq='empirical'</em>, <em>n=100</em>, <em>seed=0</em>, <em>gamma=4</em>, <em>alpha=0.5</em>, <em>invp=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim.sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence simulation via EVOLVER.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exe</strong> – str, path to the executable of EVOLVER.</li>
+<li><strong>tree</strong> – str, path to the tree (must has branch lengths and in NEWICK
+format).</li>
+<li><strong>length</strong> – int, the number of the amino acid sites need to be simulated.</li>
+<li><strong>freq</strong> – list or None, base frequencies of 20 amino acids.</li>
+<li><strong>model</strong> – str, name of a model a filename of a model file.</li>
+<li><strong>n</strong> – int, number of datasets (or duplicates) need to be simulated.</li>
+<li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
+<li><strong>gamma</strong> – int, 0 means discrete Gamma model not in use, any
+positive integer larger than 1 will invoke discrete Gamma model and
+set the number of categories to gamma.</li>
+<li><strong>alpha</strong> – float, the Gamma shape parameter alpha, without setting, the
+value will be estimated by the program, in case an initial value is
+needed, the initial value of alpha will be set to 0.5.</li>
+<li><strong>invp</strong> – float, proportion of invariable site.</li>
+<li><strong>outfile</strong> – pathname of the output ML tree. If not set, default name
+[basename].[program].ML.newick, where basename is the filename of the
+sequence file without extension, program is the name of the ML inference
+program, and newick is the extension for NEWICK format tree file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path to the simulation output file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-imc.aut">
+<span id="aut"></span><h2>aut<a class="headerlink" href="#module-imc.aut" title="Permalink to this headline">¶</a></h2>
+<p>The module is designed to provide a common interface for performing topology
+test (<a class="reference external" href="https://academic.oup.com/sysbio/article/51/3/492/1616895">AU test</a>) over protein alignments using various programs.</p>
+<p>Users are asked to provide a multiple sequence alignment (MSA) file, a NEWICK 
+format tree file, and a topology test program’s executable. If only one tree 
+in the tree file was provided, a maximum-likelihood (ML) tree would be inferred 
+and AU test will be performed to test the difference between the user specified 
+tree and the ML tree. If a set of trees in NEWICK format was provided in the 
+tree file, only these trees would be evaluated without reconstructing the ML 
+tree. In both cases, only the p-value of AU test for the first tree will be 
+returned.</p>
+<p>Users are recommended only to use function <code class="docutils literal notranslate"><span class="pre">aut()</span></code> and avoid to use any
+private functions inside the module. However, users are recommended to
+implement new private functions for additional topology test programs in which 
+they are interested and incorporate them into the general use function 
+<code class="docutils literal notranslate"><span class="pre">aut()</span></code>.</p>
+<dl class="function">
+<dt id="imc.aut._iqtree">
+<code class="descclassname">imc.aut.</code><code class="descname">_iqtree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>seed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/aut.html#_iqtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.aut._iqtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform topology test (AU test) using <a class="reference external" href="www.iqtree.org/">IQ-TREE</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msa</strong> – str, path to a FASTA format MSA file.</li>
+<li><strong>tree</strong> – str, path to a NEWICK format tree file.</li>
+<li><strong>exe</strong> – str, path to a topology test program’s executable.</li>
+<li><strong>model</strong> – str, name of the model or path of the model file.</li>
+<li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, p-value of the AU test (float), first tree (string), and
+second tree (string).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.aut.aut">
+<code class="descclassname">imc.aut.</code><code class="descname">aut</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model=''</em>, <em>seed=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/aut.html#aut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.aut.aut" title="Permalink to this definition">¶</a></dt>
+<dd><p>General use function for performing topology test (AU test).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msa</strong> – str, path to a FASTA format MSA file.</li>
+<li><strong>tree</strong> – str, path to a NEWICK format tree file.</li>
+<li><strong>exe</strong> – str, path to a topology test program’s executable.</li>
+<li><strong>model</strong> – str, name of the model or path of the model file.</li>
+<li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
+<li><strong>outfile</strong> – str, path to the output file for storing test result.
+If not set, only return the result without save to a file.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, p-value of the AU test (float), first tree (string), and 
+second tree (string).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-imc.mlt">
+<span id="mlt"></span><h2>mlt<a class="headerlink" href="#module-imc.mlt" title="Permalink to this headline">¶</a></h2>
+<p>The module is designed to provide a common interface for inferring phylogenetic
+trees from alignments of protein sequences using maximum-likelihood method.</p>
+<p>The minimum requirement for using this module is a multiple sequence alignment
+(MSA) file and an executable of a maximum-likelihood tree inference program.
+If user wants to take full control of the tree inference, optional parameters
+are also accepted depend on the program. Without providing an evolutionary
+model, the default model (JTT model for FastTree and LG model for PhyML) or a
+model decided by model selection procedure (RAxML and IQ-TREE) will be used.</p>
+<p>Users are recommended to only use function <code class="docutils literal notranslate"><span class="pre">mlt()</span></code> and avoid to use any
+private functions in this module. However, users are strongly recommended to
+implement new private functions for additional maximum-likelihood tree
+inference program in which they are interested and incorporate them into the
+general use function <code class="docutils literal notranslate"><span class="pre">mlt()</span></code>.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">It seems FastTree does not accept FASTA format file which has a space
+between ‘&gt;’ and the sequence name (or ID), should check FASTA file before
+feed in.</p>
+</div>
+<dl class="attribute">
+<dt id="imc.mlt.MODEL">
+<code class="descclassname">imc.mlt.</code><code class="descname">MODEL</code><a class="headerlink" href="#imc.mlt.MODEL" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">imc.mlt.model</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.mlt._fasttree">
+<code class="descclassname">imc.mlt.</code><code class="descname">_fasttree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_fasttree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._fasttree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer ML phylogenetic tree using FastTree.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.mlt._guess">
+<code class="descclassname">imc.mlt.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._guess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Guess the name of a tree inference program according to its executable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exe</strong> – str, path to the executable of an maximum-likelihood tree
+inference program.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, name of the program and the corresponding function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.mlt._iqtree">
+<code class="descclassname">imc.mlt.</code><code class="descname">_iqtree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_iqtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._iqtree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer ML phylogenetic tree using IQ-TREE.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.mlt._phyml">
+<code class="descclassname">imc.mlt.</code><code class="descname">_phyml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_phyml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._phyml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer ML phylogenetic tree using PhyML.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.mlt._raxml">
+<code class="descclassname">imc.mlt.</code><code class="descname">_raxml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_raxml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._raxml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer ML phylogenetic tree using RAxML.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.mlt.mlt">
+<code class="descclassname">imc.mlt.</code><code class="descname">mlt</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model=''</em>, <em>cat=0</em>, <em>gamma=0</em>, <em>alpha=0.0</em>, <em>freq='empirical'</em>, <em>invp=0.0</em>, <em>start_tree=''</em>, <em>constraint_tree=''</em>, <em>seed=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#mlt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt.mlt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Common interface for inferring ML phylogenetic tree.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msa</strong> – str, path of the multiple sequence alignment (FASTA) file.</li>
+<li><strong>exe</strong> – str, path of the executable of the ML tree inference program.</li>
+<li><strong>model</strong> – str, name of the model or path of the model file.</li>
+<li><strong>cat</strong> – int, invoke rate heterogeneity&nbsp;(CAT) model and set the
+number of categories to the corresponding number cat, if CAT model is
+not in use, it will be ignored. When FastTree is in use, set cat=None
+to invoke nocat mode.</li>
+<li><strong>gamma</strong> – int, 0 means discrete Gamma model not in use, any
+positive integer larger than 1 will invoke discrete Gamma model and
+set the number of categories to gamma.</li>
+<li><strong>alpha</strong> – float, the Gamma shape parameter alpha, without setting, the
+value will be estimated by the program, in case an initial value is
+needed, the initial value of alpha will be set to 0.5.</li>
+<li><strong>freq</strong> – str, the base frequencies of the twenty amino acids.
+Accept empirical, or estimate, where empirical will set frequencies
+use the empirical values associated with the specified substitution
+model, and estimate will use a ML estimate of base frequencies.</li>
+<li><strong>invp</strong> – float, proportion of invariable site.</li>
+<li><strong>start_tree</strong> – str, path of the starting tree file, the tree file
+must be in NEWICK format.</li>
+<li><strong>constraint_tree</strong> – str, path of the constraint tree file, the tree
+file muse be in NEWICK format.</li>
+<li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
+<li><strong>outfile</strong> – pathname of the output ML tree. If not set, default name
+[basename].[program].ML.newick, where basename is the filename of the
+sequence file without extension, program is the name of the ML inference
+program, and newick is the extension for NEWICK format tree file.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode, default:
+False, silent mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">path of the maximum-likelihood tree file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="utilities">
+<h2>utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="imc.utilities.basename">
+<code class="descclassname">imc.utilities.</code><code class="descname">basename</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removing file extension, if the extension is in ENDINGS.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – str, a filename.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">str, filename without known extensions for tsv, txt, FASTA, and
+NEWICK as well as some alignment format files.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.utilities.modeling">
+<code class="descclassname">imc.utilities.</code><code class="descname">modeling</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#modeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.modeling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse evolutionary model.</p>
+<p>The model needs to be in the format of MODEL+&lt;FreqType&gt;+&lt;RateType&gt; or a
+model (text) file, where MODEL is a model name (e.g. JTT, WAG, …),
+FreqType is how the model will handle amino acid frequency (e.g. F, FO,
+or FQ), and RateType is the rate heterogeneity type. Protein mixture
+models are not supported.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model</strong> – str, name of the model a pathname to the model file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">namedtuple, in the order of name, frequency, gamma, rates, invp,
+and type.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="imc.utilities.trim">
+<code class="descclassname">imc.utilities.</code><code class="descname">trim</code><span class="sig-paren">(</span><em>msa</em>, <em>fmt='fasta'</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#trim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.trim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove gaps and ambiguous characters from protein multiple sequence
+alignment (MSA) file or a dictionary object of MSA records.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msa</strong> – str or dict, pathname of the protein (MSA) multiple sequence
+alignment file or a dictionary object of of MSA records.</li>
+<li><strong>fmt</strong> – format of the MSA file, if msa is the pathname of a MSA file.</li>
+<li><strong>outfile</strong> – pathname for saving trimmed MSA to a file, if not set,
+trimmed sequences will only be returned without saving to a file.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict, trimmed MSA in a dictionary.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Ambiguous characters (characters not in ARNDCQEGHILKMFPSTWYV) will be
+treated as gaps and removed. The trimmed alignment file will be saved
+to outfile in FASTA format if outfile is not a empty string and there
+are sites left after trimming. Whether the outfile is set or not,
+<cite>trim()</cite> always returns trimmed MSA in a dictionary (even a empty dict).</p>
+<p class="last">Careful with PHYLIP format MSA files, <cite>trim()</cite> use <cite>Bio.AlignIO</cite> to read
+MSA file, users are responsible for given the right name for PHYLIP
+format files, e.g. phylip-relaxed or phylip-sequential.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="imc.utilities.Tree">
+<em class="property">class </em><code class="descclassname">imc.utilities.</code><code class="descname">Tree</code><span class="sig-paren">(</span><em>tree</em>, <em>leave=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#Tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.Tree" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="imc.utilities.Tree.file">
+<code class="descname">file</code><span class="sig-paren">(</span><em>filename</em>, <em>ic=True</em>, <em>ic2name=False</em>, <em>nodes=False</em>, <em>brlen=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#Tree.file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.Tree.file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a tree to a file after manipulating.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> – str, the name of the tree output file</li>
+<li><strong>ic</strong> – bool, whether to keep confidence of internal nodes.</li>
+<li><strong>ic2name</strong> – whether to convert confidence of internal nodes to
+their names.</li>
+<li><strong>nodes</strong> – bool, discard or keep name of internal nodes.</li>
+<li><strong>brlen</strong> – bool, discard or keep branch lengths.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, a newick tree string.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="imc.utilities.Tree.string">
+<code class="descname">string</code><span class="sig-paren">(</span><em>ic=True</em>, <em>ic2name=False</em>, <em>nodes=False</em>, <em>brlen=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#Tree.string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.Tree.string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a newick tree string for a tree after manipulating.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ic</strong> – bool, whether to keep confidence of internal nodes.</li>
+<li><strong>ic2name</strong> – whether to convert confidence of internal nodes to
+their names.</li>
+<li><strong>nodes</strong> – bool, discard or keep name of internal nodes.</li>
+<li><strong>brlen</strong> – bool, discard or keep branch lengths.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, a newick tree string.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="usage-shell.html" class="btn btn-neutral" title="Using ProtParCon in terminal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

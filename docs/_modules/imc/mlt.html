@@ -1,0 +1,765 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>imc.mlt &mdash; iMC 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> iMC
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-just-happened">What just happened?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-else">What else?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-s-next">What’s next?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html#install-protparcon-to-a-virtual-environment-recommended">Install ProtParCon to a virtual environment (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html#things-that-are-good-to-know">Things that are good to know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage-python.html">Use ProtParCon in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#import-protparcon">Import ProtParCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#align-multiple-sequences">Align multiple sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#infer-maximum-likelihood-tree">Infer Maximum-Likelihood tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#reconstruct-ancestral-states">Reconstruct ancestral states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#simulate-protein-sequences">Simulate protein sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#topology-test">Topology test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#identify-molecular-convergence-in-proteins">Identify molecular convergence in proteins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage-shell.html">Using ProtParCon in terminal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-shell.html#check-protparcon-command-line-toolsets">Check ProtParCon command-line toolsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-shell.html#using-toolsets-in-terminal">Using toolsets in terminal</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-imc.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#utilities">utilities</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">iMC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>imc.mlt</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for imc.mlt</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The module is designed to provide a common interface for inferring phylogenetic</span>
+<span class="sd">trees from alignments of protein sequences using maximum-likelihood method.</span>
+
+<span class="sd">The minimum requirement for using this module is a multiple sequence alignment</span>
+<span class="sd">(MSA) file and an executable of a maximum-likelihood tree inference program.</span>
+<span class="sd">If user wants to take full control of the tree inference, optional parameters</span>
+<span class="sd">are also accepted depend on the program. Without providing an evolutionary</span>
+<span class="sd">model, the default model (JTT model for FastTree and LG model for PhyML) or a</span>
+<span class="sd">model decided by model selection procedure (RAxML and IQ-TREE) will be used.</span>
+
+<span class="sd">Users are recommended to only use function ``mlt()`` and avoid to use any</span>
+<span class="sd">private functions in this module. However, users are strongly recommended to</span>
+<span class="sd">implement new private functions for additional maximum-likelihood tree</span>
+<span class="sd">inference program in which they are interested and incorporate them into the</span>
+<span class="sd">general use function ``mlt()``.</span>
+
+<span class="sd">.. TODO::</span>
+<span class="sd">    It seems FastTree does not accept FASTA format file which has a space</span>
+<span class="sd">    between &#39;&gt;&#39; and the sequence name (or ID), should check FASTA file before</span>
+<span class="sd">    feed in.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">indent</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">indent</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">DEVNULL</span>
+
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span><span class="p">,</span> <span class="n">AlignIO</span>
+<span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">modeling</span>
+
+<span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
+
+<span class="n">HANDLERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)]</span>
+<span class="k">if</span> <span class="n">LOGFILE</span><span class="p">:</span>
+    <span class="n">HANDLERS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOGFILE</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">LOGFILEMODE</span><span class="p">))</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">handlers</span><span class="o">=</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">LEVEL</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;[iMC]&#39;</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
+
+<span class="n">FASTTREE_MODELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;jtt&#39;</span><span class="p">,</span> <span class="s1">&#39;lg&#39;</span><span class="p">,</span> <span class="s1">&#39;wag&#39;</span><span class="p">]</span>
+<span class="n">IQTREE_MODELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BLOSUM62&#39;</span><span class="p">,</span> <span class="s1">&#39;cpREV&#39;</span><span class="p">,</span> <span class="s1">&#39;Dayhoff&#39;</span><span class="p">,</span> <span class="s1">&#39;DCMut&#39;</span><span class="p">,</span> <span class="s1">&#39;FLU&#39;</span><span class="p">,</span> <span class="s1">&#39;HIVb&#39;</span><span class="p">,</span> <span class="s1">&#39;HIVw&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="s1">&#39;JTTDCMut&#39;</span><span class="p">,</span> <span class="s1">&#39;LG&#39;</span><span class="p">,</span> <span class="s1">&#39;mtART&#39;</span><span class="p">,</span> <span class="s1">&#39;mtMAM&#39;</span><span class="p">,</span> <span class="s1">&#39;mtREV&#39;</span><span class="p">,</span> <span class="s1">&#39;mtZOA&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;mtMet&#39;</span><span class="p">,</span> <span class="s1">&#39;mtVer&#39;</span><span class="p">,</span> <span class="s1">&#39;mtInv&#39;</span><span class="p">,</span> <span class="s1">&#39;Poisson&#39;</span><span class="p">,</span> <span class="s1">&#39;PMB&#39;</span><span class="p">,</span> <span class="s1">&#39;rtREV&#39;</span><span class="p">,</span> <span class="s1">&#39;VT&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;WAG&#39;</span><span class="p">,</span> <span class="s1">&#39;GTR20&#39;</span><span class="p">]</span>
+<span class="n">RAXML_MODELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DAYHOFF&#39;</span><span class="p">,</span> <span class="s1">&#39;DCMUT&#39;</span><span class="p">,</span> <span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="s1">&#39;MTREV&#39;</span><span class="p">,</span> <span class="s1">&#39;WAG&#39;</span><span class="p">,</span> <span class="s1">&#39;RTREV&#39;</span><span class="p">,</span> <span class="s1">&#39;CPREV&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;VT&#39;</span><span class="p">,</span> <span class="s1">&#39;BLOSUM62&#39;</span><span class="p">,</span> <span class="s1">&#39;MTMAM&#39;</span><span class="p">,</span> <span class="s1">&#39;LG&#39;</span><span class="p">,</span> <span class="s1">&#39;MTART&#39;</span><span class="p">,</span> <span class="s1">&#39;MTZOA&#39;</span><span class="p">,</span> <span class="s1">&#39;PMB&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;HIVB&#39;</span><span class="p">,</span> <span class="s1">&#39;HIVW&#39;</span><span class="p">,</span> <span class="s1">&#39;JTTD&#39;</span><span class="p">,</span> <span class="s1">&#39;CMUT&#39;</span><span class="p">,</span> <span class="s1">&#39;FLU&#39;</span><span class="p">,</span> <span class="s1">&#39;STMTREV&#39;</span><span class="p">,</span> <span class="s1">&#39;DUMMY&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;DUMMY2&#39;</span><span class="p">,</span> <span class="s1">&#39;AUTO&#39;</span><span class="p">,</span> <span class="s1">&#39;LG4M&#39;</span><span class="p">,</span> <span class="s1">&#39;LG4X&#39;</span><span class="p">,</span> <span class="s1">&#39;PROT_FILE&#39;</span><span class="p">,</span> <span class="s1">&#39;GTR_UNLINKED&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;GTR&#39;</span><span class="p">]</span>
+<span class="n">PHYML_MODELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Blosum62&#39;</span><span class="p">,</span> <span class="s1">&#39;CpREV&#39;</span><span class="p">,</span> <span class="s1">&#39;DCMut&#39;</span><span class="p">,</span> <span class="s1">&#39;Dayhoff&#39;</span><span class="p">,</span> <span class="s1">&#39;HIVb&#39;</span><span class="p">,</span> <span class="s1">&#39;HIVw&#39;</span><span class="p">,</span> <span class="s1">&#39;JTT&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;MtArt&#39;</span><span class="p">,</span> <span class="s1">&#39;MtMam&#39;</span><span class="p">,</span> <span class="s1">&#39;MtREV&#39;</span><span class="p">,</span> <span class="s1">&#39;RtREV&#39;</span><span class="p">,</span> <span class="s1">&#39;VT&#39;</span><span class="p">,</span> <span class="s1">&#39;WAG&#39;</span><span class="p">]</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;name frequency gamma rates invp type&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="_guess"><a class="viewcode-back" href="../../api.html#imc.mlt._guess">[docs]</a><span class="k">def</span> <span class="nf">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Guess the name of a tree inference program according to its executable.</span>
+<span class="sd">    </span>
+<span class="sd">    :param exe: str, path to the executable of an maximum-likelihood tree</span>
+<span class="sd">        inference program.</span>
+<span class="sd">    :return: tuple, name of the program and the corresponding function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">programs</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;FastTree&#39;</span><span class="p">:</span> <span class="n">_fasttree</span><span class="p">,</span> <span class="s1">&#39;IQ-TREE&#39;</span><span class="p">:</span> <span class="n">_iqtree</span><span class="p">,</span>
+                      <span class="s1">&#39;RAxML&#39;</span><span class="p">:</span> <span class="n">_raxml</span><span class="p">,</span> <span class="s1">&#39;PhyML&#39;</span><span class="p">:</span> <span class="n">_phyml</span><span class="p">},</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">exe</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="n">exe</span><span class="p">,</span> <span class="s1">&#39;-h&#39;</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">outs</span><span class="p">,</span> <span class="n">errs</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">outs</span> <span class="ow">or</span> <span class="n">errs</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">programs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[:</span><span class="mi">50</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">programs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Unknown exe: </span><span class="si">{}</span><span class="s1">, the exe may not be an acceptable tree &#39;</span>
+                  <span class="s1">&#39;inference program, exited.&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid exe: </span><span class="si">{}</span><span class="s1">, exe does not exist, exited.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exe</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The exe of a tree inference program is empty, exited.&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_fasttree"><a class="viewcode-back" href="../../api.html#imc.mlt._fasttree">[docs]</a><span class="k">def</span> <span class="nf">_fasttree</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">invp</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">,</span>
+              <span class="n">constraint_tree</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer ML phylogenetic tree using FastTree.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;custom&#39;</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid model, FastTree does not accept custom model file &#39;</span>
+              <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="s1">&#39;JTT&#39;</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;jtt&#39;</span><span class="p">:</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree using JTT model.&#39;</span><span class="p">)</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lg&#39;</span><span class="p">,</span> <span class="s1">&#39;wag&#39;</span><span class="p">]:</span>
+                <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree using </span><span class="si">{}</span><span class="s1"> model.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="s1">&#39;-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid model </span><span class="si">{}</span><span class="s1">, FastTree only accepts JTT, WAG, &#39;</span>
+                      <span class="s1">&#39;and LG model.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree for </span><span class="si">{}</span><span class="s1"> using FastTree.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">exe</span><span class="p">,</span> <span class="s1">&#39;-quiet&#39;</span><span class="p">,</span> <span class="s1">&#39;-nopr&#39;</span><span class="p">,</span> <span class="s1">&#39;-seed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">seed</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">start_tree</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">start_tree</span><span class="p">):</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-intree&#39;</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gamma</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">gamma</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-gamma&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cat</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cat</span> <span class="o">!=</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-cat&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cat</span><span class="p">)])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-nocat&#39;</span><span class="p">)</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+    
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">outfile</span> <span class="k">if</span> <span class="n">outfile</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.FastTree.ML.newick&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">basename</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running FastTree using the following command:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stdout</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">msa</span><span class="p">),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">indent</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree failed for </span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully save inferred ML tree to </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree failed for </span><span class="si">{}</span><span class="s1">, executable (exe) </span><span class="si">{}</span><span class="s1"> of &#39;</span>
+              <span class="s1">&#39;FastTree is empty or invalid.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">exe</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tree</span></div>
+
+
+<div class="viewcode-block" id="_iqtree"><a class="viewcode-back" href="../../api.html#imc.mlt._iqtree">[docs]</a><span class="k">def</span> <span class="nf">_iqtree</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">invp</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">,</span>
+            <span class="n">constraint_tree</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer ML phylogenetic tree using IQ-TREE.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;builtin&#39;</span><span class="p">:</span>
+            <span class="n">frequency</span> <span class="o">=</span> <span class="n">freq</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">frequency</span>
+            <span class="k">if</span> <span class="n">frequency</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span>
+                <span class="n">frequency</span> <span class="o">=</span> <span class="s1">&#39;FO&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">frequency</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+            
+            <span class="n">invpro</span> <span class="o">=</span> <span class="s1">&#39;I&#39;</span> <span class="k">if</span> <span class="p">(</span><span class="n">invp</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">invp</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">gamma</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="s1">&#39;G</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gamma</span><span class="p">)</span> <span class="k">if</span> <span class="n">gamma</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">cat</span> <span class="o">=</span> <span class="n">cat</span> <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">rates</span> <span class="o">=</span> <span class="n">cat</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">rates</span>
+            <span class="n">rates</span> <span class="o">=</span> <span class="s1">&#39;R</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rates</span><span class="p">)</span> <span class="k">if</span> <span class="n">rates</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">name</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">invpro</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">rates</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span><span class="p">))]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-mdef&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;TEST&#39;</span><span class="p">]</span>
+
+    <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree for </span><span class="si">{}</span><span class="s1"> using IQ-TREE.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+    <span class="c1"># iqtree_cmd = &#39;exe -s seq -t user_tree -pre prefix -nt 1 -seed seed</span>
+    <span class="c1"># -quiet -m MFP -g constraint_tree&#39;</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">exe</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="s1">&#39;-nt&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;-pre&#39;</span><span class="p">,</span> <span class="s1">&#39;tmf&#39;</span><span class="p">,</span> <span class="s1">&#39;-seed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">seed</span><span class="p">)]</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-quiet&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">gamma</span> <span class="ow">and</span> <span class="n">alpha</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">alpha</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="n">invp</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">invp</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="n">constraint_tree</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-g&#39;</span><span class="p">,</span> <span class="n">constraint_tree</span><span class="p">])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running FastTree using the following command:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">wd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+                        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">indent</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree failed for </span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">outfile</span> <span class="k">if</span> <span class="n">outfile</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.IQ-TREE.ML.newick&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">basename</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="s1">&#39;tmf.treefile&#39;</span><span class="p">),</span> <span class="n">tree</span><span class="p">)</span>
+                <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully save inferred gene tree to </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">tree</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Path of outfile </span><span class="si">{}</span><span class="s1"> is not writeable, saving tree to &#39;</span>
+                      <span class="s1">&#39;file failed.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Inferring tree failed for </span><span class="si">{}</span><span class="s1">, executable (exe) </span><span class="si">{}</span><span class="s1"> of &#39;</span>
+              <span class="s1">&#39;IQ-TREE is invalid.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">exe</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">tree</span></div>
+
+
+<div class="viewcode-block" id="_raxml"><a class="viewcode-back" href="../../api.html#imc.mlt._raxml">[docs]</a><span class="k">def</span> <span class="nf">_raxml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">invp</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">,</span>
+           <span class="n">constraint_tree</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer ML phylogenetic tree using RAxML.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;builtin&#39;</span><span class="p">:</span>
+        <span class="n">frequency</span> <span class="o">=</span> <span class="n">freq</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">frequency</span>
+        <span class="n">frequency</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span> <span class="k">if</span> <span class="n">frequency</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span> <span class="k">else</span> <span class="s1">&#39;F&#39;</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">gamma</span>
+        <span class="n">invpro</span> <span class="o">=</span> <span class="s1">&#39;I&#39;</span> <span class="k">if</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">invp</span> <span class="ow">or</span> <span class="n">invp</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="s1">&#39;GAMMA&#39;</span> <span class="k">if</span> <span class="n">gamma</span> <span class="k">else</span> <span class="s1">&#39;CAT&#39;</span>
+        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">mm</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;PROT&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">invpro</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">frequency</span><span class="p">])</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="n">mm</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;PROT&#39;</span><span class="p">,</span> <span class="n">invpro</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="s1">&#39;AUTO&#39;</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-P&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+    
+    <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree for </span><span class="si">{}</span><span class="s1"> using RAxML.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">exe</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;RAxML&#39;</span><span class="p">,</span> <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="s1">&#39;--silent&#39;</span><span class="p">]</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">cat</span> <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">cat</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cat</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="n">start_tree</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">constraint_tree</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">constraint_tree</span><span class="p">])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running FastTree using the following command:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">wd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">DEVNULL</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+                        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">indent</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Tree inferring failed for </span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">outfile</span> <span class="k">if</span> <span class="n">outfile</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.RAxML.ML.newick&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">basename</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="s1">&#39;RAxML_bestTree.RAxML&#39;</span><span class="p">),</span>
+                                   <span class="n">tree</span><span class="p">)</span>
+                <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully save inferred ML tree to </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">tree</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Path of outfile </span><span class="si">{}</span><span class="s1"> is not writeable, saving tree to &#39;</span>
+                      <span class="s1">&#39;file failed.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Tree inferring failed for </span><span class="si">{}</span><span class="s1">, executable (exe) </span><span class="si">{}</span><span class="s1"> is &#39;</span>
+              <span class="s1">&#39;invalid.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">exe</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">tree</span></div>
+
+
+<div class="viewcode-block" id="_phyml"><a class="viewcode-back" href="../../api.html#imc.mlt._phyml">[docs]</a><span class="k">def</span> <span class="nf">_phyml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">invp</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">,</span>
+           <span class="n">constraint_tree</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer ML phylogenetic tree using PhyML.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># cmd = &#39;exe -i seq -d aa -m JTT -f e|m -v invariable -c 4 -a gamma-alpha</span>
+    <span class="c1"># --quiet --r_seed num -u user_tree_file&#39;</span>
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+    <span class="n">alignment</span> <span class="o">=</span> <span class="s1">&#39;temporary.alignment.phylip&#39;</span>
+    <span class="n">AlignIO</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="n">alignment</span><span class="p">),</span> <span class="s1">&#39;phylip&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;builtin&#39;</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;LG&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;custom&#39;</span><span class="p">,</span> <span class="s1">&#39;--aa_rate_file&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+    
+    <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Inferring ML tree for </span><span class="si">{}</span><span class="s1"> using PhyML.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">exe</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="n">alignment</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;--r_seed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="s1">&#39;--quiet&#39;</span><span class="p">]</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">cat</span> <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">cat</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;--free_rates&#39;</span><span class="p">,</span> <span class="n">cat</span><span class="p">])</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">gamma</span>
+    <span class="k">if</span> <span class="n">gamma</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">gamma</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="n">alpha</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">alpha</span><span class="p">)])</span>
+    <span class="n">frequency</span> <span class="o">=</span> <span class="n">freq</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="n">frequency</span>
+    <span class="n">frequency</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span> <span class="k">if</span> <span class="n">frequency</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span> <span class="k">else</span> <span class="s1">&#39;F&#39;</span>
+    <span class="k">if</span> <span class="n">frequency</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">start_tree</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="n">start_tree</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">constraint_tree</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;--constraint_file&#39;</span><span class="p">,</span> <span class="n">constraint_tree</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">invp</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">invp</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">invp</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">invp</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">invp</span><span class="p">)])</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running FastTree using the following command:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
+             <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">wd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+                        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="ow">or</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">indent</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Tree inferring failed for </span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">outfile</span> <span class="k">if</span> <span class="n">outfile</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.PhyML.ML.newick&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">basename</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="n">alignment</span><span class="p">),</span>
+                                    <span class="s1">&#39;_phyml_tree.txt&#39;</span><span class="p">)</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+                <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully save inferred ML tree to </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">tree</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Path of outfile </span><span class="si">{}</span><span class="s1"> is not writeable, saving tree to &#39;</span>
+                      <span class="s1">&#39;file failed.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Tree inferring failed for </span><span class="si">{}</span><span class="s1">, executable (exe) </span><span class="si">{}</span><span class="s1"> of PhyML &#39;</span>
+              <span class="s1">&#39;is invalid.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="n">exe</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tree</span></div>
+
+
+<div class="viewcode-block" id="mlt"><a class="viewcode-back" href="../../api.html#imc.mlt.mlt">[docs]</a><span class="k">def</span> <span class="nf">mlt</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">cat</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;empirical&#39;</span><span class="p">,</span>
+        <span class="n">invp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">start_tree</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">constraint_tree</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Common interface for inferring ML phylogenetic tree.</span>
+
+<span class="sd">    :param msa: str, path of the multiple sequence alignment (FASTA) file.</span>
+<span class="sd">    :param exe: str, path of the executable of the ML tree inference program.</span>
+<span class="sd">    :param model: str, name of the model or path of the model file.</span>
+<span class="sd">    :param cat: int, invoke rate heterogeneity (CAT) model and set the</span>
+<span class="sd">        number of categories to the corresponding number cat, if CAT model is</span>
+<span class="sd">        not in use, it will be ignored. When FastTree is in use, set cat=None</span>
+<span class="sd">        to invoke nocat mode.</span>
+<span class="sd">    :param gamma: int, 0 means discrete Gamma model not in use, any</span>
+<span class="sd">        positive integer larger than 1 will invoke discrete Gamma model and</span>
+<span class="sd">        set the number of categories to gamma.</span>
+<span class="sd">    :param alpha: float, the Gamma shape parameter alpha, without setting, the</span>
+<span class="sd">        value will be estimated by the program, in case an initial value is</span>
+<span class="sd">        needed, the initial value of alpha will be set to 0.5.</span>
+<span class="sd">    :param freq: str, the base frequencies of the twenty amino acids.</span>
+<span class="sd">        Accept empirical, or estimate, where empirical will set frequencies</span>
+<span class="sd">        use the empirical values associated with the specified substitution</span>
+<span class="sd">        model, and estimate will use a ML estimate of base frequencies.</span>
+<span class="sd">    :param invp: float, proportion of invariable site.</span>
+<span class="sd">    :param start_tree: str, path of the starting tree file, the tree file</span>
+<span class="sd">        must be in NEWICK format.</span>
+<span class="sd">    :param constraint_tree: str, path of the constraint tree file, the tree</span>
+<span class="sd">        file muse be in NEWICK format.</span>
+<span class="sd">    :param seed: int, the seed used to initiate the random number generator.</span>
+<span class="sd">    :param outfile: pathname of the output ML tree. If not set, default name</span>
+<span class="sd">        [basename].[program].ML.newick, where basename is the filename of the</span>
+<span class="sd">        sequence file without extension, program is the name of the ML inference</span>
+<span class="sd">        program, and newick is the extension for NEWICK format tree file.</span>
+<span class="sd">    :param verbose: bool, invoke verbose or silent process mode, default:</span>
+<span class="sd">        False, silent mode.</span>
+<span class="sd">    :return: path of the maximum-likelihood tree file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">msa</span><span class="p">):</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Alignment </span><span class="si">{}</span><span class="s1"> is not a file or does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">program</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="n">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">program</span> <span class="o">==</span> <span class="s1">&#39;FastTree&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cat</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">cat</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cat</span> <span class="o">=</span> <span class="mi">20</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="k">if</span> <span class="n">seed</span> <span class="k">else</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Invalid seed, generating seed using random number generator.&#39;</span><span class="p">)</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">modeling</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">cat</span><span class="o">=</span><span class="n">cat</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+                <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">invp</span><span class="o">=</span><span class="n">invp</span><span class="p">,</span> <span class="n">start_tree</span><span class="o">=</span><span class="n">start_tree</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+                <span class="n">constraint_tree</span><span class="o">=</span><span class="n">constraint_tree</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tree</span></div>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">des</span> <span class="o">=</span> <span class="s1">&#39;Infer maximum likelihood phylogenetic tree from protein alignments.&#39;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The minimum requirement for running iMC-mlt is a multiple sequence alignment</span>
+<span class="s2">(MSA) file and an executable of a maximum-likelihood tree inference program.</span>
+<span class="s2">If user want to take full control of the tree inference, optional parameters</span>
+<span class="s2">are also accepted depend on the program.</span>
+
+<span class="s2">Without provide an evolutionary model, the default model (JTT model for FastTree</span>
+<span class="s2">and LG model for PhyML) or a model decided by model selection procedure (RAxML</span>
+<span class="s2">and IQ-TREE) will be used.</span>
+
+<span class="s2">The model needs to be in the format of MODEL+&lt;FreqType&gt;+&lt;RateType&gt; or a model</span>
+<span class="s2">(text) file, where MODEL is a model name (e.g. JTT, WAG, ...), FreqType decides</span>
+<span class="s2">how the model will handle amino acid frequency (e.g. F, empirical AA frequencies</span>
+<span class="s2">from the data; FO, ML optimized AA frequencies from the data or FQ, Equal AA</span>
+<span class="s2">frequencies).</span>
+
+<span class="s2">Some options (e.g. start tree, constraint tree) may not supported by all of the</span>
+<span class="s2">four programs, they will be automatically ignored.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;imc-mlt&#39;</span><span class="p">,</span>
+                                    <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXECUTABLE MSA [OPTIONS]&#39;</span><span class="p">,</span>
+                                    <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span>
+                                    <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
+    
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;EXECUTABLE&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the executable of the tree inference &#39;</span>
+                            <span class="s1">&#39;program.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;MSA&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the alignment file in fasta format.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-model&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Name of the evolutionary model or filename of the &#39;</span>
+                            <span class="s1">&#39;model file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-cat&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke CAT model and set the number of &#39;</span>
+                                    <span class="s1">&#39;categories to value of cat.&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-gamma&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke discrete Gamma model and set the number of &#39;</span>
+                            <span class="s1">&#39;categories to value of gamma.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-alpha&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The Gamma shape parameter alpha.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-freq&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Amino acid frequency, either m or e.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-invp&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Proportion of invariable sites.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-stree&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path of the starting tree file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ctree&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path of the constraint tree file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-seed&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The seed for initiating the random number &#39;</span>
+                            <span class="s1">&#39;generator.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the ML tree output file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke verbose or silent (default) process mode.&#39;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">msa</span><span class="p">,</span> <span class="n">exe</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">cat</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">MSA</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">EXECUTABLE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">cat</span>
+    <span class="n">invp</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">invp</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">freq</span>
+    <span class="n">stree</span><span class="p">,</span> <span class="n">ctree</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">outfile</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">stree</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">ctree</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">o</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">v</span>
+    
+    <span class="n">mlt</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">cat</span><span class="o">=</span><span class="n">cat</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span>
+        <span class="n">invp</span><span class="o">=</span><span class="n">invp</span><span class="p">,</span> <span class="n">start_tree</span><span class="o">=</span><span class="n">stree</span><span class="p">,</span> <span class="n">constraint_tree</span><span class="o">=</span><span class="n">ctree</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

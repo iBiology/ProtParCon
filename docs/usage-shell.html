@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using ProtParCon in terminal &mdash; iMC 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Use ProtParCon in Python" href="usage-python.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> iMC
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#what-just-happened">What just happened?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#what-else">What else?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#what-s-next">What’s next?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#install-protparcon-to-a-virtual-environment-recommended">Install ProtParCon to a virtual environment (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#things-that-are-good-to-know">Things that are good to know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using ProtParCon</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage-python.html">Use ProtParCon in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#import-protparcon">Import ProtParCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#align-multiple-sequences">Align multiple sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#infer-maximum-likelihood-tree">Infer Maximum-Likelihood tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#reconstruct-ancestral-states">Reconstruct ancestral states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#simulate-protein-sequences">Simulate protein sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#topology-test">Topology test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#identify-molecular-convergence-in-proteins">Identify molecular convergence in proteins</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using ProtParCon in terminal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#check-protparcon-command-line-toolsets">Check ProtParCon command-line toolsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-toolsets-in-terminal">Using toolsets in terminal</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#utilities">utilities</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">iMC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Using ProtParCon in terminal</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage-shell.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-protparcon-in-terminal">
+<span id="intro-usage-shell"></span><h1>Using ProtParCon in terminal<a class="headerlink" href="#using-protparcon-in-terminal" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="check-protparcon-command-line-toolsets">
+<h2>Check ProtParCon command-line toolsets<a class="headerlink" href="#check-protparcon-command-line-toolsets" title="Permalink to this headline">¶</a></h2>
+<p>After ProtParCon has been installed, you should also have a six command-line
+tools installed, they are: msa, asr, mlt, aut, imc, and sim. To check the
+availability and usage of any of these command-line tools, you can type
+the name of the command-line tool with ‘-h’ flag in a terminal to see the
+usage page, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ msa -h
+</pre></div>
+</div>
+<p>The above command should print out the usage of <cite>msa</cite> without any error.
+The ‘-h’ flag can also be used to check the usage for other commands. We
+suggest you use this flag to display the usage of the command and learn
+how to use it from its usage.</p>
+</div>
+<div class="section" id="using-toolsets-in-terminal">
+<h2>Using toolsets in terminal<a class="headerlink" href="#using-toolsets-in-terminal" title="Permalink to this headline">¶</a></h2>
+<p>By checking usage of command line tool, it should be very easy for you to use
+the toolsets shipped by ProtParCon. For example, the following command will
+align a sequence file named <cite>seq.fa</cite> using <cite>MUSCLE</cite> and save the alignment
+output to a file named <cite>alignment.fasta</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ msa muslce seq.fa -o alignment.fasta
+</pre></div>
+</div>
+<p>In the following example, <cite>imc</cite> is used to automate sequence alignment,
+ancestral states reconstruction, sequence
+simulation, and identify parallel and convergent amino acid replacements
+both in the reconstructed ancestral sequences and the simulated sequences:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ imc seq.fa tree.newick -aligner muscle -ancestor codeml -simulator seqgen
+</pre></div>
+</div>
+<p>After running the above command, there are several files stored in your current
+work directory. You can get the information about identified parallel and
+convergent amino acid replacements in file <cite>imc.counts.tsv</cite> and file
+<cite>imc.details.tsv</cite>.</p>
+<p>All command-line tools have nearly the same signatures as the equivalent
+functions in python module, refer to the usage of each command and the
+examples showing the usage of the equivalent functions, it should be very
+easy for you to use the command-line toolsets.</p>
+<p>In the following part, we list examples of using command-line commands
+to do the same work that we have done in the ProtParCon python usage part. We are not
+going to repeat the details of each example, if you have any question about
+to details, see ProtParCon python usage part.</p>
+<p>Align sequences using MUSCLE and save the alignment output to a file named
+<cite>seq.muscle.fasta</cite> (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ msa muscle seq.fa
+</pre></div>
+</div>
+<p>Align sequence using MAFFT and save the alignment output to a FASTA format file
+named ‘seq.mafft.fasta’ (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ msa mafft seq.fa
+</pre></div>
+</div>
+<p>And this will align the same sequence with Clustal (Omega) and save the
+alignment to a FASTA file named ‘seq.clustal.fasta’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ msa clustal seq.fa
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above example assumes that you have system wide Clustal Omega
+installed and the string clustal point to the executable of Clustal
+Omega. If your Clustal Omega is not system widely installed, or the
+path to its executable is not <cite>clustal</cite>, change it accordingly.</p>
+</div>
+<p>Align sequence using MUSCLE and save the alignment output into a file name
+<cite>alignment.fasta</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">msa</span> <span class="n">muscle</span> <span class="n">seq</span><span class="o">.</span><span class="n">fa</span> <span class="o">-</span><span class="n">o</span> <span class="n">alignment</span><span class="o">.</span><span class="n">fasta</span>
+</pre></div>
+</div>
+<p>Infer ML tree using IQ-TREE and save the best ML tree to a file named
+<cite>msa.IQ-TREE.ML.newick</cite> (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt iqtree msa.fa
+</pre></div>
+</div>
+<p>Infer ML tree using RAxML and save the ML tree to a file named
+‘msa.RAxML.ML.newick’ (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ imc-mlt raxml msa.fa
+</pre></div>
+</div>
+<p>Infer ML tree using PjyML and save the ML tree to a file named
+‘msa.PhyML.ML.newick’ (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt phyml msa.fa
+</pre></div>
+</div>
+<p>Infer ML tree using FastTree and save the ML tree to a file named
+‘msa.FastTree.ML.newick’ (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt fasttree msa.fa
+</pre></div>
+</div>
+<p>Infer ML tree using RAxML and save the tree into a file named <cite>tree.newick</cite>
+in the same directory of the alignment file with ‘-o’ option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt raxml msa.fa -o tree.newick
+</pre></div>
+</div>
+<p>Infer ML tree using LG model with 8 Gamma categories accounting for among-site
+rate variation and estimating ML base frequencies of 20 amino acids via PhyML:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt PhyML msa.fa -o tree.newick -model LG+G8+F
+</pre></div>
+</div>
+<p>The same as the above example, use ‘-gamma’ and ‘-freq’ options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt PhyML msa.fa -o tree.newick -model LG -gamma 9, -freq estimate
+</pre></div>
+</div>
+<p>Infer ML tree with a start tree and/or constraint tree via <cite>start_tree</cite> and
+<cite>constraint_tree</cite> options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mlt raxml msa.fa -o tree.newick -model LG+G8+I -stree /path/to/the/start/tree/file -ctree /path/to/the/constraint/tree/file
+</pre></div>
+</div>
+<p>Reconstruct ancestral states using CODEML and save the ancestral states output
+to a file named <cite>msa.codeml.tsv</cite> (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr codeml msa.fa tree.newick
+</pre></div>
+</div>
+<p>Reconstruct ancestral states using RAxML and save the ancestral states
+output to a file named ‘msa.raxml.tsv’ (default name):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr raxml msa.fa
+</pre></div>
+</div>
+<p>Reconstruct ancestral states using RAxML and save the ancestral states output
+to a file named <cite>ancestors.tsv</cite> via ‘-o’ option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr raxml msa.fa -o ancestors.tsv
+</pre></div>
+</div>
+<p>Reconstruct ancestral states via CODEML using WAG model (-model option):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr codeml msa.fa tree.newick -model WAG
+</pre></div>
+</div>
+<p>Reconstruct ancestral states via RAxML using ‘WAG’ model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr raxml msa.fa tree.newick -model WAG
+</pre></div>
+</div>
+<p>Reconstruct ancestral states using LG model with 8 Gamma categories and
+a ML estimate of base frequencies of 20 amino acids via RAxML:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr raxml msa.fa tree.newick -model LG+G8+F
+</pre></div>
+</div>
+<p>Do the same thing as the above example, but use ‘-gamma’ and ‘-frq’ options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr raxml msa.fa tree.newick -model LG -gamma 8 -freq estimate
+</pre></div>
+</div>
+<p>Use a specified model (or matrix) file along with complicated modeling
+information for ancestral states reconstruction:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ asr codeml msa.fa tree.newick -model /path/to/my/own/model -gamma=8 -freq estimate
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The model (or matrix) file needs to be in the right format required by ASR
+programs, before use the model file, check the manual for your ASR
+program to make sure you model file is in the right format.</p>
+</div>
+<p>Simulate sequences in the simplest way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sim evolver tree.newick
+</pre></div>
+</div>
+<p>Use Seq-Gen to simulate 200 protein datasets with the length set to 500 amino
+acids and substitution model set to LG with 8 Gamma categories to account for
+among sites rate variation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sim seqgen tree.newick -length 500 -n 200 -model LG -gamma 8
+</pre></div>
+</div>
+<p>Use Seq-Gen to simulate 200 protein datasets with the length and base
+frequencies of 20 amino acids extracted from a multiple protein sequence
+alignment file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sim seqgen tree.newick -n 200 -model LG -gamma=8 -msa /path/to/the/multiple/sequence/alignment/file -freq estimate
+</pre></div>
+</div>
+<p>Topology test (AU test) using imc-aut:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ aut iqtree msa.fa tree.newick -model WAG
+</pre></div>
+</div>
+<p>Identify parallel and convergent amino acid replacements using ancestral states
+reconstruction generated by ProtParCon:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ imc path/to/the/ancestral/states/file
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage-python.html" class="btn btn-neutral" title="Use ProtParCon in Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

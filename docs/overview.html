@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ProtParCon at a glance &mdash; iMC 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Install ProtParCon" href="install.html" />
+    <link rel="prev" title="ProtParCon 1.0 documentation" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> iMC
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#walk-through-of-an-example">Walk-through of an example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#what-just-happened">What just happened?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#what-else">What else?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#what-s-next">What’s next?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#install-protparcon-to-a-virtual-environment-recommended">Install ProtParCon to a virtual environment (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#things-that-are-good-to-know">Things that are good to know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage-python.html">Use ProtParCon in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#import-protparcon">Import ProtParCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#align-multiple-sequences">Align multiple sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#infer-maximum-likelihood-tree">Infer Maximum-Likelihood tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#reconstruct-ancestral-states">Reconstruct ancestral states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#simulate-protein-sequences">Simulate protein sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#topology-test">Topology test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-python.html#identify-molecular-convergence-in-proteins">Identify molecular convergence in proteins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage-shell.html">Using ProtParCon in terminal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage-shell.html#check-protparcon-command-line-toolsets">Check ProtParCon command-line toolsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage-shell.html#using-toolsets-in-terminal">Using toolsets in terminal</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-imc.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#utilities">utilities</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">iMC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>ProtParCon at a glance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="protparcon-at-a-glance">
+<span id="intro-overview"></span><h1>ProtParCon at a glance<a class="headerlink" href="#protparcon-at-a-glance" title="Permalink to this headline">¶</a></h1>
+<p>ProtParCon is an application framework for manipulating molecular data and
+identifying parallel and convergent amino acid replacements at the
+molecular level. Although ProtParCon was not designed for implementing new
+methods or algorithms for molecular data manipulation, ProtParCon integrates
+several widely used programs for multiple sequence alignment (MSA),
+ancestral states reconstruction (ASR), protein sequence simulation,
+Maximum-Likelihood tree inference (ML Tree) and molecular convergence
+identification. Therefore, it can be used as a general tool to do MSA,
+ASR, and simulation under a common interface by using various
+pre-existed programs under hood.</p>
+</div>
+<div class="section" id="walk-through-of-an-example">
+<h1>Walk-through of an example<a class="headerlink" href="#walk-through-of-an-example" title="Permalink to this headline">¶</a></h1>
+<p>In order to show you what ProtParCon brings to the table, we’ll walk you through
+an example using the simplest way to identify parallel and convergent amino
+acid replacements at the protein sequence level.</p>
+<p>Here is the code for ProtParCon identifying parallel and convergent amino acid
+replacements within an orthologous protein:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ProtParCon</span> <span class="k">import</span> <span class="n">imc</span>
+
+<span class="n">sequence</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/orthologous/protein/sequence&#39;</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/phylogenetic/tree&#39;</span>
+<span class="n">muscle</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/executable/of/muscle/alignment/program&#39;</span>
+<span class="n">codeml</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/executable/of/codeml/program&#39;</span>
+<span class="n">evolver</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/executable/of/evolver/program&#39;</span>
+
+<span class="n">imc</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="o">=</span><span class="n">muscle</span><span class="p">,</span> <span class="n">ancestor</span><span class="o">=</span><span class="n">codeml</span><span class="p">,</span> <span class="n">simulator</span><span class="o">=</span><span class="n">evolver</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Put the above code in a text file, name it something like <cite>imc_analyze.py</cite>
+and run the script using Python in a terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python imc_analyze.py
+</pre></div>
+</div>
+<p>Wait for this to finish you will have six files in your work directory:
+<cite>msa.fa</cite>, <cite>trimmed.msa.fa</cite>, <cite>ancestors.tsv</cite>, <cite>simulations.tsv</cite>,
+<cite>imc.counts.tsv</cite>, and <cite>imc.details.tsv</cite>. From their names, you may already know
+what contents in these files. The <cite>imc.counts.tsv</cite> contains the number of
+parallel and convergent amino acid replacements that have been identified among
+all comparable branches, and it looks like this (reformatted here for better
+readability):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Category</span>    <span class="n">BranchPair</span>    <span class="n">OBS</span>  <span class="n">SIM</span><span class="o">-</span><span class="mi">1</span>  <span class="n">SIM</span><span class="o">-</span><span class="mi">2</span>  <span class="n">SIM</span><span class="o">-</span><span class="mi">3</span>  <span class="n">SIM</span><span class="o">-</span><span class="mi">4</span>  <span class="n">SIM</span><span class="o">-</span><span class="mi">5</span>
+    <span class="n">P</span>        <span class="n">A</span><span class="o">-</span><span class="n">B</span>           <span class="mi">0</span>     <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">1</span>
+    <span class="n">P</span>        <span class="n">A</span><span class="o">-</span><span class="n">NODE10</span>      <span class="mi">0</span>     <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>
+    <span class="n">P</span>        <span class="n">A</span><span class="o">-</span><span class="n">NODE11</span>      <span class="mi">3</span>     <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">3</span>      <span class="mi">2</span>
+    <span class="n">P</span>        <span class="n">A</span><span class="o">-</span><span class="n">NODE13</span>      <span class="mi">0</span>     <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">0</span>      <span class="mi">2</span>
+    <span class="n">P</span>        <span class="n">A</span><span class="o">-</span><span class="n">E</span>           <span class="mi">0</span>     <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>
+    <span class="n">C</span>        <span class="n">A</span><span class="o">-</span><span class="n">B</span>           <span class="mi">0</span>     <span class="mi">2</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">2</span>      <span class="mi">0</span>
+    <span class="n">C</span>        <span class="n">A</span><span class="o">-</span><span class="n">NODE10</span>      <span class="mi">0</span>     <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">0</span>
+    <span class="n">C</span>        <span class="n">A</span><span class="o">-</span><span class="n">NODE11</span>      <span class="mi">0</span>     <span class="mi">0</span>      <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">1</span>      <span class="mi">0</span>
+    <span class="n">C</span>        <span class="n">A</span><span class="o">-</span><span class="n">NODE13</span>      <span class="mi">0</span>     <span class="mi">0</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">0</span>      <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The <cite>imc.details.tsv</cite> contains the details of parallel and convergent amino
+acid replacements that have been identified, e.g. replacement occurred between
+which branch pairs, on which position of the protein sequence, what kind of
+replacement, and so on.</p>
+</div>
+<div class="section" id="what-just-happened">
+<h1>What just happened?<a class="headerlink" href="#what-just-happened" title="Permalink to this headline">¶</a></h1>
+<p>When you run the script, <code class="docutils literal notranslate"><span class="pre">imc()</span></code> look for a sequence file and pass it
+to a multiple sequence alignment program (<a class="reference external" href="www.drive5.com/muscle/">MUSCLE</a>
+program was used in this example), after done with the sequence alignment,
+<code class="docutils literal notranslate"><span class="pre">imc()</span></code> look for a phylogenetic tree file and pass it along with the
+alignment (already removed all gaps and ambiguous characters) to a ancestral
+sequence reconstruction program (<code class="docutils literal notranslate"><span class="pre">CODEML</span></code> program inside
+<a class="reference external" href="http://web.mit.edu/6.891/www/lab/paml.html">PAML</a> package is used) to
+infer the ancestral states. Since a simulation program (<code class="docutils literal notranslate"><span class="pre">EVOLVER</span></code> program
+inside PAML package) is specified via argument simulator, ProtParCon will
+automatically prepare all files needed by evolver and then use evolver to
+conduct sequence simulation. Once <code class="docutils literal notranslate"><span class="pre">imc()</span></code> all these works are done, it will
+start to identify parallel and convergent amino acid replacements along the
+protein sequence and finally save the results to text files.</p>
+<p>Here you notice that one of the main advantages about ProtParCon: sequence
+alignment, ancestral states reconstruction, and sequence simulation are
+automatically done without users calling each program step
+by step. This means ProtParCon already have a pipeline that chained all these
+processes together, users are only required to tell ProtParCon how they want
+the sequence to be handled and what results they want to get. Another
+advantage of using ProtParCon is that it provides a common interface for all
+supported programs, users no longer need to learn how to use the program and
+handle the results of these programs.</p>
+<p>While ProtParCon enables users to do very fast parallel and convergent amino
+acid replacement identifications (by use a single sequence file and a tree file)
+, ProtParCon also gives users full control of the identification process through
+explicitly manage the workflow step by step. Users are able to do things like
+choosing preferred sequence alignment program to get high quality sequence
+alignment, passing more parameters to ancestral states reconstruction program
+to get accurate ancestral states, and getting full control of sequence
+simulation process by explicitly using the simulation module with additional
+options.</p>
+</div>
+<div class="section" id="what-else">
+<h1>What else?<a class="headerlink" href="#what-else" title="Permalink to this headline">¶</a></h1>
+<p>You’ve seen how to run fast parallel and convergent amino acid replacement
+identifications using general function <code class="docutils literal notranslate"><span class="pre">imc()</span></code> in ProtParCon package, but this
+is just the surface. ProtParCon provides a lot of powerful features for
+manipulating molecular data and makes parallelism and convergence
+identification even phylogenetic analysis much easier and more efficient,
+such as:</p>
+<ul class="simple">
+<li>Built-in support for a lot of sequence alignment programs for multiple
+sequence alignment (MSA) using simple function.</li>
+<li>Built-in support for a lot of phylogenetic tree inference programs for
+inferring best maximum likelihood tree using simple function.</li>
+<li>Built-in support for a lot of ancestral states reconstruction programs for
+ancestral states reconstruction (ASR) using simple function.</li>
+<li>Built-in support for a lot of sequence simulation programs for simulating
+sequences under various evolutionary scenarios using simple function.</li>
+<li>Built-in support for identifying parallel and convergent amino acid
+replacements using raw orthologous sequence, multiple sequence alignment,
+reconstructed ancestral sequences, or even simulated sequences.</li>
+</ul>
+</div>
+<div class="section" id="what-s-next">
+<h1>What’s next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h1>
+<p>The next steps for you to do: install ProtParCon, follow through the pre-made
+examples to learn how to unleash the full power of ProtParCon, use ProtParCon
+in your routine work to ease the process of molecular data manipulation and
+molecular parallelism and convergence identification, and finally extend
+ProtParCon to make it support more and more programs if you are interested in
+ProtParCon. Thanks for you interest!</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Install ProtParCon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="ProtParCon 1.0 documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
