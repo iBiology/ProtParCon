@@ -1,0 +1,3 @@
+include data/*
+include tests/*
+include README.rst
