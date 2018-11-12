@@ -14,7 +14,7 @@ def readme():
         return f.read()
 
 
-setup(name='iMC',
+setup(name='ProtParCon',
       version=VERSION,
       description="""ProtParCon - A framework for framework for processing
       molecular data and identifying parallel and convergent amino acid
