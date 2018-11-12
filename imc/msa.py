@@ -29,7 +29,7 @@ except ImportError:
     from imc.utilities import indent
 from subprocess import PIPE, Popen
 
-from imc.utilities import basename
+from imc.utilities import basename, trim
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -207,7 +207,7 @@ def _tcoffee(exe, seq, outfile):
     return outfile
 
 
-def msa(exe, seq, outfile='', verbose=False):
+def msa(exe, seq, outfile='', verbose=False, trimming=False):
     """
     General use function for multiple sequence alignment (MSA).
 
@@ -220,6 +220,8 @@ def msa(exe, seq, outfile='', verbose=False):
         for fasta format file.
     :param verbose: bool, invoke verbose or silent process mode,
         default: False, silent mode.
+    :param trimming: bool, trim gaps and ambiguous sites if True, otherwise,
+        leave them untouched.
     :return: str, path to the aligned sequence output file (in FASTA format).
     """
     
@@ -250,6 +252,13 @@ def msa(exe, seq, outfile='', verbose=False):
     else:
         error('Sequence: {} is not a file or does not exist.'.format(seq))
         sys.exit(1)
+    if trimming:
+        clean = ''.join([basename(outfile), '.trimmed.fa'])
+        if os.path.isfile(clean):
+            info('Found pre-existing trimmed alignment.')
+        else:
+            trim(outfile, outfile=clean, verbose=verbose)
+            outfile = clean
     return outfile
 
 
@@ -284,12 +293,16 @@ all errors, warnings and information about processing details will be logged.
     parse.add_argument('-o',
                        help='Path to the aligned multiple sequence output'
                             'file (in FASTA format).')
+    parse.add_argument('-t', action='store_true',
+                       help='Trim gaps and ambiguous sites or leave them '
+                            'untouched (default).')
     parse.add_argument('-v', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
     seq, exe, out, verbose = args.SEQUENCE, args.EXECUTABLE, args.o, args.v
-    msa(exe, seq, outfile=out, verbose=verbose)
+    trimming = args.t
+    msa(exe, seq, outfile=out, verbose=verbose, trimming=trimming)
 
 
 if __name__ == '__main__':
