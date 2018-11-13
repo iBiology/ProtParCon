@@ -35,12 +35,12 @@ import argparse
 try:
     from textwrap import indent
 except ImportError:
-    from imc.utilities import indent
+    from ProtParCon.utilities import indent
 from collections import namedtuple
 from subprocess import PIPE, Popen, DEVNULL
 
 from Bio import Phylo, AlignIO
-from imc.utilities import basename, modeling
+from ProtParCon.utilities import basename, modeling
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -473,7 +473,7 @@ Some options (e.g. start tree, constraint tree) may not supported by all of the
 four programs, they will be automatically ignored.
 """
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-mlt',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-mlt',
                                     usage='%(prog)s EXECUTABLE MSA [OPTIONS]',
                                     formatter_class=formatter,
                                     epilog=epilog)

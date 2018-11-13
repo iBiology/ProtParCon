@@ -16,7 +16,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(PATH, 'tests', 'data', 'utilities')
 
 sys.path.insert(0, PATH)
-from imc.utilities import basename, modeling, Tree, trim
+from ProtParCon.utilities import basename, modeling, Tree, trim
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import settings

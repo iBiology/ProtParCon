@@ -4,7 +4,7 @@
 """
 This module is designed to provide a common and easy way for identifying
 parallel and convergent amino acid replacements in orthologous protein
-sequences. In order to make this module for general use, function ``imc()``
+sequences. In order to make this module for general use, function ``ProtParCon()``
 is built on top of other modules to facilitate the identification of
 parallel and convergent amino acid replacements using a wide range of
 sequence data. Depending on the sequence data, optional parameters and external
@@ -26,7 +26,7 @@ from collections import namedtuple, Counter, defaultdict
 from Bio import Phylo, SeqIO, AlignIO
 from scipy.stats import poisson
 
-from imc import msa, asr, aut, sim, utilities
+from ProtParCon import msa, asr, aut, sim, utilities
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -594,7 +594,7 @@ Sequence data file covers a wide range of files and formats:
 """
 
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-imc',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-ProtParCon',
                                     usage='%(prog)s SEQUENCE [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
     

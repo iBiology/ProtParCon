@@ -37,10 +37,10 @@ from subprocess import PIPE, Popen
 try:
     from textwrap import indent
 except ImportError:
-    from imc.utilities import indent
+    from ProtParCon.utilities import indent
 
-from imc.utilities import basename, Tree
-from imc.mlt import mlt
+from ProtParCon.utilities import basename, Tree
+from ProtParCon.mlt import mlt
 from Bio import Phylo
 
 LEVEL = logging.INFO
@@ -212,7 +212,7 @@ Without providing a output file path, AU test results will not be saved to
 local file system, but the results will be always printed out.
 """
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-aut',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-aut',
                                     usage='%(prog)s EXE MSA TREE [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
 

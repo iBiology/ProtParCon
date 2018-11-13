@@ -33,10 +33,10 @@ from subprocess import PIPE, Popen
 try:
     from textwrap import indent
 except ImportError:
-    from imc.utilities import indent
+    from ProtParCon.utilities import indent
 
 from Bio import Phylo, AlignIO
-from imc.utilities import basename, modeling, Tree
+from ProtParCon.utilities import basename, modeling, Tree
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -51,7 +51,8 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
 logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
-CODEML_MODELS = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+CODEML_MODELS = os.path.join(os.path.dirname(__file__), 'data')
+print(CODEML_MODELS)
 RAXML_MODELS = ['DAYHOFF', 'DCMUT', 'JTT', 'MTREV', 'WAG', 'RTREV', 'CPREV',
                 'VT', 'BLOSUM62', 'MTMAM', 'LG', 'MTART', 'MTZOA', 'PMB',
                 'HIVB', 'HIVW', 'JTTD', 'CMUT', 'FLU', 'STMTREV', 'DUMMY',
@@ -633,7 +634,7 @@ file are tab separated sequence IDs and amino acid sequences.
 """
     
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-anc',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-anc',
                                     usage='%(prog)s EXE MSA TREE [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
     

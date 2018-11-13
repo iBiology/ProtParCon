@@ -10,7 +10,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(PATH, 'tests', 'data', 'msa')
 
 sys.path.insert(0, PATH)
-from imc.msa import _guess, msa
+from ProtParCon.msa import _guess, msa
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import settings

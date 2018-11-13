@@ -32,11 +32,11 @@ from io import StringIO
 try:
     from textwrap import indent
 except ImportError:
-    from imc.utilities import indent
+    from ProtParCon.utilities import indent
 from collections import Counter
 from subprocess import PIPE, Popen
 
-from imc.utilities import basename, modeling, Tree
+from ProtParCon.utilities import basename, modeling, Tree
 from Bio import Phylo, AlignIO
 
 LEVEL = logging.INFO
@@ -52,7 +52,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
 logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
-MODELS = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+MODELS = os.path.join(os.path.dirname(__file__), 'data')
 AMINO_ACIDS = 'ARNDCQEGHILKMFPSTWYV'
 MC_DAT = """0          * 0: paml format (mc.paml); 1:paup format (mc.nex)
 {}         * random number seed (odd number)
@@ -487,7 +487,7 @@ trees will be evaluated without inferring the ML tree. In both case, only
 the p-value of AU TEST for the first tree will be printed out.
 """
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-sim',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-sim',
                                     usage='%(prog)s EXE TREE [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
 

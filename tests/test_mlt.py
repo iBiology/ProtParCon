@@ -9,7 +9,7 @@ import unittest
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 sys.path.insert(0, PATH)
-from imc.mlt import _guess, mlt
+from ProtParCon.mlt import _guess, mlt
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import settings

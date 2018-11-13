@@ -27,13 +27,13 @@ setup(name='ProtParCon',
       packages=find_packages(),
       install_requires=['biopython>=1.71'],
       entry_points={
-          'console_scripts': ['imc=imc.imc:main',
-                              'oma=imc.oma:main',
-                              'msa=imc.msa:main',
-                              'mlt=imc.mlt:main',
-                              'asr=imc.asr:main',
-                              'aut=imc.aut:main',
-                              'sim=imc.sim:main']
+          'console_scripts': ['imc=ProtParCon.imc:main',
+                              'oma=ProtParCon.oma:main',
+                              'msa=ProtParCon.msa:main',
+                              'mlt=ProtParCon.mlt:main',
+                              'asr=ProtParCon.asr:main',
+                              'aut=ProtParCon.aut:main',
+                              'sim=ProtParCon.sim:main']
           },
       include_package_data=True,
       classifiers=[

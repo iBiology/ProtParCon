@@ -241,7 +241,7 @@ Orthologous protein sequence file will be saved in FASTA format using
     """
     
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-oma',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-oma',
                                     usage='%(prog)s QUERY [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
     

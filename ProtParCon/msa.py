@@ -26,10 +26,10 @@ import tempfile
 try:
     from textwrap import indent
 except ImportError:
-    from imc.utilities import indent
+    from ProtParCon.utilities import indent
 from subprocess import PIPE, Popen
 
-from imc.utilities import basename, trim
+from ProtParCon.utilities import basename, trim
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -279,7 +279,7 @@ all errors, warnings and information about processing details will be logged.
 """
 
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='imc-msa',
+    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-msa',
                                     usage='%(prog)s EXECUTABLE SEQUENCE',
                                     formatter_class=formatter,
                                     epilog=epilog)
