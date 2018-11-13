@@ -52,7 +52,6 @@ logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
 CODEML_MODELS = os.path.join(os.path.dirname(__file__), 'data')
-print(CODEML_MODELS)
 RAXML_MODELS = ['DAYHOFF', 'DCMUT', 'JTT', 'MTREV', 'WAG', 'RTREV', 'CPREV',
                 'VT', 'BLOSUM62', 'MTMAM', 'LG', 'MTART', 'MTZOA', 'PMB',
                 'HIVB', 'HIVW', 'JTTD', 'CMUT', 'FLU', 'STMTREV', 'DUMMY',
