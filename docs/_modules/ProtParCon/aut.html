@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>imc.aut &mdash; ProtParCon 1.0 documentation</title>
+  <title>ProtParCon.aut &mdash; ProtParCon 1.0 documentation</title>
   
 
   
@@ -171,7 +171,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>imc.aut</li>
+      <li>ProtParCon.aut</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -186,7 +186,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for imc.aut</h1><div class="highlight"><pre>
+  <h1>Source code for ProtParCon.aut</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
@@ -226,10 +226,10 @@
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">indent</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">indent</span>
+    <span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">indent</span>
 
-<span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">Tree</span>
-<span class="kn">from</span> <span class="nn">imc.mlt</span> <span class="k">import</span> <span class="n">mlt</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">Tree</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.mlt</span> <span class="k">import</span> <span class="n">mlt</span>
 <span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span>
 
 <span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
@@ -246,7 +246,7 @@
 <span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
 
 
-<div class="viewcode-block" id="_iqtree"><a class="viewcode-back" href="../../api.html#imc.aut._iqtree">[docs]</a><span class="k">def</span> <span class="nf">_iqtree</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+<div class="viewcode-block" id="_iqtree"><a class="viewcode-back" href="../../api.html#ProtParCon.aut._iqtree">[docs]</a><span class="k">def</span> <span class="nf">_iqtree</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform topology test (AU test) using IQ-TREE_.</span>
 <span class="sd">    </span>
@@ -333,7 +333,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="aut"><a class="viewcode-back" href="../../api.html#imc.aut.aut">[docs]</a><span class="k">def</span> <span class="nf">aut</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="aut"><a class="viewcode-back" href="../../api.html#ProtParCon.aut.aut">[docs]</a><span class="k">def</span> <span class="nf">aut</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    General use function for performing topology test (AU test).</span>
 <span class="sd">    </span>
@@ -401,7 +401,7 @@
 <span class="s2">local file system, but the results will be always printed out.</span>
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
-    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;imc-aut&#39;</span><span class="p">,</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;ProtParCon-aut&#39;</span><span class="p">,</span>
                                     <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXE MSA TREE [OPTIONS]&#39;</span><span class="p">,</span>
                                     <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
 

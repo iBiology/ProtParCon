@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>imc.imc &mdash; ProtParCon 1.0 documentation</title>
+  <title>ProtParCon.imc &mdash; ProtParCon 1.0 documentation</title>
   
 
   
@@ -171,7 +171,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>imc.imc</li>
+      <li>ProtParCon.imc</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -186,14 +186,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for imc.imc</h1><div class="highlight"><pre>
+  <h1>Source code for ProtParCon.imc</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module is designed to provide a common and easy way for identifying</span>
 <span class="sd">parallel and convergent amino acid replacements in orthologous protein</span>
-<span class="sd">sequences. In order to make this module for general use, function ``imc()``</span>
+<span class="sd">sequences. In order to make this module for general use, function ``ProtParCon()``</span>
 <span class="sd">is built on top of other modules to facilitate the identification of</span>
 <span class="sd">parallel and convergent amino acid replacements using a wide range of</span>
 <span class="sd">sequence data. Depending on the sequence data, optional parameters and external</span>
@@ -215,7 +215,7 @@
 <span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span><span class="p">,</span> <span class="n">SeqIO</span><span class="p">,</span> <span class="n">AlignIO</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">poisson</span>
 
-<span class="kn">from</span> <span class="nn">imc</span> <span class="k">import</span> <span class="n">msa</span><span class="p">,</span> <span class="n">asr</span><span class="p">,</span> <span class="n">aut</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">utilities</span>
+<span class="kn">from</span> <span class="nn">ProtParCon</span> <span class="k">import</span> <span class="n">msa</span><span class="p">,</span> <span class="n">asr</span><span class="p">,</span> <span class="n">aut</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">utilities</span>
 
 <span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
 <span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
@@ -233,7 +233,7 @@
 <span class="n">AMINO_ACIDS</span> <span class="o">=</span> <span class="s1">&#39;ARNDCQEGHILKMFPSTWYV&#39;</span>
 
 
-<div class="viewcode-block" id="_pairing"><a class="viewcode-back" href="../../api.html#imc.imc._pairing">[docs]</a><span class="k">def</span> <span class="nf">_pairing</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+<div class="viewcode-block" id="_pairing"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._pairing">[docs]</a><span class="k">def</span> <span class="nf">_pairing</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checking whether two branches are sister branch pair or branch pair sharing</span>
 <span class="sd">    the same evolutionary path.</span>
@@ -264,7 +264,7 @@
     <span class="k">return</span> <span class="n">branches</span><span class="p">,</span> <span class="n">pairs</span></div>
     
 
-<div class="viewcode-block" id="_load"><a class="viewcode-back" href="../../api.html#imc.imc._load">[docs]</a><span class="k">def</span> <span class="nf">_load</span><span class="p">(</span><span class="n">tsv</span><span class="p">):</span>
+<div class="viewcode-block" id="_load"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._load">[docs]</a><span class="k">def</span> <span class="nf">_load</span><span class="p">(</span><span class="n">tsv</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load tree, rates, and data blocks from a tsv file.</span>
 <span class="sd">    </span>
@@ -312,7 +312,7 @@
     <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span></div>
 
 
-<div class="viewcode-block" id="_sequencing"><a class="viewcode-back" href="../../api.html#imc.imc._sequencing">[docs]</a><span class="k">def</span> <span class="nf">_sequencing</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">asr_model</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
+<div class="viewcode-block" id="_sequencing"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._sequencing">[docs]</a><span class="k">def</span> <span class="nf">_sequencing</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">asr_model</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify the type foe sequence file.</span>
 <span class="sd">    </span>
@@ -519,7 +519,7 @@
     <span class="k">return</span> <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span>
     
     
-<div class="viewcode-block" id="imc"><a class="viewcode-back" href="../../api.html#imc.imc.imc">[docs]</a><span class="k">def</span> <span class="nf">imc</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">aligner</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ancestor</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">simulator</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="viewcode-block" id="imc"><a class="viewcode-back" href="../../api.html#ProtParCon.imc.imc">[docs]</a><span class="k">def</span> <span class="nf">imc</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">aligner</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ancestor</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">simulator</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">asr_model</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="n">exp_model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     
     <span class="sd">&quot;&quot;&quot;</span>
@@ -646,7 +646,7 @@
     <span class="k">return</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">length</span></div>
 
 
-<div class="viewcode-block" id="_tester"><a class="viewcode-back" href="../../api.html#imc.imc._tester">[docs]</a><span class="k">def</span> <span class="nf">_tester</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<div class="viewcode-block" id="_tester"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._tester">[docs]</a><span class="k">def</span> <span class="nf">_tester</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    One sample T-test to determine whether the observed value is statistically</span>
 <span class="sd">    significantly different to the expected value.</span>
@@ -783,7 +783,7 @@
 <span class="s2">&quot;&quot;&quot;</span>
 
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
-    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;imc-imc&#39;</span><span class="p">,</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;ProtParCon-ProtParCon&#39;</span><span class="p">,</span>
                                     <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> SEQUENCE [OPTIONS]&#39;</span><span class="p">,</span>
                                     <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
     

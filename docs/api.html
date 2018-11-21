@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; iMC 1.0 documentation</title>
+  <title>API Reference &mdash; ProtParCon 1.0 documentation</title>
   
 
   
@@ -47,7 +47,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> iMC
+            <a href="index.html" class="icon icon-home"> ProtParCon
           
 
           
@@ -116,12 +116,12 @@
 <p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-imc.msa">msa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-imc.asr">asr</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-imc.imc">imc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-imc.sim">sim</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-imc.aut">aut</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-imc.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.mlt">mlt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#utilities">utilities</a></li>
 </ul>
 </li>
@@ -139,7 +139,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">iMC</a>
+          <a href="index.html">ProtParCon</a>
         
       </nav>
 
@@ -193,8 +193,8 @@
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <p>This section documents the ProtParCon core API, and it is intended for
 developers and experienced users to extend ProtParCon.</p>
-<div class="section" id="module-imc.msa">
-<span id="msa"></span><h2>msa<a class="headerlink" href="#module-imc.msa" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ProtParCon.msa">
+<span id="msa"></span><h2>msa<a class="headerlink" href="#module-ProtParCon.msa" title="Permalink to this headline">¶</a></h2>
 <p>This module is designed to provide a common and easy way to use interface for
 aligning multiple sequences using various align programs.</p>
 <p>Users are only asked to provide an alignment programs’s executable and an 
@@ -207,8 +207,8 @@ to implement new private functions for additional alignment programs in which
 they are interested and incorporate them into the general use function 
 <code class="docutils literal notranslate"><span class="pre">msa()</span></code>.</p>
 <dl class="function">
-<dt id="imc.msa._clustal">
-<code class="descclassname">imc.msa.</code><code class="descname">_clustal</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_clustal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._clustal" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.msa._clustal">
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">_clustal</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#_clustal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa._clustal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Align multiple sequences using <a class="reference external" href="http://www.clustal.org/omega/">CLUSTAL (OMEGA)</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -230,8 +230,8 @@ program.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.msa._guess">
-<code class="descclassname">imc.msa.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._guess" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.msa._guess">
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa._guess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Guess the name of a multiple sequence alignment (MSA) program according to 
 its executable.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -247,8 +247,8 @@ its executable.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.msa._mafft">
-<code class="descclassname">imc.msa.</code><code class="descname">_mafft</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_mafft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._mafft" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.msa._mafft">
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">_mafft</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#_mafft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa._mafft" title="Permalink to this definition">¶</a></dt>
 <dd><p>Align multiple sequences using <a class="reference external" href="https://mafft.cbrc.jp/alignment/software/">MAFFT</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -270,8 +270,8 @@ program.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.msa._muscle">
-<code class="descclassname">imc.msa.</code><code class="descname">_muscle</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_muscle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._muscle" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.msa._muscle">
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">_muscle</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#_muscle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa._muscle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Align multiple sequences using <a class="reference external" href="https://www.drive5.com/muscle/">MUSCLE</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -293,8 +293,8 @@ program.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.msa._tcoffee">
-<code class="descclassname">imc.msa.</code><code class="descname">_tcoffee</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#_tcoffee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa._tcoffee" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.msa._tcoffee">
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">_tcoffee</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#_tcoffee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa._tcoffee" title="Permalink to this definition">¶</a></dt>
 <dd><p>Align multiple sequences using <a class="reference external" href="http://www.tcoffee.org/Projects/tcoffee/">T-COFFEE</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -316,8 +316,8 @@ program.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.msa.msa">
-<code class="descclassname">imc.msa.</code><code class="descname">msa</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/msa.html#msa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.msa.msa" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.msa.msa">
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">msa</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile=''</em>, <em>verbose=False</em>, <em>trimming=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#msa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa.msa" title="Permalink to this definition">¶</a></dt>
 <dd><p>General use function for multiple sequence alignment (MSA).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -333,6 +333,8 @@ name of the aligner program in lowercase, and fasta is the extension
 for fasta format file.</li>
 <li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
 default: False, silent mode.</li>
+<li><strong>trimming</strong> – bool, trim gaps and ambiguous sites if True, otherwise,
+leave them untouched.</li>
 </ul>
 </td>
 </tr>
@@ -344,8 +346,8 @@ default: False, silent mode.</li>
 </dd></dl>
 
 </div>
-<div class="section" id="module-imc.asr">
-<span id="asr"></span><h2>asr<a class="headerlink" href="#module-imc.asr" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ProtParCon.asr">
+<span id="asr"></span><h2>asr<a class="headerlink" href="#module-ProtParCon.asr" title="Permalink to this headline">¶</a></h2>
 <p>This module is designed to provide a common and easy way to use interface for
 ancestral stated reconstruction (ASR) using various ASR programs.</p>
 <p>Users are only asked to provide an ASR programs’s executable, an aligned 
@@ -359,8 +361,8 @@ private function inside the module. However, users are strongly recommended
 to implement new private functions for additional ASR programs in which they are 
 interested and incorporate them into the general use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code>.</p>
 <dl class="function">
-<dt id="imc.asr._codeml">
-<code class="descclassname">imc.asr.</code><code class="descname">_codeml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_codeml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._codeml" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._codeml">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_codeml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_codeml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._codeml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reconstruct ancestral sequences using CODEML (inside <a class="reference external" href="https://www.paml.com/">PAML</a> package).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -392,8 +394,8 @@ heterogeneity model.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr._fastml">
-<code class="descclassname">imc.asr.</code><code class="descname">_fastml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_fastml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._fastml" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._fastml">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_fastml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_fastml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._fastml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reconstruct ancestral sequences using <a class="reference external" href="http://fastml.tau.ac.il/">FastML</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -425,8 +427,8 @@ heterogeneity model.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr._guess">
-<code class="descclassname">imc.asr.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._guess" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._guess">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._guess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Guess the name of a ancestral states reconstruction (ASR) program according 
 to its executable.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -442,8 +444,8 @@ to its executable.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr._label">
-<code class="descclassname">imc.asr.</code><code class="descname">_label</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._label" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._label">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_label</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Relabel internal nodes of a tree and map them to the corresponding name of 
 ancestral sequences.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -465,8 +467,8 @@ ancestral sequences.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr._parse">
-<code class="descclassname">imc.asr.</code><code class="descname">_parse</code><span class="sig-paren">(</span><em>wd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._parse" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._parse">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_parse</code><span class="sig-paren">(</span><em>wd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse the rst file generated by CODEML.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -481,8 +483,8 @@ ancestral sequences.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr._raxml">
-<code class="descclassname">imc.asr.</code><code class="descname">_raxml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_raxml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._raxml" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._raxml">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_raxml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_raxml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._raxml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reconstruct ancestral sequences using <a class="reference external" href="https://sco.h-its.org/exelixis/web/software/raxml/">RAxML</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -514,8 +516,8 @@ heterogeneity model.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr._write">
-<code class="descclassname">imc.asr.</code><code class="descname">_write</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestor</em>, <em>rates</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#_write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr._write" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr._write">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_write</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestor</em>, <em>rates</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write tree (object) and ancestor (dict) to a output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -536,8 +538,8 @@ heterogeneity model.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.asr.asr">
-<code class="descclassname">imc.asr.</code><code class="descname">asr</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma=4</em>, <em>alpha=1.8</em>, <em>freq=''</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/asr.html#asr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.asr.asr" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.asr.asr">
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">asr</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>gamma=4</em>, <em>alpha=1.8</em>, <em>freq=''</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#asr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr.asr" title="Permalink to this definition">¶</a></dt>
 <dd><p>General use function for (marginal) ancestral states reconstruction (ASR).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -593,18 +595,18 @@ RAxML, the number of categories will always be set to 4 if G presented.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-imc.imc">
-<span id="imc"></span><h2>imc<a class="headerlink" href="#module-imc.imc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ProtParCon.imc">
+<span id="imc"></span><h2>imc<a class="headerlink" href="#module-ProtParCon.imc" title="Permalink to this headline">¶</a></h2>
 <p>This module is designed to provide a common and easy way for identifying
 parallel and convergent amino acid replacements in orthologous protein
-sequences. In order to make this module for general use, function <code class="docutils literal notranslate"><span class="pre">imc()</span></code>
+sequences. In order to make this module for general use, function <code class="docutils literal notranslate"><span class="pre">ProtParCon()</span></code>
 is built on top of other modules to facilitate the identification of
 parallel and convergent amino acid replacements using a wide range of
 sequence data. Depending on the sequence data, optional parameters and external
 programs may be required.</p>
 <dl class="function">
-<dt id="imc.imc._load">
-<code class="descclassname">imc.imc.</code><code class="descname">_load</code><span class="sig-paren">(</span><em>tsv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._load" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.imc._load">
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">_load</code><span class="sig-paren">(</span><em>tsv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load tree, rates, and data blocks from a tsv file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -620,8 +622,8 @@ sequences.</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.imc._pairing">
-<code class="descclassname">imc.imc.</code><code class="descname">_pairing</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_pairing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._pairing" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.imc._pairing">
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">_pairing</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_pairing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._pairing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checking whether two branches are sister branch pair or branch pair sharing
 the same evolutionary path.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -637,8 +639,8 @@ the same evolutionary path.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.imc._sequencing">
-<code class="descclassname">imc.imc.</code><code class="descname">_sequencing</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree</em>, <em>aligner</em>, <em>ancestor</em>, <em>wd</em>, <em>asr_model</em>, <em>verbose</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_sequencing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._sequencing" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.imc._sequencing">
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">_sequencing</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree</em>, <em>aligner</em>, <em>ancestor</em>, <em>wd</em>, <em>asr_model</em>, <em>verbose</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_sequencing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._sequencing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify the type foe sequence file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -658,8 +660,8 @@ the same evolutionary path.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.imc._tester">
-<code class="descclassname">imc.imc.</code><code class="descname">_tester</code><span class="sig-paren">(</span><em>obs</em>, <em>exp</em>, <em>values</em>, <em>alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#_tester"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc._tester" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.imc._tester">
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">_tester</code><span class="sig-paren">(</span><em>obs</em>, <em>exp</em>, <em>values</em>, <em>alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_tester"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._tester" title="Permalink to this definition">¶</a></dt>
 <dd><p>One sample T-test to determine whether the observed value is statistically
 significantly different to the expected value.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -681,8 +683,8 @@ significantly different to the expected value.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.imc.imc">
-<code class="descclassname">imc.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>save=False</em>, <em>asr_model='JTT'</em>, <em>exp_model=''</em>, <em>n=100</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.imc.imc" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.imc.imc">
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>save=False</em>, <em>asr_model='JTT'</em>, <em>exp_model=''</em>, <em>n=100</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc.imc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify molecular parallel and convergent changes.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -738,8 +740,8 @@ of replacements (namedtuple) and the p-value of AU Test (float or None).</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-imc.sim">
-<span id="sim"></span><h2>sim<a class="headerlink" href="#module-imc.sim" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ProtParCon.sim">
+<span id="sim"></span><h2>sim<a class="headerlink" href="#module-ProtParCon.sim" title="Permalink to this headline">¶</a></h2>
 <p>A simple module wrappers various programs for sequence simulation.</p>
 <p>The module is designed to provide a common interface for simulating amino acid
 sequences using various simulation programs. At this stage, the module only
@@ -753,8 +755,8 @@ private functions inside the module. However, users are strongly recommended to
 implement new private functions for additional simulation programs and wrap
 them into the general use function aut().</p>
 <dl class="function">
-<dt id="imc.sim._evolver">
-<code class="descclassname">imc.sim.</code><code class="descname">_evolver</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>length</em>, <em>freq</em>, <em>model</em>, <em>n</em>, <em>seed</em>, <em>gamma</em>, <em>alpha</em>, <em>invp</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_evolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._evolver" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.sim._evolver">
+<code class="descclassname">ProtParCon.sim.</code><code class="descname">_evolver</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>length</em>, <em>freq</em>, <em>model</em>, <em>n</em>, <em>seed</em>, <em>gamma</em>, <em>alpha</em>, <em>invp</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#_evolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim._evolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sequence simulation via EVOLVER.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -791,8 +793,8 @@ program, and newick is the extension for NEWICK format tree file.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.sim._evolver_parse">
-<code class="descclassname">imc.sim.</code><code class="descname">_evolver_parse</code><span class="sig-paren">(</span><em>wd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_evolver_parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._evolver_parse" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.sim._evolver_parse">
+<code class="descclassname">ProtParCon.sim.</code><code class="descname">_evolver_parse</code><span class="sig-paren">(</span><em>wd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#_evolver_parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim._evolver_parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse the work directory of EVOLVER to get the simulated results.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -807,8 +809,8 @@ program, and newick is the extension for NEWICK format tree file.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.sim._guess">
-<code class="descclassname">imc.sim.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._guess" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.sim._guess">
+<code class="descclassname">ProtParCon.sim.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim._guess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Guess the name of a sequence simulation program according to its
 executable.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -825,8 +827,8 @@ function.</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.sim._seqgen">
-<code class="descclassname">imc.sim.</code><code class="descname">_seqgen</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>length</em>, <em>freq</em>, <em>model</em>, <em>n</em>, <em>seed</em>, <em>gamma</em>, <em>alpha</em>, <em>invp</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#_seqgen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim._seqgen" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.sim._seqgen">
+<code class="descclassname">ProtParCon.sim.</code><code class="descname">_seqgen</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>length</em>, <em>freq</em>, <em>model</em>, <em>n</em>, <em>seed</em>, <em>gamma</em>, <em>alpha</em>, <em>invp</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#_seqgen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim._seqgen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sequence simulation via EVOLVER.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -863,8 +865,8 @@ program, and newick is the extension for NEWICK format tree file.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.sim.sim">
-<code class="descclassname">imc.sim.</code><code class="descname">sim</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>model='JTT'</em>, <em>msa=''</em>, <em>length=100</em>, <em>freq='empirical'</em>, <em>n=100</em>, <em>seed=0</em>, <em>gamma=4</em>, <em>alpha=0.5</em>, <em>invp=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/sim.html#sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.sim.sim" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.sim.sim">
+<code class="descclassname">ProtParCon.sim.</code><code class="descname">sim</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>model='JTT'</em>, <em>msa=''</em>, <em>length=100</em>, <em>freq='empirical'</em>, <em>n=100</em>, <em>seed=0</em>, <em>gamma=4</em>, <em>alpha=0.5</em>, <em>invp=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim.sim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sequence simulation via EVOLVER.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -901,8 +903,8 @@ program, and newick is the extension for NEWICK format tree file.</li>
 </dd></dl>
 
 </div>
-<div class="section" id="module-imc.aut">
-<span id="aut"></span><h2>aut<a class="headerlink" href="#module-imc.aut" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ProtParCon.aut">
+<span id="aut"></span><h2>aut<a class="headerlink" href="#module-ProtParCon.aut" title="Permalink to this headline">¶</a></h2>
 <p>The module is designed to provide a common interface for performing topology
 test (<a class="reference external" href="https://academic.oup.com/sysbio/article/51/3/492/1616895">AU test</a>) over protein alignments using various programs.</p>
 <p>Users are asked to provide a multiple sequence alignment (MSA) file, a NEWICK 
@@ -919,8 +921,8 @@ implement new private functions for additional topology test programs in which
 they are interested and incorporate them into the general use function 
 <code class="docutils literal notranslate"><span class="pre">aut()</span></code>.</p>
 <dl class="function">
-<dt id="imc.aut._iqtree">
-<code class="descclassname">imc.aut.</code><code class="descname">_iqtree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>seed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/aut.html#_iqtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.aut._iqtree" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.aut._iqtree">
+<code class="descclassname">ProtParCon.aut.</code><code class="descname">_iqtree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model</em>, <em>seed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/aut.html#_iqtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.aut._iqtree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform topology test (AU test) using <a class="reference external" href="www.iqtree.org/">IQ-TREE</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -944,8 +946,8 @@ second tree (string).</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.aut.aut">
-<code class="descclassname">imc.aut.</code><code class="descname">aut</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model=''</em>, <em>seed=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/aut.html#aut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.aut.aut" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.aut.aut">
+<code class="descclassname">ProtParCon.aut.</code><code class="descname">aut</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>tree</em>, <em>model=''</em>, <em>seed=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/aut.html#aut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.aut.aut" title="Permalink to this definition">¶</a></dt>
 <dd><p>General use function for performing topology test (AU test).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -973,8 +975,8 @@ second tree (string).</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-imc.mlt">
-<span id="mlt"></span><h2>mlt<a class="headerlink" href="#module-imc.mlt" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ProtParCon.mlt">
+<span id="mlt"></span><h2>mlt<a class="headerlink" href="#module-ProtParCon.mlt" title="Permalink to this headline">¶</a></h2>
 <p>The module is designed to provide a common interface for inferring phylogenetic
 trees from alignments of protein sequences using maximum-likelihood method.</p>
 <p>The minimum requirement for using this module is a multiple sequence alignment
@@ -995,20 +997,20 @@ between ‘&gt;’ and the sequence name (or ID), should check FASTA file before
 feed in.</p>
 </div>
 <dl class="attribute">
-<dt id="imc.mlt.MODEL">
-<code class="descclassname">imc.mlt.</code><code class="descname">MODEL</code><a class="headerlink" href="#imc.mlt.MODEL" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">imc.mlt.model</span></code></p>
+<dt id="ProtParCon.mlt.MODEL">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">MODEL</code><a class="headerlink" href="#ProtParCon.mlt.MODEL" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">ProtParCon.mlt.model</span></code></p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.mlt._fasttree">
-<code class="descclassname">imc.mlt.</code><code class="descname">_fasttree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_fasttree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._fasttree" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.mlt._fasttree">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">_fasttree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/mlt.html#_fasttree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.mlt._fasttree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Infer ML phylogenetic tree using FastTree.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.mlt._guess">
-<code class="descclassname">imc.mlt.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._guess" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.mlt._guess">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">_guess</code><span class="sig-paren">(</span><em>exe</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/mlt.html#_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.mlt._guess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Guess the name of a tree inference program according to its executable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1024,26 +1026,26 @@ inference program.</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.mlt._iqtree">
-<code class="descclassname">imc.mlt.</code><code class="descname">_iqtree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_iqtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._iqtree" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.mlt._iqtree">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">_iqtree</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/mlt.html#_iqtree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.mlt._iqtree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Infer ML phylogenetic tree using IQ-TREE.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.mlt._phyml">
-<code class="descclassname">imc.mlt.</code><code class="descname">_phyml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_phyml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._phyml" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.mlt._phyml">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">_phyml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/mlt.html#_phyml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.mlt._phyml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Infer ML phylogenetic tree using PhyML.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.mlt._raxml">
-<code class="descclassname">imc.mlt.</code><code class="descname">_raxml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#_raxml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt._raxml" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.mlt._raxml">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">_raxml</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model</em>, <em>cat</em>, <em>gamma</em>, <em>alpha</em>, <em>freq</em>, <em>invp</em>, <em>start_tree</em>, <em>constraint_tree</em>, <em>seed</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/mlt.html#_raxml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.mlt._raxml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Infer ML phylogenetic tree using RAxML.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.mlt.mlt">
-<code class="descclassname">imc.mlt.</code><code class="descname">mlt</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model=''</em>, <em>cat=0</em>, <em>gamma=0</em>, <em>alpha=0.0</em>, <em>freq='empirical'</em>, <em>invp=0.0</em>, <em>start_tree=''</em>, <em>constraint_tree=''</em>, <em>seed=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/mlt.html#mlt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.mlt.mlt" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.mlt.mlt">
+<code class="descclassname">ProtParCon.mlt.</code><code class="descname">mlt</code><span class="sig-paren">(</span><em>exe</em>, <em>msa</em>, <em>model=''</em>, <em>cat=0</em>, <em>gamma=0</em>, <em>alpha=0.0</em>, <em>freq='empirical'</em>, <em>invp=0.0</em>, <em>start_tree=''</em>, <em>constraint_tree=''</em>, <em>seed=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/mlt.html#mlt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.mlt.mlt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Common interface for inferring ML phylogenetic tree.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1093,8 +1095,8 @@ False, silent mode.</li>
 <div class="section" id="utilities">
 <h2>utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="imc.utilities.basename">
-<code class="descclassname">imc.utilities.</code><code class="descname">basename</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.basename" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.utilities.basename">
+<code class="descclassname">ProtParCon.utilities.</code><code class="descname">basename</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/utilities.html#basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.utilities.basename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removing file extension, if the extension is in ENDINGS.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1110,8 +1112,8 @@ NEWICK as well as some alignment format files.</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.utilities.modeling">
-<code class="descclassname">imc.utilities.</code><code class="descname">modeling</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#modeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.modeling" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.utilities.modeling">
+<code class="descclassname">ProtParCon.utilities.</code><code class="descname">modeling</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/utilities.html#modeling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.utilities.modeling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse evolutionary model.</p>
 <p>The model needs to be in the format of MODEL+&lt;FreqType&gt;+&lt;RateType&gt; or a
 model (text) file, where MODEL is a model name (e.g. JTT, WAG, …),
@@ -1132,8 +1134,8 @@ and type.</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="imc.utilities.trim">
-<code class="descclassname">imc.utilities.</code><code class="descname">trim</code><span class="sig-paren">(</span><em>msa</em>, <em>fmt='fasta'</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#trim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.trim" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.utilities.trim">
+<code class="descclassname">ProtParCon.utilities.</code><code class="descname">trim</code><span class="sig-paren">(</span><em>msa</em>, <em>fmt='fasta'</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/utilities.html#trim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.utilities.trim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove gaps and ambiguous characters from protein multiple sequence
 alignment (MSA) file or a dictionary object of MSA records.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1170,11 +1172,11 @@ format files, e.g. phylip-relaxed or phylip-sequential.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="imc.utilities.Tree">
-<em class="property">class </em><code class="descclassname">imc.utilities.</code><code class="descname">Tree</code><span class="sig-paren">(</span><em>tree</em>, <em>leave=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#Tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.Tree" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.utilities.Tree">
+<em class="property">class </em><code class="descclassname">ProtParCon.utilities.</code><code class="descname">Tree</code><span class="sig-paren">(</span><em>tree</em>, <em>leave=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/utilities.html#Tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.utilities.Tree" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="imc.utilities.Tree.file">
-<code class="descname">file</code><span class="sig-paren">(</span><em>filename</em>, <em>ic=True</em>, <em>ic2name=False</em>, <em>nodes=False</em>, <em>brlen=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#Tree.file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.Tree.file" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.utilities.Tree.file">
+<code class="descname">file</code><span class="sig-paren">(</span><em>filename</em>, <em>ic=True</em>, <em>ic2name=False</em>, <em>nodes=False</em>, <em>brlen=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/utilities.html#Tree.file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.utilities.Tree.file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a tree to a file after manipulating.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1198,8 +1200,8 @@ their names.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="imc.utilities.Tree.string">
-<code class="descname">string</code><span class="sig-paren">(</span><em>ic=True</em>, <em>ic2name=False</em>, <em>nodes=False</em>, <em>brlen=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/imc/utilities.html#Tree.string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#imc.utilities.Tree.string" title="Permalink to this definition">¶</a></dt>
+<dt id="ProtParCon.utilities.Tree.string">
+<code class="descname">string</code><span class="sig-paren">(</span><em>ic=True</em>, <em>ic2name=False</em>, <em>nodes=False</em>, <em>brlen=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/utilities.html#Tree.string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.utilities.Tree.string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a newick tree string for a tree after manipulating.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

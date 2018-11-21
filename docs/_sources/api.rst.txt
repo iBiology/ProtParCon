@@ -8,21 +8,21 @@ developers and experienced users to extend ProtParCon.
 msa
 ~~~
 
-.. automodule:: imc.msa
+.. automodule:: ProtParCon.msa
     :members:
     :private-members:
 
 
 asr
 ~~~
-.. automodule:: imc.asr
+.. automodule:: ProtParCon.asr
     :members:
     :private-members:
 
 imc
 ~~~
 
-.. automodule:: imc.imc
+.. automodule:: ProtParCon.imc
     :members:
     :private-members:
 
@@ -30,7 +30,7 @@ imc
 sim
 ~~~
 
-.. automodule:: imc.sim
+.. automodule:: ProtParCon.sim
     :members:
     :private-members:
 
@@ -38,7 +38,7 @@ sim
 aut
 ~~~
 
-.. automodule:: imc.aut
+.. automodule:: ProtParCon.aut
     :members:
     :private-members:
 
@@ -46,7 +46,7 @@ aut
 mlt
 ~~~
 
-.. automodule:: imc.mlt
+.. automodule:: ProtParCon.mlt
     :members:
     :private-members:
 
@@ -54,9 +54,9 @@ mlt
 utilities
 ~~~~~~~~~
 
-.. autofunction:: imc.utilities.basename
-.. autofunction:: imc.utilities.modeling
-.. autofunction:: imc.utilities.trim
-.. autoclass:: imc.utilities.Tree
+.. autofunction:: ProtParCon.utilities.basename
+.. autofunction:: ProtParCon.utilities.modeling
+.. autofunction:: ProtParCon.utilities.trim
+.. autoclass:: ProtParCon.utilities.Tree
     :members:
     :private-members:

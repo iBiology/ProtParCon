@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>imc.asr &mdash; ProtParCon 1.0 documentation</title>
+  <title>ProtParCon.asr &mdash; ProtParCon 1.0 documentation</title>
   
 
   
@@ -171,7 +171,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>imc.asr</li>
+      <li>ProtParCon.asr</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -186,7 +186,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for imc.asr</h1><div class="highlight"><pre>
+  <h1>Source code for ProtParCon.asr</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
@@ -222,10 +222,10 @@
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">indent</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">indent</span>
+    <span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">indent</span>
 
 <span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span><span class="p">,</span> <span class="n">AlignIO</span>
-<span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">modeling</span><span class="p">,</span> <span class="n">Tree</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">modeling</span><span class="p">,</span> <span class="n">Tree</span>
 
 <span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
 <span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
@@ -240,7 +240,7 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;[iMC]&#39;</span><span class="p">)</span>
 <span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
 
-<span class="n">CODEML_MODELS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">CODEML_MODELS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 <span class="n">RAXML_MODELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DAYHOFF&#39;</span><span class="p">,</span> <span class="s1">&#39;DCMUT&#39;</span><span class="p">,</span> <span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="s1">&#39;MTREV&#39;</span><span class="p">,</span> <span class="s1">&#39;WAG&#39;</span><span class="p">,</span> <span class="s1">&#39;RTREV&#39;</span><span class="p">,</span> <span class="s1">&#39;CPREV&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;VT&#39;</span><span class="p">,</span> <span class="s1">&#39;BLOSUM62&#39;</span><span class="p">,</span> <span class="s1">&#39;MTMAM&#39;</span><span class="p">,</span> <span class="s1">&#39;LG&#39;</span><span class="p">,</span> <span class="s1">&#39;MTART&#39;</span><span class="p">,</span> <span class="s1">&#39;MTZOA&#39;</span><span class="p">,</span> <span class="s1">&#39;PMB&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;HIVB&#39;</span><span class="p">,</span> <span class="s1">&#39;HIVW&#39;</span><span class="p">,</span> <span class="s1">&#39;JTTD&#39;</span><span class="p">,</span> <span class="s1">&#39;CMUT&#39;</span><span class="p">,</span> <span class="s1">&#39;FLU&#39;</span><span class="p">,</span> <span class="s1">&#39;STMTREV&#39;</span><span class="p">,</span> <span class="s1">&#39;DUMMY&#39;</span><span class="p">,</span>
@@ -275,7 +275,7 @@
 <span class="s2">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="_guess"><a class="viewcode-back" href="../../api.html#imc.asr._guess">[docs]</a><span class="k">def</span> <span class="nf">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+<div class="viewcode-block" id="_guess"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._guess">[docs]</a><span class="k">def</span> <span class="nf">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Guess the name of a ancestral states reconstruction (ASR) program according </span>
 <span class="sd">    to its executable.</span>
@@ -309,7 +309,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="_label"><a class="viewcode-back" href="../../api.html#imc.asr._label">[docs]</a><span class="k">def</span> <span class="nf">_label</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">ancestors</span><span class="p">):</span>
+<div class="viewcode-block" id="_label"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._label">[docs]</a><span class="k">def</span> <span class="nf">_label</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">ancestors</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Relabel internal nodes of a tree and map them to the corresponding name of </span>
 <span class="sd">    ancestral sequences.</span>
@@ -343,7 +343,7 @@
     <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">ancestors</span></div>
 
 
-<div class="viewcode-block" id="_parse"><a class="viewcode-back" href="../../api.html#imc.asr._parse">[docs]</a><span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="n">wd</span><span class="p">):</span>
+<div class="viewcode-block" id="_parse"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._parse">[docs]</a><span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="n">wd</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse the rst file generated by CODEML.</span>
 <span class="sd">    </span>
@@ -426,7 +426,7 @@
     <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">ancestors</span><span class="p">,</span> <span class="n">rates</span></div>
     
     
-<div class="viewcode-block" id="_write"><a class="viewcode-back" href="../../api.html#imc.asr._write">[docs]</a><span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">ancestor</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_write"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._write">[docs]</a><span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">ancestor</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Write tree (object) and ancestor (dict) to a output file.</span>
 <span class="sd">    </span>
@@ -450,7 +450,7 @@
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
-<div class="viewcode-block" id="_codeml"><a class="viewcode-back" href="../../api.html#imc.asr._codeml">[docs]</a><span class="k">def</span> <span class="nf">_codeml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_codeml"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._codeml">[docs]</a><span class="k">def</span> <span class="nf">_codeml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reconstruct ancestral sequences using CODEML (inside PAML_ package).</span>
 <span class="sd">    </span>
@@ -538,7 +538,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span></div>
         
         
-<div class="viewcode-block" id="_raxml"><a class="viewcode-back" href="../../api.html#imc.asr._raxml">[docs]</a><span class="k">def</span> <span class="nf">_raxml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_raxml"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._raxml">[docs]</a><span class="k">def</span> <span class="nf">_raxml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reconstruct ancestral sequences using RAxML_.</span>
 <span class="sd">    </span>
@@ -634,7 +634,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span></div>
         
         
-<div class="viewcode-block" id="_fastml"><a class="viewcode-back" href="../../api.html#imc.asr._fastml">[docs]</a><span class="k">def</span> <span class="nf">_fastml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_fastml"><a class="viewcode-back" href="../../api.html#ProtParCon.asr._fastml">[docs]</a><span class="k">def</span> <span class="nf">_fastml</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reconstruct ancestral sequences using FastML_.</span>
 
@@ -718,7 +718,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">wd</span><span class="p">)</span></div>
     
         
-<div class="viewcode-block" id="asr"><a class="viewcode-back" href="../../api.html#imc.asr.asr">[docs]</a><span class="k">def</span> <span class="nf">asr</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="asr"><a class="viewcode-back" href="../../api.html#ProtParCon.asr.asr">[docs]</a><span class="k">def</span> <span class="nf">asr</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">msa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    General use function for (marginal) ancestral states reconstruction (ASR).</span>
@@ -822,7 +822,7 @@
 <span class="s2">&quot;&quot;&quot;</span>
     
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
-    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;imc-anc&#39;</span><span class="p">,</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;ProtParCon-anc&#39;</span><span class="p">,</span>
                                     <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXE MSA TREE [OPTIONS]&#39;</span><span class="p">,</span>
                                     <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
     

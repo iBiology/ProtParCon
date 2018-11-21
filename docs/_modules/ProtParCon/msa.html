@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>imc.msa &mdash; ProtParCon 1.0 documentation</title>
+  <title>ProtParCon.msa &mdash; ProtParCon 1.0 documentation</title>
   
 
   
@@ -171,7 +171,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>imc.msa</li>
+      <li>ProtParCon.msa</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -186,7 +186,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for imc.msa</h1><div class="highlight"><pre>
+  <h1>Source code for ProtParCon.msa</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
@@ -215,10 +215,10 @@
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">indent</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">indent</span>
+    <span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">indent</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">Popen</span>
 
-<span class="kn">from</span> <span class="nn">imc.utilities</span> <span class="k">import</span> <span class="n">basename</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">trim</span>
 
 <span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
 <span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
@@ -234,7 +234,7 @@
 <span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
 
 
-<div class="viewcode-block" id="_guess"><a class="viewcode-back" href="../../api.html#imc.msa._guess">[docs]</a><span class="k">def</span> <span class="nf">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+<div class="viewcode-block" id="_guess"><a class="viewcode-back" href="../../api.html#ProtParCon.msa._guess">[docs]</a><span class="k">def</span> <span class="nf">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Guess the name of a multiple sequence alignment (MSA) program according to </span>
 <span class="sd">    its executable.</span>
@@ -263,7 +263,7 @@
     <span class="k">return</span> <span class="n">aligner</span><span class="p">,</span> <span class="n">func</span></div>
 
 
-<div class="viewcode-block" id="_mafft"><a class="viewcode-back" href="../../api.html#imc.msa._mafft">[docs]</a><span class="k">def</span> <span class="nf">_mafft</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_mafft"><a class="viewcode-back" href="../../api.html#ProtParCon.msa._mafft">[docs]</a><span class="k">def</span> <span class="nf">_mafft</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Align multiple sequences using MAFFT_.</span>
 <span class="sd">    </span>
@@ -300,7 +300,7 @@
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
-<div class="viewcode-block" id="_muscle"><a class="viewcode-back" href="../../api.html#imc.msa._muscle">[docs]</a><span class="k">def</span> <span class="nf">_muscle</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_muscle"><a class="viewcode-back" href="../../api.html#ProtParCon.msa._muscle">[docs]</a><span class="k">def</span> <span class="nf">_muscle</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Align multiple sequences using MUSCLE_.</span>
 <span class="sd">    </span>
@@ -331,7 +331,7 @@
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
-<div class="viewcode-block" id="_clustal"><a class="viewcode-back" href="../../api.html#imc.msa._clustal">[docs]</a><span class="k">def</span> <span class="nf">_clustal</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_clustal"><a class="viewcode-back" href="../../api.html#ProtParCon.msa._clustal">[docs]</a><span class="k">def</span> <span class="nf">_clustal</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Align multiple sequences using `CLUSTAL (OMEGA)`_.</span>
 <span class="sd">    </span>
@@ -362,7 +362,7 @@
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
-<div class="viewcode-block" id="_tcoffee"><a class="viewcode-back" href="../../api.html#imc.msa._tcoffee">[docs]</a><span class="k">def</span> <span class="nf">_tcoffee</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
+<div class="viewcode-block" id="_tcoffee"><a class="viewcode-back" href="../../api.html#ProtParCon.msa._tcoffee">[docs]</a><span class="k">def</span> <span class="nf">_tcoffee</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Align multiple sequences using `T-COFFEE`_.</span>
 
@@ -396,7 +396,7 @@
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
-<div class="viewcode-block" id="msa"><a class="viewcode-back" href="../../api.html#imc.msa.msa">[docs]</a><span class="k">def</span> <span class="nf">msa</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="msa"><a class="viewcode-back" href="../../api.html#ProtParCon.msa.msa">[docs]</a><span class="k">def</span> <span class="nf">msa</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">trimming</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    General use function for multiple sequence alignment (MSA).</span>
 
@@ -409,6 +409,8 @@
 <span class="sd">        for fasta format file.</span>
 <span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
 <span class="sd">        default: False, silent mode.</span>
+<span class="sd">    :param trimming: bool, trim gaps and ambiguous sites if True, otherwise,</span>
+<span class="sd">        leave them untouched.</span>
 <span class="sd">    :return: str, path to the aligned sequence output file (in FASTA format).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -439,6 +441,13 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Sequence: </span><span class="si">{}</span><span class="s1"> is not a file or does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">trimming</span><span class="p">:</span>
+        <span class="n">clean</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">basename</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="s1">&#39;.trimmed.fa&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">clean</span><span class="p">):</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found pre-existing trimmed alignment.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">trim</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">clean</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+            <span class="n">outfile</span> <span class="o">=</span> <span class="n">clean</span>
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
@@ -459,7 +468,7 @@
 <span class="s2">&quot;&quot;&quot;</span>
 
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
-    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;imc-msa&#39;</span><span class="p">,</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;ProtParCon-msa&#39;</span><span class="p">,</span>
                                     <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXECUTABLE SEQUENCE&#39;</span><span class="p">,</span>
                                     <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span>
                                     <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
@@ -473,12 +482,16 @@
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the aligned multiple sequence output&#39;</span>
                             <span class="s1">&#39;file (in FASTA format).&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Trim gaps and ambiguous sites or leave them &#39;</span>
+                            <span class="s1">&#39;untouched (default).&#39;</span><span class="p">)</span>
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke verbose or silent (default) process mode.&#39;</span><span class="p">)</span>
     
     <span class="n">args</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">seq</span><span class="p">,</span> <span class="n">exe</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">SEQUENCE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">EXECUTABLE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">o</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">v</span>
-    <span class="n">msa</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="n">trimming</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">t</span>
+    <span class="n">msa</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">trimming</span><span class="o">=</span><span class="n">trimming</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
