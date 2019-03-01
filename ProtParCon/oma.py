@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Query and retrieve orthologous proteins from OMA orthology Database.
+"""
+
 import os
 import sys
 import gzip
@@ -177,6 +181,8 @@ def oma(query, group='', seq='', outdir='', verbose=False):
             cwd = os.path.abspath(outdir)
         except IOError:
             cwd = os.getcwd()
+            warn('Failed to create output directory: {}, using current work '
+                 'directory: {} instead.'.format(outdir, cwd))
     os.chdir(cwd)
     
     size = len(queries)
