@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-This module is designed to provide a common and easy way for identifying
-parallel and convergent amino acid replacements in orthologous protein
-sequences. In order to make this module for general use, function ``ProtParCon()``
-is built on top of other modules to facilitate the identification of
-parallel and convergent amino acid replacements using a wide range of
-sequence data. Depending on the sequence data, optional parameters and external
-programs may be required.
+Providing a common interface for identifying parallel and convergent amino
+acid replacements in orthologous protein sequences. In order to make this
+module for general use, function ``ProtParCon()`` is built on top of other
+modules to facilitate the identification of parallel and convergent amino
+acid replacements using a wide range of sequence data. Depending on the
+sequence data, optional parameters and external programs may be required.
 """
 
 import os

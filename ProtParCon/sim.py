@@ -2,11 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-A simple module wrappers various programs for sequence simulation.
-
-The module is designed to provide a common interface for simulating amino acid
-sequences using various simulation programs. At this stage, the module only
-support simulate sequences using EVOLVER (inside PAML program) and Seq-Gen.
+Providing a common interface for simulating amino acid sequences using
+various simulation programs. At this stage, the module only support simulate
+sequences using EVOLVER (inside PAML program) and Seq-Gen.
 
 The minimum requirement of this interface asks users to provide a NEWICK format
 tree string or tree file and a executable of a simulation program. Users can

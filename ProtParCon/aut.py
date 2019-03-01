@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-The module is designed to provide a common interface for performing topology
-test (`AU test`_) over protein alignments using various programs. 
+Providing a common interface for performing topology test (`AU test`_) over
+protein alignments using various programs.
 
 Users are asked to provide a multiple sequence alignment (MSA) file, a NEWICK 
 format tree file, and a topology test program's executable. If only one tree 
@@ -16,7 +16,7 @@ returned.
 
 Users are recommended only to use function ``aut()`` and avoid to use any
 private functions inside the module. However, users are recommended to
-implement new private functions for additional topology test programs in which 
+implement new private functions for additional topology test programs that
 they are interested and incorporate them into the general use function 
 ``aut()``.
 

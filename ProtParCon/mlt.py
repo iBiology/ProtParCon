@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-The module is designed to provide a common interface for inferring phylogenetic
-trees from alignments of protein sequences using maximum-likelihood method.
+Providing a common interface for inferring phylogenetic trees from alignments
+of protein sequences using maximum-likelihood method.
 
 The minimum requirement for using this module is a multiple sequence alignment
 (MSA) file and an executable of a maximum-likelihood tree inference program.
@@ -15,7 +15,7 @@ model decided by model selection procedure (RAxML and IQ-TREE) will be used.
 Users are recommended to only use function ``mlt()`` and avoid to use any
 private functions in this module. However, users are strongly recommended to
 implement new private functions for additional maximum-likelihood tree
-inference program in which they are interested and incorporate them into the
+inference program that they are interested and incorporate them into the
 general use function ``mlt()``.
 
 .. TODO::

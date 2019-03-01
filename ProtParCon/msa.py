@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-This module is designed to provide a common and easy way to use interface for
-aligning multiple sequences using various align programs.
+Providing a common interface for aligning multiple sequences using various
+align programs.
 
 Users are only asked to provide an alignment programs's executable and an 
 multiple sequence file in FASTA format. The general use function ``msa()`` 
@@ -12,7 +12,7 @@ an error code 1 and an error message logged.
 
 Users are recommended to only use function ``msa()`` and avoid to use any
 private functions inside the module. However, we strongly recommend users 
-to implement new private functions for additional alignment programs in which 
+to implement new private functions for additional alignment programs that
 they are interested and incorporate them into the general use function 
 ``msa()``.
 """

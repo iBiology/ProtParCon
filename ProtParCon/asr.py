@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-This module is designed to provide a common and easy way to use interface for
-ancestral stated reconstruction (ASR) using various ASR programs.
+Providing a common interface for ancestral stated reconstruction (ASR) using
+various ASR programs.
 
 Users are only asked to provide an ASR programs's executable, an aligned 
 multiple sequence file (in FASTA format), and a guide tree (in NEWICK) 
@@ -14,7 +14,7 @@ message logged.
 
 Users are recommended only to use function ``asr()`` and avoid to use any
 private function inside the module. However, users are strongly recommended
-to implement new private functions for additional ASR programs in which they are 
+to implement new private functions for additional ASR programs that they are
 interested and incorporate them into the general use function ``asr()``.
 
 .. _Biopython: https://biopython.org/
