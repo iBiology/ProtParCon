@@ -165,7 +165,8 @@ def _parse(wd):
 
     """
     
-    trees, tree, sequences, ancestors, rates = [], None, [], {}, []
+    trees, tree, sequences, probs, rates = [], None, [], [], []
+    ancestors, aps = {}, {}
     rst, rs = os.path.join(wd, 'rst'), os.path.join(wd, 'rates')
     if os.path.isfile(rst):
         with open(rst) as f:
@@ -173,9 +174,16 @@ def _parse(wd):
                 line = line.strip()
                 if line.startswith('(') and line.endswith(';'):
                     trees.append(line)
+                elif 'Prob of best state at each node' in line:
+                    break
+                    
+            for line in f:
+                line = line.strip()
+                if line and line[0].isdigit() and line.endswith(')'):
+                    probs.append(line)
                 elif 'List of extant and reconstructed sequences' in line:
                     break
-            
+                
             for line in f:
                 line = line.strip()
                 if 'Overall accuracy' in line:
@@ -195,7 +203,7 @@ def _parse(wd):
                 if name and '_' in name:
                     clade.name = name.split('_', maxsplit=1)[1]
                 if clade.confidence:
-                    clade.name = str(clade.confidence)
+                    clade.name = 'NODE{}'.format(clade.confidence)
                     clade.confidence = None
         else:
             error('Incomplete rst file encounter, no trees were found, parse '
@@ -215,8 +223,15 @@ def _parse(wd):
             error('Incomplete rst file encounter, no ancestral sequences were '
                   'found, parse rst file aborted.')
             sys.exit(1)
-        if tree and ancestors:
-            tree, ancestors = _label(tree, ancestors)
+        # if tree and ancestors:
+        #     tree, ancestors = _label(tree, ancestors)
+        if ancestors and probs:
+            aps = {k: '' for k in ancestors.keys() if k.startswith('NODE')}
+            nodes = sorted(aps.keys(), key=lambda n: int(n.replace('NODE', '')))
+            for prob in probs:
+                ps = prob.split()[3:]
+                for i, node in enumerate(nodes):
+                    aps[node] += ps[i]
             
         if os.path.isfile(rs):
             with open(os.path.join(wd, 'rates')) as f:
@@ -234,15 +249,16 @@ def _parse(wd):
         error('Parse rst file aborted, the rst file {} does not '
               'exist'.format(rst))
         sys.exit(1)
-    return tree, ancestors, rates
+    return tree, ancestors, rates, aps
     
     
-def _write(tree, ancestor, rates, outfile):
+def _write(tree, ancestor, rates, aps, outfile):
     """
     Write tree (object) and ancestor (dict) to a output file.
     
     :param tree: object, tree object.
     :param ancestor: dict, dict object for sequence records.
+    :param aps: dict, dict object for probabilities of ancestral states.
     :param outfile: str, path to the output file.
     :return: str, path to the output file.
     """
@@ -253,6 +269,12 @@ def _write(tree, ancestor, rates, outfile):
             if rates:
                 o.write('#RATES\t{}\n\n'.format('\t'.join([str(r)
                                                          for r in rates])))
+            if aps:
+                nodes = sorted(aps.keys(),
+                               key=lambda n: int(n.replace('NODE', '')))
+                o.writelines('#{}\t{}\n'.format(k, aps[k]) for k in nodes)
+                o.write('\n')
+                
             o.writelines('{}\t{}\n'.format(k, v) for k, v in ancestor.items())
     except IOError as err:
         error('Write ancestral reconstruction results to file failed due to:'
@@ -335,9 +357,9 @@ def _codeml(exe, msa, tree, model, gamma, alpha, freq, outfile):
             sys.exit(1)
         else:
             info('Parsing ancestral sequence reconstruction results.')
-            tree, ancestors, rates = _parse(wd)
+            tree, ancestors, rates, aps = _parse(wd)
             
-            outfile = _write(tree, ancestors, rates, outfile)
+            outfile = _write(tree, ancestors, rates, aps, outfile)
             info('Successfully save ancestral states reconstruction '
                  'results to {}.'.format(outfile))
             return outfile
@@ -346,8 +368,8 @@ def _codeml(exe, msa, tree, model, gamma, alpha, freq, outfile):
               '{}.'.format(exe, msa))
         sys.exit(1)
     finally:
-        shutil.rmtree(wd)
-        
+        # shutil.rmtree(wd)
+        pass
         
 def _raxml(exe, msa, tree, model, gamma, alpha, freq, outfile):
     """

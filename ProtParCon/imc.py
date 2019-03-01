@@ -83,7 +83,7 @@ def _load(tsv):
     :return: tuple, tree, rates (list) and sequence records (defaultdict).
     """
     
-    tree, rates, records = None, [], defaultdict(list)
+    tree, rates, records, aps = None, [], defaultdict(list), {}
     with open(tsv) as handle:
         for line in handle:
             blocks = line.strip().split()
@@ -92,6 +92,10 @@ def _load(tsv):
                     tree = Phylo.read(StringIO(blocks[1]), 'newick')
                 elif blocks[0] == '#RATES':
                     rates = [float(i) for i in blocks[1:]]
+                elif blocks[0].startswith('#NODE'):
+                    k = blocks[0].replace('#', '')
+                    ps = blocks[1].split(')')[:-1]
+                    aps[k] = [p.split('(') for p in ps]
                 else:
                     records[blocks[0]].append(blocks[1])
 
@@ -119,7 +123,7 @@ def _load(tsv):
                   'tab separated lines for sequence blocks.'.format(tsv))
             sys.exit(1)
 
-    return tree, rates, records, size
+    return tree, rates, records, aps, size
 
 
 def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
@@ -191,8 +195,8 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
         else:
             sys.exit(1)
     
-    tree, rate, records, size = _load(sequence)
-    return tree, rate, records, size, sequence
+    tree, rate, records, aps, size = _load(sequence)
+    return tree, rate, records, aps, size, sequence
 
 
 def _frequencing(record, site=True):
@@ -385,9 +389,8 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
               'exist, exited.'.format(sequence))
         sys.exit(1)
 
-    tree, rates, records, size, sequence = _sequencing(sequence, tree, aligner,
-                                                       ancestor, wd, asr_model,
-                                                       verbose)
+    rs = _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose)
+    tree, rates, records, aps, size, sequence = rs
 
     pars, cons, details, aup = None, None, None, None
     h1 = ['Category', 'BranchPair']
@@ -421,7 +424,7 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
             s = sim.sim(simulator, ts, model=exp_model, length=length,
                         freq=freq, n=n,  verbose=verbose)
 
-            tree, rates, records, size = _load(s)
+            tree, rates, records, aps, size = _load(s)
             info('Identifying parallel and convergent amino acid replacements in '
                  'simulated sequences.')
             _, par, con, detail = _pc(tree, rates, records, size, length)
