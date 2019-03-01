@@ -1,0 +1,5 @@
+.idea/
+ProtParCon.egg-info
+ProtParCon/__pycache__
+build
+dist
