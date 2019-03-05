@@ -40,8 +40,8 @@ class TestASR(unittest.TestCase):
     @unittest.skipIf(not all(ASR.values()), 'No ASR program provided.')
     def test__guess(self):
         aligners = set(ASR.keys())
-        self.assertSetEqual(aligners,
-                            set(_guess(a)[0] for a in ASR.values()))
+        aligner = set(_guess(a)[0] for a in ASR.values() if a)
+        self.assertTrue(aligner.issubset(aligners))
 
     @unittest.skipIf(CODEML is None, 'No CODEML executable was provided.')
     def test_codeml_dfault(self):

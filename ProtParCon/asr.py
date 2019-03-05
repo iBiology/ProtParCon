@@ -51,7 +51,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
 logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
-CODEML_MODELS = os.path.join(os.path.dirname(__file__), 'data')
+CODEML_MODELS = os.path.join(os.path.dirname(__file__), 'ProtParCon', 'data')
 RAXML_MODELS = ['DAYHOFF', 'DCMUT', 'JTT', 'MTREV', 'WAG', 'RTREV', 'CPREV',
                 'VT', 'BLOSUM62', 'MTMAM', 'LG', 'MTART', 'MTZOA', 'PMB',
                 'HIVB', 'HIVW', 'JTTD', 'CMUT', 'FLU', 'STMTREV', 'DUMMY',

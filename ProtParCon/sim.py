@@ -50,7 +50,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
 logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
-MODELS = os.path.join(os.path.dirname(__file__), 'data')
+MODELS = os.path.join(os.path.dirname(__file__), 'ProtParCon', 'data')
 AMINO_ACIDS = 'ARNDCQEGHILKMFPSTWYV'
 MC_DAT = """0          * 0: paml format (mc.paml); 1:paup format (mc.nex)
 {}         * random number seed (odd number)
@@ -246,13 +246,18 @@ def _evolver(exe, tree, length, freq, model, n, seed, gamma, alpha, invp,
         else:
             info('Parsing and saving simulation results.')
             simulations, tree = _evolver_parse(cwd)
-
-            with open(outfile, 'w') as o:
-                o.write('#TREE\t{}\n'.format(tree.format('newick')))
-                for simulation in simulations:
-                    o.writelines('{}\t{}\n'.format(s.id, s.seq)
-                                 for s in simulation)
-                    o.write('\n')
+            
+            try:
+                with open(outfile, 'w') as o:
+                    o.write('#TREE\t{}\n'.format(tree.format('newick')))
+                    for simulation in simulations:
+                        o.writelines('{}\t{}\n'.format(s.id, s.seq)
+                                     for s in simulation)
+                        o.write('\n')
+            except OSError:
+                error('Failed to save simulation results to {} ('
+                      'IOError, permission denied).'.format(outfile))
+                outfile = ''
             info('Successfully saved simulation results to {}'.format(outfile))
     except OSError:
         error('Invalid PAML (EVOLVER) executable {}, running EVOLVER failed '
@@ -344,19 +349,23 @@ def _seqgen(exe, tree, length, freq, model, n, seed, gamma, alpha, invp,
                     number += 1
                     clade.name = 'NODE{}'.format(number)
                     nodes.append(str(number))
-
-            with open(outfile, 'w') as o:
-                o.write('#TREE\t{}\n'.format(tree.format('newick')))
-                with open(output) as f:
-                    for line in f:
-                        if line.strip():
-                            i, s = line.strip().split()
-                            if i.isdigit() and s.isdigit():
-                                o.write('\n')
-                            else:
-                                if i.isdigit():
-                                    i = 'NODE{}'.format(i)
-                                o.write('{}\t{}\n'.format(i, s))
+            try:
+                with open(outfile, 'w') as o:
+                    o.write('#TREE\t{}\n'.format(tree.format('newick')))
+                    with open(output) as f:
+                        for line in f:
+                            if line.strip():
+                                i, s = line.strip().split()
+                                if i.isdigit() and s.isdigit():
+                                    o.write('\n')
+                                else:
+                                    if i.isdigit():
+                                        i = 'NODE{}'.format(i)
+                                    o.write('{}\t{}\n'.format(i, s))
+            except OSError:
+                error('Failed to save simulation results to {} ('
+                      'IOError, permission denied).'.format(outfile))
+                outfile = ''
             info('Successfully saved simulation results to {}'.format(outfile))
     except OSError:
         error('Invalid Seq-Gen executable {}, running Seq-Gen failed for '
@@ -455,19 +464,8 @@ def sim(exe, tree, model='JTT', msa='', length=100, freq='empirical', n=100,
         seed = random.randint(0, 10000)
     
     name, func = _guess(exe)
-    if outfile:
-        outfile = os.path.abspath(outfile)
-        wd = os.path.dirname(outfile)
-        if not os.path.isdir(wd):
-            try:
-                os.mkdir(wd)
-            except OSError as err:
-                error('Failed to create work directory, due to: '
-                      '\n\t{}'.format(wd, err))
-                sys.exit(1)
-    else:
-        wd = os.getcwd()
-        outfile = os.path.join(wd, '{}.simulations.tsv'.format(name))
+    if not outfile:
+        outfile = os.path.join(os.getcwd(), '{}.simulations.tsv'.format(name))
     return func(exe, tree, length, fs, model, n, seed, gamma, alpha,
                 invp, outfile)
     
