@@ -39,8 +39,8 @@ try:
 except ImportError:
     from ProtParCon.utilities import indent
 
-from ProtParCon.utilities import basename, Tree
-from ProtParCon.mlt import mlt
+from utilities import basename, Tree
+from mlt import mlt
 from Bio import Phylo
 
 LEVEL = logging.INFO
@@ -223,22 +223,22 @@ local file system, but the results will be always printed out.
                        help='Path to the alignment file in FASTA format.')
     parse.add_argument('TREE',
                        help='Path to the tree file or string in NEWICK format.')
-    parse.add_argument('-m',
+    parse.add_argument('-m', '--model',
                        help='Name of the substitution model or filename of the '
                             'model file.')
-    parse.add_argument('-o', help='Path to the output file.')
-    parse.add_argument('-s',
+    parse.add_argument('-o', '--output',
+                       help='Path to the output file.')
+    parse.add_argument('-s', '--seed',
                        help='The seed for initiating the random number '
                             'generator.')
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
-    msa, tree, exe, model = args.MSA, args.TREE, args.EXE, args.m
-    seed, out, verbose = args.s, args.o, args.v
+    msa, tree, exe, model = args.MSA, args.TREE, args.EXE, args.model
     
-    aup, t1, t2 = aut(exe, msa, tree, model=model, seed=seed,
-                      outfile=out, verbose=verbose)
+    aup, t1, t2 = aut(exe, msa, tree, model=model, seed=args.seed,
+                      outfile=args.out, verbose=args.verbose)
     print(aup)
     print(t1)
     print(t2)

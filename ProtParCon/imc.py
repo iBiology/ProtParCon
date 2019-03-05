@@ -25,9 +25,9 @@ from collections import namedtuple, Counter, defaultdict
 from Bio import Phylo, SeqIO, AlignIO
 from scipy.stats import poisson
 
-from ProtParCon import msa, asr, aut, sim, utilities
-from ProtParCon.utilities import modeling
-from ProtParCon.models import models
+import msa, asr, aut, sim, utilities
+from utilities import modeling
+from models import models
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -655,38 +655,35 @@ Sequence data file covers a wide range of files and formats:
     
     parse.add_argument('SEQUENCE',
                        help='Path to the sequence data file.')
-    parse.add_argument('-tree',
+    parse.add_argument('-t', '--tree',
                        help='Path to the NEWICK format tree file.')
-    parse.add_argument('-aligner',
+    parse.add_argument('-l', '--aligner',
                        help='Path to the executable of an alignment program')
-    parse.add_argument('-ancestor',
+    parse.add_argument('-a', '--ancestor',
                        help='Path to the executable of an ancestral states '
                             'reconstruction program.')
-    parse.add_argument('-simulator',
+    parse.add_argument('-s', '--simulator',
                        help='Path to the executable of an sequence simulation '
                             'program.')
-    parse.add_argument('-asr_model', default='JTT',
+    parse.add_argument('-m', '--asr_model', default='JTT',
                        help='Model name or model file for ancestral states '
                             'reconstruction.')
-    parse.add_argument('-exp_model',
+    parse.add_argument('-r', '--exp_model',
                        help='Model name or model file for sequence simulation.')
-    parse.add_argument('-n', default=100, type=int,
+    parse.add_argument('-n', '--number', default=100, type=int,
                        help='Number of datasets (or duplicates) should be '
                             'simulated.')
 
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
     s, tree = args.SEQUENCE, args.tree
-    aligner, ancestor = args.aligner, args.ancestor
-    simulator = args.simulator
-    asr_model, exp_model = args.asr_model, args.exp_model
-    n, verbose = args.n, args.v
     
-    imc(s, tree=tree, aligner=aligner, ancestor=ancestor, simulator=simulator,
-        asr_model=asr_model, exp_model=exp_model, n=n, verbose=verbose,
-        save=True)
+    imc(s, tree=tree, aligner=args.aligner, ancestor=args.ancestor,
+        simulator=args.simulator, asr_model=args.asr_model,
+        exp_model=args.exp_model, n=args.number,
+        verbose=args.verbose, save=True)
 
 
 if __name__ == '__main__':

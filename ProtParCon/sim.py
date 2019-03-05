@@ -30,12 +30,12 @@ from io import StringIO
 try:
     from textwrap import indent
 except ImportError:
-    from ProtParCon.utilities import indent
+    from utilities import indent
 from collections import Counter
 from subprocess import PIPE, Popen
 
-from ProtParCon.utilities import basename, modeling, Tree
-from ProtParCon.models import models
+from utilities import basename, modeling, Tree
+from models import models
 from Bio import Phylo, AlignIO
 
 LEVEL = logging.INFO
@@ -498,41 +498,41 @@ the p-value of AU TEST for the first tree will be printed out.
     parse.add_argument('TREE',
                        help='Pathname of a tree file or a tree string in '
                             'newick format.')
-    parse.add_argument('-msa',
+    parse.add_argument('-r', '--msa',
                        help='Pathname of the MSA (sequence) file.')
-    parse.add_argument('-len', default=100,
+    parse.add_argument('-l', '--length', default=100,
                        help='the number of the amino acid sites need to '
                             'be simulated')
-    parse.add_argument('-freq', default='empirical',
+    parse.add_argument('-f', '--frequency', default='empirical',
                        help='Comma separated state frequencies.')
-    parse.add_argument('-model', default='JTT',
+    parse.add_argument('-m', '--model', default='JTT',
                        help='Name of the evolutionary model or filename of the '
                             'model file.')
-    parse.add_argument('-gamma', default=4,
+    parse.add_argument('-g', '--gamma', default=4,
                        help='The number of categories for the discrete gamma '
                             'rate heterogeneity model.')
-    parse.add_argument('-alpha', default=0.5,
+    parse.add_argument('-a', '--alpha', default=0.5,
                        help='The shape (alpha) for the gamma rate '
                             'heterogeneity.')
-    parse.add_argument('-num', default=3,
+    parse.add_argument('-n', '--number', default=3,
                        help='Number of datasets to be simulated.')
-    parse.add_argument('-seed',
+    parse.add_argument('-s', '--seed',
                        help='Random number seed.')
-    parse.add_argument('-invp', default=0,
+    parse.add_argument('-i', '--invp', default=0,
                        help='The proportion of invariable sites.')
-    parse.add_argument('-o',
+    parse.add_argument('-o', '--output',
                        help='Pathname of the output file for storing '
                             'simulated sequences.')
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-v','--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
-    exe, tree, msa, length = args.EXE, args.TREE, args.msa, args.len
-    freq, model, gamma, alpha = args.freq, args.model, args.gamma, args.alpha
-    num, seed, invp, o, verbose = args.num, args.seed, args.invp, args.o, args.v
+    exe, tree = args.EXE, args.TREE
 
-    sim(exe, tree, model, msa=msa, length=length, freq=freq, n=num, seed=seed,
-        gamma=gamma, alpha=alpha, invp=invp, outfile=o, verbose=verbose)
+    sim(exe, tree, args.model, msa=args.msa, length=args.length,
+        freq=args.frequency, n=args.number, seed=args.seed, gamma=args.gamma,
+        alpha=args.alpha, invp=args.invp, outfile=args.output,
+        verbose=args.verbose)
 
 
 if __name__ == '__main__':

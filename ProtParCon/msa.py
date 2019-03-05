@@ -29,7 +29,7 @@ except ImportError:
     from ProtParCon.utilities import indent
 from subprocess import PIPE, Popen
 
-from ProtParCon.utilities import basename, trim
+from utilities import basename, trim
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -290,20 +290,19 @@ all errors, warnings and information about processing details will be logged.
     parse.add_argument('SEQUENCE',
                        help='Path to the multiple sequence input file '
                             '(must in FASTA format).')
-    parse.add_argument('-o',
+    parse.add_argument('-o', '--output',
                        help='Path to the aligned multiple sequence output'
                             'file (in FASTA format).')
-    parse.add_argument('-t', action='store_true',
+    parse.add_argument('-t', '--trim', action='store_true',
                        help='Trim gaps and ambiguous sites or leave them '
                             'untouched (default).')
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
-    seq, exe, out, verbose = args.SEQUENCE, args.EXECUTABLE, args.o, args.v
-    trimming = args.t
-    msa(exe, seq, outfile=out, verbose=verbose, trimming=trimming)
+    seq, exe, out = args.SEQUENCE, args.EXECUTABLE, args.output
+    msa(exe, seq, outfile=out, verbose=args.verbose, trimming=args.trim)
 
 
 if __name__ == '__main__':
-    pass
+    main()

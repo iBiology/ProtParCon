@@ -35,12 +35,12 @@ import argparse
 try:
     from textwrap import indent
 except ImportError:
-    from ProtParCon.utilities import indent
+    from utilities import indent
 from collections import namedtuple
 from subprocess import PIPE, Popen, DEVNULL
 
 from Bio import Phylo, AlignIO
-from ProtParCon.utilities import basename, modeling
+from utilities import basename, modeling
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -174,7 +174,8 @@ def _iqtree(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
     Infer ML phylogenetic tree using IQ-TREE.
     """
     
-    wd = tempfile.mkdtemp()
+    wd = tempfile.mkdtemp(dir=os.path.dirname(os.path.abspath(msa)))
+    shutil.copy(msa, os.path.join(wd, 'msa.fa'))
     if model.name:
         name = model.name.upper()
         if model.type == 'builtin':
@@ -199,9 +200,9 @@ def _iqtree(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
     info('Inferring ML tree for {} using IQ-TREE.'.format(msa))
     # iqtree_cmd = 'exe -s seq -t user_tree -pre prefix -nt 1 -seed seed
     # -quiet -m MFP -g constraint_tree'
-    args = [exe, '-s', msa, '-nt', '1', '-pre', 'tmf', '-seed', str(seed)]
+    args = [exe, '-s', 'msa.fa', '-nt', '1', '-pre', 'tmf', '-seed', str(seed)]
     args.extend(m)
-    args.append('-quiet')
+    # args.append('-quiet')
     
     if gamma and alpha:
         args.extend(['-a', str(alpha)])
@@ -210,9 +211,9 @@ def _iqtree(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
     if constraint_tree:
         args.extend(['-g', constraint_tree])
     try:
-        info('Running FastTree using the following command:\n\t'
-             '{}'.format(' '.join(args)))
-        process = Popen(args, cwd=wd, stdout=os.devnull, stderr=PIPE,
+        # info('Running IQTree using the following command:\n\t'
+        #      '{}'.format(' '.join(args)))
+        process = Popen(args, cwd=wd, stdout=PIPE, stderr=PIPE,
                         universal_newlines=True)
         code = process.wait()
         if code:
@@ -246,8 +247,9 @@ def _raxml(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
     """
     Infer ML phylogenetic tree using RAxML.
     """
-    
-    wd = tempfile.mkdtemp()
+
+    wd = tempfile.mkdtemp(dir=os.path.dirname(os.path.abspath(msa)))
+    shutil.copy(msa, os.path.join(wd, 'msa.fa'))
     if model.type == 'builtin':
         frequency = freq or model.frequency
         frequency = 'X' if frequency == 'estimate' else 'F'
@@ -263,7 +265,7 @@ def _raxml(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
         model = ['-P', model.name]
     
     info('Inferring ML tree for {} using RAxML.'.format(msa))
-    args = [exe, '-s', msa, '-n', 'RAxML', '-p', str(seed), '--silent']
+    args = [exe, '-s', 'msa.fa', '-n', 'RAxML', '-p', str(seed), '--silent']
     args.extend(model)
     cat = cat if cat not in ('None', 'none', None) else 0
     if cat:
@@ -273,8 +275,8 @@ def _raxml(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
     if constraint_tree:
         args.extend(['-r', constraint_tree])
     try:
-        info('Running FastTree using the following command:\n\t'
-             '{}'.format(' '.join(args)))
+        # info('Running FastTree using the following command:\n\t'
+        #      '{}'.format(' '.join(args)))
         process = Popen(args, cwd=wd, stdout=DEVNULL, stderr=PIPE,
                         universal_newlines=True)
         code = process.wait()
@@ -312,7 +314,7 @@ def _phyml(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
     
     # cmd = 'exe -i seq -d aa -m JTT -f e|m -v invariable -c 4 -a gamma-alpha
     # --quiet --r_seed num -u user_tree_file'
-    wd = tempfile.mkdtemp()
+    wd = tempfile.mkdtemp(dir=os.path.dirname(os.path.abspath(msa)))
     alignment = 'temporary.alignment.phylip'
     AlignIO.convert(msa, 'fasta', os.path.join(wd, alignment), 'phylip')
     
@@ -352,8 +354,8 @@ def _phyml(exe, msa, model, cat, gamma, alpha, freq, invp, start_tree,
             args.extend(['-v', str(invp)])
     
     try:
-        info('Running FastTree using the following command:\n\t'
-             '{}'.format(' '.join(args)))
+        # info('Running FastTree using the following command:\n\t'
+        #      '{}'.format(' '.join(args)))
         process = Popen(args, cwd=wd, stdout=PIPE, stderr=PIPE,
                         universal_newlines=True)
         code = process.wait()
@@ -483,35 +485,37 @@ four programs, they will be automatically ignored.
                             'program.')
     parse.add_argument('MSA',
                        help='Pathname of the alignment file in fasta format.')
-    parse.add_argument('-model',
+    parse.add_argument('-m', '--model',
                        help='Name of the evolutionary model or filename of the '
                             'model file.')
-    parse.add_argument('-cat', help='Invoke CAT model and set the number of '
-                                    'categories to value of cat.', default=0)
-    parse.add_argument('-gamma', default=0,
+    parse.add_argument('-c', '--category',
+                       help='Invoke CAT model and set the number of '
+                            'categories to value of cat.', default=0)
+    parse.add_argument('-g', '--gamma', default=0,
                        help='Invoke discrete Gamma model and set the number of '
                             'categories to value of gamma.')
-    parse.add_argument('-alpha', help='The Gamma shape parameter alpha.')
-    parse.add_argument('-freq', help='Amino acid frequency, either m or e.')
-    parse.add_argument('-invp', help='Proportion of invariable sites.')
-    parse.add_argument('-stree', help='Path of the starting tree file.')
-    parse.add_argument('-ctree', help='Path of the constraint tree file.')
-    parse.add_argument('-seed',
+    parse.add_argument('-a', '--alpha', help='The Gamma shape parameter alpha.')
+    parse.add_argument('-f', '--frequency',
+                       help='Amino acid frequency, either m or e.')
+    parse.add_argument('-i', '--invp', help='Proportion of invariable sites.')
+    parse.add_argument('-p', '--stree', help='Path of the starting tree file.')
+    parse.add_argument('-q', '--ctree',
+                       help='Path of the constraint tree file.')
+    parse.add_argument('-s', '--seed',
                        help='The seed for initiating the random number '
                             'generator.')
-    parse.add_argument('-o', help='Pathname of the ML tree output file.')
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-o', '--output',
+                       help='Pathname of the ML tree output file.')
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
 
     args = parse.parse_args()
-    msa, exe, model, cat = args.MSA, args.EXECUTABLE, args.model, args.cat
-    invp, gamma, alpha, freq = args.invp, args.gamma, args.alpha, args.freq
-    stree, ctree, seed, outfile = args.stree, args.ctree, args.seed, args.o
-    verbose = args.v
-    
-    mlt(exe, msa, model=model, cat=cat, gamma=gamma, alpha=alpha, freq=freq,
-        invp=invp, start_tree=stree, constraint_tree=ctree, seed=seed,
-        verbose=verbose)
+    msa, exe = args.MSA, args.EXECUTABLE
+
+    mlt(exe, msa, model=args.model, cat=args.category, gamma=args.gamma,
+        alpha=args.alpha, freq=args.frequency, invp=args.invp,
+        start_tree=args.stree, constraint_tree=args.ctree,
+        seed=args.seed, verbose=args.verbose)
     
 
 if __name__ == '__main__':

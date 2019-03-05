@@ -254,23 +254,24 @@ Orthologous protein sequence file will be saved in FASTA format using
     parse.add_argument('QUERY',
                        help='Comma separated string consists of taxa IDs, '
                             'OMA codes or scientific names or mix of them.')
-    parse.add_argument('-g',
+    parse.add_argument('-g', '--group',
                        help='Path to the OMA groups gzip (or unzipped) file.')
-    parse.add_argument('-s',
+    parse.add_argument('-s', '--sequence',
                        help='Path to the OMA sequences gzip (or unzipped) '
                             'file.')
-    parse.add_argument('-o', help='Path of the output directory.')
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-o', '--output',
+                       help='Path of the output directory.')
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
-    query, g, s, o, v = args.QUERY, args.g, args.s, args.o, args.v
-    query = query.split(',')
-    oma(query, group=g, seq=s, outdir=o, verbose=v)
+    query = args.QUERY.split(',')
+    oma(query, group=args.group, seq=args.sequence, outdir=args.output,
+        verbose=args.verbose)
 
 
 if __name__ == '__main__':
-    pass
+    main()
     # folder = r'C:\Users\tianz\Downloads\iparcon-dataset\oma'
     # taxa = [('ORNAN', 9258, 'Ornithorhynchus anatinus'),
     #         ('TURTR', 9739, 'Tursiops truncatus'),

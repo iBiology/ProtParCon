@@ -28,8 +28,7 @@ PHYML = None
 EVOLVER = r"C:\Users\tianz\bin\evolver.exe"
 SEQGEN = None
 
-CLEANUP = False
-# CLEANUP = True
+CLEANUP = True
 
 # The following executables are used by myself, I have all these executables
 # installed into $HOME/bin directory and the directory is a part of $PATH.

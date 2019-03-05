@@ -33,11 +33,11 @@ from subprocess import PIPE, Popen
 try:
     from textwrap import indent
 except ImportError:
-    from ProtParCon.utilities import indent
+    from utilities import indent
 
 from Bio import Phylo, AlignIO
-from ProtParCon.utilities import basename, modeling, Tree
-from ProtParCon.models import models
+from utilities import basename, modeling, Tree
+from models import models
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -354,7 +354,7 @@ def _codeml(exe, msa, tree, model, gamma, alpha, freq, outfile):
                         stderr=PIPE, universal_newlines=True)
 
         code = process.wait()
-        msg = process.stdout.read() or process.stderr.read()
+        msg = process.stdout.read() + process.stderr.read()
         if code:
             error('Ancestral reconstruction via CODEML failed for {} due to:'
                   '\n{}'.format(msa, indent(msg, prefix='\t')))
@@ -672,31 +672,29 @@ file are tab separated sequence IDs and amino acid sequences.
     parse.add_argument('TREE',
                        help='Pathname of the guide tree (or topology) file '
                             'in NEWICK format.')
-    parse.add_argument('-model', default='JTT',
+    parse.add_argument('-m', '--model', default='JTT',
                        help='Name of the evolutionary model or filename of the '
                             'model file.')
-    parse.add_argument('-gamma',
+    parse.add_argument('-g', '--gamma',
                        help='The number of categories for the discrete gamma '
                             'rate heterogeneity model.')
-    parse.add_argument('-alpha',
+    parse.add_argument('-a', '--alpha',
                        help='The shape (alpha) for the gamma rate '
                             'heterogeneity.')
-    parse.add_argument('-freq',
+    parse.add_argument('-f', '--frequency',
                        help='Comma separated state frequencies.')
-    parse.add_argument('-o',
+    parse.add_argument('-o', '--output',
                        help='Path of the output file.')
-    parse.add_argument('-v', action='store_true',
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
     exe, tree, msa, model = args.EXE, args.TREE, args.MSA, args.model
-    freq, gamma, alpha, v = args.freq, args.gamma, args.alpha, args.v
-    out = args.o
 
-    outfile = out if out else 'iMC-default'
+    out = args.output if args.output else 'iMC-default'
     
-    asr(exe, msa, tree, model, gamma=gamma, alpha=alpha, freq=freq,
-        verbose=v, outfile=outfile)
+    asr(exe, msa, tree, model, gamma=args.gamma, alpha=args.alpha,
+        freq=args.frequency, outfile=out, verbose=args.verbose)
 
 
 if __name__ == '__main__':
