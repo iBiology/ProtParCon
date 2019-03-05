@@ -368,8 +368,8 @@ def _codeml(exe, msa, tree, model, gamma, alpha, freq, outfile):
               '{}.'.format(exe, msa))
         sys.exit(1)
     finally:
-        # shutil.rmtree(wd)
-        pass
+        shutil.rmtree(wd)
+
         
 def _raxml(exe, msa, tree, model, gamma, alpha, freq, outfile):
     """
