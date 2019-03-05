@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import settings
 
 CLEANUP = settings.CLEANUP
+# CLEANUP = True
 
 MUSCLE = settings.MUSCLE
 CODEML = settings.CODEML
@@ -46,9 +47,9 @@ class TestAUT(unittest.TestCase):
     @unittest.skipIf((MUSCLE is None) or (CODEML is None),
                      'No valid executable provided.')
     def test_imc_seq_muscle_codeml(self):
-        outs = {'sequence.muscle-codeml.tsv',
-                'sequence.muscle-codeml.counts.tsv',
-                'sequence.muscle-codeml.details.tsv',
+        outs = {'sequence.muscle.codeml.tsv',
+                'sequence.muscle.codeml.counts.tsv',
+                'sequence.muscle.codeml.details.tsv',
                 'sequence.muscle.fa', 'sequence.muscle.trimmed.fa'}
         pars, cons, divs, details, _ = imc(self.seq, self.tree, aligner=MUSCLE,
                                            ancestor=CODEML, save=True)
@@ -58,7 +59,7 @@ class TestAUT(unittest.TestCase):
         self.assertIsNotNone(details)
         self.assertTrue(outs.issubset(set(os.listdir(wd))))
         self.rms = outs
-    
+
     @unittest.skipIf((MUSCLE is None) or (CODEML is None) or (EVOLVER is None),
                      'No valid executable provided.')
     def test_imc_seq_muscle_codeml_evolver_iqtree(self):
@@ -108,27 +109,20 @@ class TestAUT(unittest.TestCase):
         self.assertTrue(outs.issubset(set(os.listdir(wd))))
         self.rms = outs
 
-    # def test_imc_obs(self):
-    #     wd = os.path.join(PATH, 'tests', 'data', 'imc', 'obs')
-    #     outs = ['ProtParCon.counts.tsv', 'ProtParCon.details.tsv']
-    #     pars, cons, divs, details, _ = imc(self.asr)
-    #     self.assertIsNotNone(pars)
-    #     self.assertIsNotNone(cons)
-    #     self.assertIsNotNone(details)
-    #     self.assertIsNone(divs)
-    #     self.assertListEqual(outs, sorted(os.listdir(wd)))
-    #     self.rm = wd
-    #
-    # def test_imc_sim(self):
-    #     wd = os.path.join(PATH, 'tests', 'data', 'imc', 'sim')
-    #     outs = ['ProtParCon.counts.tsv', 'ProtParCon.details.tsv']
-    #     pars, cons, divs, details, _ = imc(self.sim)
-    #     self.assertIsNotNone(pars)
-    #     self.assertIsNotNone(cons)
-    #     self.assertIsNotNone(divs)
-    #     self.assertIsNotNone(details)
-    #     self.assertListEqual(outs, sorted(os.listdir(wd)))
-    #     self.rm = wd
+    def test_imc_threshold(self):
+        outs = {'sequence.muscle.codeml.tsv',
+                'sequence.muscle.codeml.counts.tsv',
+                'sequence.muscle.codeml.details.tsv', 'sequence.muscle.fa',
+                'sequence.muscle.trimmed.fa'}
+        pars, cons, divs, details, _ = imc(self.seq, self.tree, aligner=MUSCLE,
+                                           ancestor=CODEML,  threshold=0.5,
+                                           save=True, verbose=True)
+        self.assertIsNotNone(pars)
+        self.assertIsNotNone(cons)
+        self.assertIsNotNone(divs)
+        self.assertIsNotNone(details)
+        self.assertTrue(outs.issubset(set(os.listdir(wd))))
+        self.rms = outs
 
   
 if __name__ == '__main__':

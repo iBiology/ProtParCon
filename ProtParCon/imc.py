@@ -26,6 +26,8 @@ from Bio import Phylo, SeqIO, AlignIO
 from scipy.stats import poisson
 
 from ProtParCon import msa, asr, aut, sim, utilities
+from ProtParCon.utilities import modeling
+from ProtParCon.models import models
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -40,7 +42,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
 logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
-AMINO_ACIDS = set('ARNDCQEGHILKMFPSTWYV')
+AMINO_ACIDS = 'ARNDCQEGHILKMFPSTWYV'
 
 
 def _pairing(tree, indpairs=True):
@@ -265,14 +267,13 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
     details = []
 
     detail = namedtuple('replacement', 'category position pair r1 r2 dataset')
+    AA = set(AMINO_ACIDS)
     for i in range(size):
         record = {k: v[i] for k, v in records.items()}
 
         for pair in pairs:
             (t1p, t1), (t2p, t2) = pair
             name = '-'.join([t1, t2])
-            if size == 1 and i == 0 and rates and probs is not None:
-                info('Computing expected probability for {}'.format(name))
             po, pe, co, ce, do = 0, 0, 0, 0, 0
             for pos in range(length):
                 if aps:
@@ -290,7 +291,7 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
                     p_s1p, p_s1, p_s2p, p_s2 = 1.0, 1.0, 1.0, 1.0
 
                 aa = {s1, s2, s1p, s2p}
-                if not aa.issubset(AMINO_ACIDS):
+                if not aa.issubset(AA):
                     continue
                     
                 if threshold:
@@ -327,9 +328,9 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
                     pe += p
                     ce += c
             if rates and probs is not None:
-                
                 pars[name].extend([po, pe])
                 cons[name].extend([co, ce])
+                divs[name].extend([do, 0.0])
             else:
                 pars[name].append(po)
                 cons[name].append(co)
@@ -339,38 +340,41 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
     
 
 def _load_matrix(model):
-    if model.lower() == 'jtt':
+    probs, pi = np.zeros((20, 20)), np.zeros((20,))
+    model = modeling(model).name
+    if model.lower() in ('jtt', 'jones'):
+        handle = StringIO(models['jtt'])
         model = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                              'ProtParCon', 'data', 'jtt')
     else:
         if os.path.isfile(model):
-            pass
+            handle = open(model)
         else:
             error('Unsupported model for computing expected changes, '
                   'calculation aborted.')
             return None, None
-    probs, pi = np.zeros((20, 20)), np.zeros((20, ))
-    with open(model) as f:
-        for line in f:
-            fields = line.strip().split()
-            if len(fields) == 20 and all([i.replace('.', '').isdigit()
-                                          for i in fields]):
-                pi = np.array([float(i) for i in fields])
-                break
+    
+    for line in handle:
+        fields = line.strip().split()
+        if len(fields) == 20 and all([i.replace('.', '').isdigit()
+                                      for i in fields]):
+            pi = np.array([float(i) for i in fields])
+            break
 
-        n = 0
-        for line in f:
-            fields = line.strip().split()
-            if len(fields) == 20 and all([i.replace('.', '').isdigit()
-                                          for i in fields]):
-                probs[n, :] = [float(field) for field in fields]
-                n += 1
+    n = 0
+    for line in handle:
+        fields = line.strip().split()
+        if len(fields) == 20 and all([i.replace('.', '').isdigit()
+                                      for i in fields]):
+            probs[n, :] = [float(field) for field in fields]
+            n += 1
+    handle.close()
 
     return probs, pi
     
     
 def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
-        asr_model='JTT', exp_model='JTT', n=100, divergent=True, indpairs=True,
+        asr_model='JTT', exp_model='', n=100, divergent=True, indpairs=True,
         threshold=0.0, verbose=False):
     
     """
@@ -504,8 +508,6 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
             c.write('{}\n'.format('\t'.join(h2)))
             c.writelines('{}\t{}\t{}\t{}\t{}\t{}\n'.format(*detail)
                          for detail in details)
-    else:
-        print('Empty')
     
     return pars, cons, divs, details, length
 

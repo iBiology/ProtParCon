@@ -37,6 +37,7 @@ except ImportError:
 
 from Bio import Phylo, AlignIO
 from ProtParCon.utilities import basename, modeling, Tree
+from ProtParCon.models import models
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -308,21 +309,24 @@ def _codeml(exe, msa, tree, model, gamma, alpha, freq, outfile):
     """
     
     cwd = os.getcwd()
+    wd, tf = tempfile.mkdtemp(dir=os.path.dirname(msa)), 'codeml.tree.newick'
+    tf = tree.file(os.path.join(wd, tf), brlen=False)
+
     if model.type == 'custom':
         mf = model.name
         info('Use custom model file {} for ancestral states '
              'reconstruction.'.format(mf))
     else:
         name = model.name
-        info('Use {} model for ancestral states reconstruction.'.format(name))
-        mf = os.path.join(CODEML_MODELS, '{}'.format(name.lower()))
-        if not os.path.isfile(mf):
-            error('Failed to find model file for model {}, aborted.'.format(
+        if name.lower() in models:
+            info('Using {} model for ancestral states reconstruction.'.format(
                     name))
+            with open(os.path.join(wd, name), 'w') as o:
+                o.write(models[name.lower()])
+            mf = name
+        else:
+            error('PAML (codeml) does not support model {}.'.format(name))
             sys.exit(1)
-    
-    wd, tf = tempfile.mkdtemp(dir=os.path.dirname(msa)), 'codeml.tree.newick'
-    tf = tree.file(os.path.join(wd, tf), brlen=False)
         
     parameters = {'seq': msa, 'tree': tf, 'mf': mf}
     if model.frequency == 'estimate':

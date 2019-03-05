@@ -35,6 +35,7 @@ from collections import Counter
 from subprocess import PIPE, Popen
 
 from ProtParCon.utilities import basename, modeling, Tree
+from ProtParCon.models import models
 from Bio import Phylo, AlignIO
 
 LEVEL = logging.INFO
@@ -212,11 +213,15 @@ def _evolver(exe, tree, length, freq, model, n, seed, gamma, alpha, invp,
     if m.type == 'custom':
         mf = m.name
     else:
-        mf = os.path.join(MODELS, m.name.lower())
-        if not os.path.isfile(mf):
-            error('Unaccepted model {}, simulation aborted.'.format(model))
-            if os.path.isdir(cwd):
-                shutil.rmtree(cwd)
+        name = m.name
+        if name.lower() in models:
+            info('Using {} model for ancestral states reconstruction.'.format(
+                    name))
+            with open(os.path.join(cwd, name), 'w') as o:
+                o.write(models[name.lower()])
+            mf = name
+        else:
+            error('PAML (evolver) does not support model {}.'.format(name))
             sys.exit(1)
 
     if freq is None:
