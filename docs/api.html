@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; ProtParCon 1.0 documentation</title>
+  <title>API Reference &mdash; ProtParCon 2.0 documentation</title>
   
 
   
@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Using ProtParCon in terminal" href="usage-shell.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -57,7 +59,7 @@
             
             
               <div class="version">
-                1.0
+                2.0
               </div>
             
           
@@ -84,6 +86,7 @@
               <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html#work-flow-of-protparcon">Work-Flow of ProtParCon</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html#what-just-happened">What just happened?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html#what-else">What else?</a></li>
@@ -195,15 +198,15 @@
 developers and experienced users to extend ProtParCon.</p>
 <div class="section" id="module-ProtParCon.msa">
 <span id="msa"></span><h2>msa<a class="headerlink" href="#module-ProtParCon.msa" title="Permalink to this headline">¶</a></h2>
-<p>This module is designed to provide a common and easy way to use interface for
-aligning multiple sequences using various align programs.</p>
+<p>Providing a common interface for aligning multiple sequences using various
+align programs.</p>
 <p>Users are only asked to provide an alignment programs’s executable and an 
 multiple sequence file in FASTA format. The general use function <code class="docutils literal notranslate"><span class="pre">msa()</span></code> 
 will always return the pathname of the alignment output file or exit with 
 an error code 1 and an error message logged.</p>
 <p>Users are recommended to only use function <code class="docutils literal notranslate"><span class="pre">msa()</span></code> and avoid to use any
 private functions inside the module. However, we strongly recommend users 
-to implement new private functions for additional alignment programs in which 
+to implement new private functions for additional alignment programs that
 they are interested and incorporate them into the general use function 
 <code class="docutils literal notranslate"><span class="pre">msa()</span></code>.</p>
 <dl class="function">
@@ -348,8 +351,8 @@ leave them untouched.</li>
 </div>
 <div class="section" id="module-ProtParCon.asr">
 <span id="asr"></span><h2>asr<a class="headerlink" href="#module-ProtParCon.asr" title="Permalink to this headline">¶</a></h2>
-<p>This module is designed to provide a common and easy way to use interface for
-ancestral stated reconstruction (ASR) using various ASR programs.</p>
+<p>Providing a common interface for ancestral stated reconstruction (ASR) using
+various ASR programs.</p>
 <p>Users are only asked to provide an ASR programs’s executable, an aligned 
 multiple sequence file (in FASTA format), and a guide tree (in NEWICK) 
 format. The general use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> will always return dict object
@@ -358,7 +361,7 @@ module inside <a class="reference external" href="https://biopython.org/">Biopyt
 message logged.</p>
 <p>Users are recommended only to use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code> and avoid to use any
 private function inside the module. However, users are strongly recommended
-to implement new private functions for additional ASR programs in which they are 
+to implement new private functions for additional ASR programs that they are
 interested and incorporate them into the general use function <code class="docutils literal notranslate"><span class="pre">asr()</span></code>.</p>
 <dl class="function">
 <dt id="ProtParCon.asr._codeml">
@@ -517,7 +520,7 @@ heterogeneity model.</li>
 
 <dl class="function">
 <dt id="ProtParCon.asr._write">
-<code class="descclassname">ProtParCon.asr.</code><code class="descname">_write</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestor</em>, <em>rates</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._write" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ProtParCon.asr.</code><code class="descname">_write</code><span class="sig-paren">(</span><em>tree</em>, <em>ancestor</em>, <em>rates</em>, <em>aps</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/asr.html#_write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.asr._write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write tree (object) and ancestor (dict) to a output file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -526,6 +529,7 @@ heterogeneity model.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>tree</strong> – object, tree object.</li>
 <li><strong>ancestor</strong> – dict, dict object for sequence records.</li>
+<li><strong>aps</strong> – dict, dict object for probabilities of ancestral states.</li>
 <li><strong>outfile</strong> – str, path to the output file.</li>
 </ul>
 </td>
@@ -597,13 +601,12 @@ RAxML, the number of categories will always be set to 4 if G presented.</p>
 </div>
 <div class="section" id="module-ProtParCon.imc">
 <span id="imc"></span><h2>imc<a class="headerlink" href="#module-ProtParCon.imc" title="Permalink to this headline">¶</a></h2>
-<p>This module is designed to provide a common and easy way for identifying
-parallel and convergent amino acid replacements in orthologous protein
-sequences. In order to make this module for general use, function <code class="docutils literal notranslate"><span class="pre">ProtParCon()</span></code>
-is built on top of other modules to facilitate the identification of
-parallel and convergent amino acid replacements using a wide range of
-sequence data. Depending on the sequence data, optional parameters and external
-programs may be required.</p>
+<p>Providing a common interface for identifying parallel and convergent amino
+acid replacements in orthologous protein sequences. In order to make this
+module for general use, function <code class="docutils literal notranslate"><span class="pre">ProtParCon()</span></code> is built on top of other
+modules to facilitate the identification of parallel and convergent amino
+acid replacements using a wide range of sequence data. Depending on the
+sequence data, optional parameters and external programs may be required.</p>
 <dl class="function">
 <dt id="ProtParCon.imc._load">
 <code class="descclassname">ProtParCon.imc.</code><code class="descname">_load</code><span class="sig-paren">(</span><em>tsv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._load" title="Permalink to this definition">¶</a></dt>
@@ -623,16 +626,22 @@ sequences.</td>
 
 <dl class="function">
 <dt id="ProtParCon.imc._pairing">
-<code class="descclassname">ProtParCon.imc.</code><code class="descname">_pairing</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_pairing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._pairing" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">_pairing</code><span class="sig-paren">(</span><em>tree</em>, <em>indpairs=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_pairing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._pairing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checking whether two branches are sister branch pair or branch pair sharing
 the same evolutionary path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tree</strong> – object, a tree object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tree</strong> – object, a tree object.</li>
+<li><strong>indpairs</strong> – bool, only return independent branch pairs if true,
+or return all branch pairs if False.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple, a list of branches and a list of branch pairs.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a list of branches and a list of branch pairs.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -641,7 +650,7 @@ the same evolutionary path.</p>
 <dl class="function">
 <dt id="ProtParCon.imc._sequencing">
 <code class="descclassname">ProtParCon.imc.</code><code class="descname">_sequencing</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree</em>, <em>aligner</em>, <em>ancestor</em>, <em>wd</em>, <em>asr_model</em>, <em>verbose</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_sequencing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._sequencing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identify the type foe sequence file.</p>
+<dd><p>Identify the type of the sequence file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -684,7 +693,7 @@ significantly different to the expected value.</p>
 
 <dl class="function">
 <dt id="ProtParCon.imc.imc">
-<code class="descclassname">ProtParCon.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>save=False</em>, <em>asr_model='JTT'</em>, <em>exp_model=''</em>, <em>n=100</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc.imc" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>save=False</em>, <em>asr_model='JTT'</em>, <em>exp_model=''</em>, <em>n=100</em>, <em>divergent=True</em>, <em>indpairs=True</em>, <em>threshold=0.0</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc.imc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify molecular parallel and convergent changes.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -718,13 +727,18 @@ If sequence is ancestors or simulations, then tree is not necessary.</li>
 <li><strong>ancestor</strong> – str, executable of an ancestral states reconstruction
 program.</li>
 <li><strong>simulator</strong> – str, executable of an sequence simulation program.</li>
-<li><strong>toper</strong> – str, executable of an topology test program.</li>
 <li><strong>asr_model</strong> – str, model name or model file for ancestral states
 reconstruction.</li>
-<li><strong>aut_model</strong> – str, model name or model file for topology test.</li>
 <li><strong>exp_model</strong> – str, model name or model file for estimate expected
-changes based on simulation or replacement probability manupilation.</li>
+changes based on simulation or replacement probability manipulation.</li>
 <li><strong>n</strong> – int, number of datasets (or duplicates) should be simulated.</li>
+<li><strong>divergent</strong> – bool, identify divergent changes if True, or only
+identify parallel and convergent changes if False.</li>
+<li><strong>indpairs</strong> – bool, only identify changes for independent branch pairs
+if true, or identify changes for all branch pairs if False.</li>
+<li><strong>threshold</strong> – float, a probability threshold that ranges from 0.0 to
+1.0. If provided, only ancestral states with probability equal or
+larger than the threshold will be used, default: 0.0.</li>
 <li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
 default: False, silent mode.</li>
 </ul>
@@ -742,10 +756,9 @@ of replacements (namedtuple) and the p-value of AU Test (float or None).</p>
 </div>
 <div class="section" id="module-ProtParCon.sim">
 <span id="sim"></span><h2>sim<a class="headerlink" href="#module-ProtParCon.sim" title="Permalink to this headline">¶</a></h2>
-<p>A simple module wrappers various programs for sequence simulation.</p>
-<p>The module is designed to provide a common interface for simulating amino acid
-sequences using various simulation programs. At this stage, the module only
-support simulate sequences using EVOLVER (inside PAML program) and Seq-Gen.</p>
+<p>Providing a common interface for simulating amino acid sequences using
+various simulation programs. At this stage, the module only support simulate
+sequences using EVOLVER (inside PAML program) and Seq-Gen.</p>
 <p>The minimum requirement of this interface asks users to provide a NEWICK format
 tree string or tree file and a executable of a simulation program. Users can
 also pass additional options to simulate amino acid sequences under various
@@ -905,8 +918,8 @@ program, and newick is the extension for NEWICK format tree file.</li>
 </div>
 <div class="section" id="module-ProtParCon.aut">
 <span id="aut"></span><h2>aut<a class="headerlink" href="#module-ProtParCon.aut" title="Permalink to this headline">¶</a></h2>
-<p>The module is designed to provide a common interface for performing topology
-test (<a class="reference external" href="https://academic.oup.com/sysbio/article/51/3/492/1616895">AU test</a>) over protein alignments using various programs.</p>
+<p>Providing a common interface for performing topology test (<a class="reference external" href="https://academic.oup.com/sysbio/article/51/3/492/1616895">AU test</a>) over
+protein alignments using various programs.</p>
 <p>Users are asked to provide a multiple sequence alignment (MSA) file, a NEWICK 
 format tree file, and a topology test program’s executable. If only one tree 
 in the tree file was provided, a maximum-likelihood (ML) tree would be inferred 
@@ -917,7 +930,7 @@ tree. In both cases, only the p-value of AU test for the first tree will be
 returned.</p>
 <p>Users are recommended only to use function <code class="docutils literal notranslate"><span class="pre">aut()</span></code> and avoid to use any
 private functions inside the module. However, users are recommended to
-implement new private functions for additional topology test programs in which 
+implement new private functions for additional topology test programs that
 they are interested and incorporate them into the general use function 
 <code class="docutils literal notranslate"><span class="pre">aut()</span></code>.</p>
 <dl class="function">
@@ -977,8 +990,8 @@ second tree (string).</p>
 </div>
 <div class="section" id="module-ProtParCon.mlt">
 <span id="mlt"></span><h2>mlt<a class="headerlink" href="#module-ProtParCon.mlt" title="Permalink to this headline">¶</a></h2>
-<p>The module is designed to provide a common interface for inferring phylogenetic
-trees from alignments of protein sequences using maximum-likelihood method.</p>
+<p>Providing a common interface for inferring phylogenetic trees from alignments
+of protein sequences using maximum-likelihood method.</p>
 <p>The minimum requirement for using this module is a multiple sequence alignment
 (MSA) file and an executable of a maximum-likelihood tree inference program.
 If user wants to take full control of the tree inference, optional parameters
@@ -988,7 +1001,7 @@ model decided by model selection procedure (RAxML and IQ-TREE) will be used.</p>
 <p>Users are recommended to only use function <code class="docutils literal notranslate"><span class="pre">mlt()</span></code> and avoid to use any
 private functions in this module. However, users are strongly recommended to
 implement new private functions for additional maximum-likelihood tree
-inference program in which they are interested and incorporate them into the
+inference program that they are interested and incorporate them into the
 general use function <code class="docutils literal notranslate"><span class="pre">mlt()</span></code>.</p>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
@@ -1237,7 +1250,7 @@ their names.</li>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="usage-shell.html" class="btn btn-neutral" title="Using ProtParCon in terminal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="usage-shell.html" class="btn btn-neutral float-left" title="Using ProtParCon in terminal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1246,7 +1259,7 @@ their names.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, FEI YUAN.
+        &copy; Copyright 2018, FEI YUAN
 
     </p>
   </div>
@@ -1263,32 +1276,16 @@ their names.</li>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

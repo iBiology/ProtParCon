@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ProtParCon.imc &mdash; ProtParCon 1.0 documentation</title>
+  <title>ProtParCon.imc &mdash; ProtParCon 2.0 documentation</title>
   
 
   
@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -56,7 +58,7 @@
             
             
               <div class="version">
-                1.0
+                2.0
               </div>
             
           
@@ -83,6 +85,7 @@
               <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#work-flow-of-protparcon">Work-Flow of ProtParCon</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-just-happened">What just happened?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-else">What else?</a></li>
@@ -191,13 +194,12 @@
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module is designed to provide a common and easy way for identifying</span>
-<span class="sd">parallel and convergent amino acid replacements in orthologous protein</span>
-<span class="sd">sequences. In order to make this module for general use, function ``ProtParCon()``</span>
-<span class="sd">is built on top of other modules to facilitate the identification of</span>
-<span class="sd">parallel and convergent amino acid replacements using a wide range of</span>
-<span class="sd">sequence data. Depending on the sequence data, optional parameters and external</span>
-<span class="sd">programs may be required.</span>
+<span class="sd">Providing a common interface for identifying parallel and convergent amino</span>
+<span class="sd">acid replacements in orthologous protein sequences. In order to make this</span>
+<span class="sd">module for general use, function ``ProtParCon()`` is built on top of other</span>
+<span class="sd">modules to facilitate the identification of parallel and convergent amino</span>
+<span class="sd">acid replacements using a wide range of sequence data. Depending on the</span>
+<span class="sd">sequence data, optional parameters and external programs may be required.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -216,6 +218,8 @@
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">poisson</span>
 
 <span class="kn">from</span> <span class="nn">ProtParCon</span> <span class="k">import</span> <span class="n">msa</span><span class="p">,</span> <span class="n">asr</span><span class="p">,</span> <span class="n">aut</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">utilities</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">modeling</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.models</span> <span class="k">import</span> <span class="n">models</span>
 
 <span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
 <span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
@@ -233,12 +237,14 @@
 <span class="n">AMINO_ACIDS</span> <span class="o">=</span> <span class="s1">&#39;ARNDCQEGHILKMFPSTWYV&#39;</span>
 
 
-<div class="viewcode-block" id="_pairing"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._pairing">[docs]</a><span class="k">def</span> <span class="nf">_pairing</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+<div class="viewcode-block" id="_pairing"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._pairing">[docs]</a><span class="k">def</span> <span class="nf">_pairing</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indpairs</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checking whether two branches are sister branch pair or branch pair sharing</span>
 <span class="sd">    the same evolutionary path.</span>
 <span class="sd">    </span>
 <span class="sd">    :param tree: object, a tree object.</span>
+<span class="sd">    :param indpairs: bool, only return independent branch pairs if true,</span>
+<span class="sd">        or return all branch pairs if False.</span>
 <span class="sd">    :return: tuple, a list of branches and a list of branch pairs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -258,9 +264,11 @@
     <span class="k">for</span> <span class="n">clade</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">find_clades</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">clade</span><span class="p">:</span>
             <span class="n">branches</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">clade</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
-    
-    <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">branches</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-             <span class="k">if</span> <span class="n">comparable</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">indpairs</span><span class="p">:</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">branches</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                 <span class="k">if</span> <span class="n">comparable</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">branches</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">branches</span><span class="p">,</span> <span class="n">pairs</span></div>
     
 
@@ -273,7 +281,7 @@
 <span class="sd">    :return: tuple, tree, rates (list) and sequence records (defaultdict).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[],</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[],</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span> <span class="p">{}</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tsv</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">handle</span><span class="p">:</span>
             <span class="n">blocks</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -282,6 +290,10 @@
                     <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s1">&#39;newick&#39;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#RATES&#39;</span><span class="p">:</span>
                     <span class="n">rates</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+                <span class="k">elif</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#NODE&#39;</span><span class="p">):</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">ps</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">aps</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">records</span><span class="p">[</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
@@ -309,12 +321,12 @@
                   <span class="s1">&#39;tab separated lines for sequence blocks.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tsv</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span></div>
+    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span></div>
 
 
 <div class="viewcode-block" id="_sequencing"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._sequencing">[docs]</a><span class="k">def</span> <span class="nf">_sequencing</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">asr_model</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Identify the type foe sequence file.</span>
+<span class="sd">    Identify the type of the sequence file.</span>
 <span class="sd">    </span>
 <span class="sd">    :param sequence: str, path to a sequence data file.</span>
 <span class="sd">    :param tree: str, path to a NEWICK tree file.</span>
@@ -330,8 +342,8 @@
                 <span class="n">records</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
                 <span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;NEWICK format tree provided, but the sequence file &#39;</span>
-                      <span class="s1">&#39;was not in in FASTA format.&#39;</span><span class="p">)</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;NEWICK format tree was provided, but the sequence file &#39;</span>
+                      <span class="s1">&#39;was not in the FASTA format.&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">lengths</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -348,8 +360,8 @@
                     <span class="n">alignment</span> <span class="o">=</span> <span class="n">msa</span><span class="o">.</span><span class="n">msa</span><span class="p">(</span><span class="n">aligner</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
                                         <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;FASTA format sequence file provided, but no alignment &#39;</span>
-                      <span class="s1">&#39;program was provided.&#39;</span><span class="p">)</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;FASTA format sequence file was provided, but no &#39;</span>
+                      <span class="s1">&#39;alignment program was provided.&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
                 
         <span class="n">trimmed</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">utilities</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">alignment</span><span class="p">),</span> <span class="s1">&#39;.trimmed.fa&#39;</span><span class="p">])</span>
@@ -366,23 +378,21 @@
                     <span class="n">name</span> <span class="o">=</span> <span class="n">trimmed</span>
                 
                 <span class="n">aser</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">asr</span><span class="o">.</span><span class="n">_guess</span><span class="p">(</span><span class="n">ancestor</span><span class="p">)</span>
-                <span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">utilities</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
-                                   <span class="s1">&#39;-</span><span class="si">{}</span><span class="s1">.tsv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aser</span><span class="p">)])</span>
+                <span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.tsv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">utilities</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">aser</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">outfile</span><span class="p">):</span>
                     <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Using pre-existed ancestral states sequence file.&#39;</span><span class="p">)</span>
                     <span class="n">sequence</span> <span class="o">=</span> <span class="n">outfile</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">sequence</span> <span class="o">=</span> <span class="n">asr</span><span class="o">.</span><span class="n">asr</span><span class="p">(</span><span class="n">ancestor</span><span class="p">,</span> <span class="n">trimmed</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">asr_model</span><span class="p">,</span>
-                                       <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                                       <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
+                                       <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">error</span><span class="p">(</span><span class="s1">&#39;No ancestral reconstruction program was provided.&#39;</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     
-    <span class="n">tree</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">_load</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sequence</span></div>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">_load</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sequence</span></div>
 
 
 <span class="k">def</span> <span class="nf">_frequencing</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -442,23 +452,45 @@
     <span class="k">return</span> <span class="n">p</span><span class="p">,</span> <span class="n">c</span>
 
 
-<span class="k">def</span> <span class="nf">_pc</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_pc</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">indpairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="n">branches</span><span class="p">,</span> <span class="n">pairs</span> <span class="o">=</span> <span class="n">_pairing</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
-    <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span> <span class="p">[]</span>
+    <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">divs</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">details</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="n">detail</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;replacement&#39;</span><span class="p">,</span> <span class="s1">&#39;category position pair r1 r2 dataset&#39;</span><span class="p">)</span>
+    <span class="n">AA</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">AMINO_ACIDS</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
         <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
         <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
             <span class="p">(</span><span class="n">t1p</span><span class="p">,</span> <span class="n">t1</span><span class="p">),</span> <span class="p">(</span><span class="n">t2p</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">=</span> <span class="n">pair</span>
             <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">rates</span> <span class="ow">and</span> <span class="n">probs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Computing expected probability for </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-            <span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">co</span><span class="p">,</span> <span class="n">ce</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">,</span> <span class="n">do</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
             <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
-                <span class="n">s1p</span><span class="p">,</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="n">t1p</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
-                <span class="n">s2p</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="n">t2p</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="n">t2</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">aps</span><span class="p">:</span>
+                    <span class="n">s1p</span><span class="p">,</span> <span class="n">p_s1p</span> <span class="o">=</span> <span class="n">aps</span><span class="p">[</span><span class="n">t1p</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="k">if</span> <span class="n">t1p</span> <span class="ow">in</span> <span class="n">aps</span> <span class="k">else</span> <span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">t1p</span><span class="p">][</span>
+                        <span class="n">pos</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+                    <span class="n">s1</span><span class="p">,</span> <span class="n">p_s1</span> <span class="o">=</span> <span class="n">aps</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="k">if</span> <span class="n">t1</span> <span class="ow">in</span> <span class="n">aps</span> <span class="k">else</span> <span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span>
+                        <span class="n">pos</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+                    <span class="n">s2p</span><span class="p">,</span> <span class="n">p_s2p</span> <span class="o">=</span> <span class="n">aps</span><span class="p">[</span><span class="n">t2p</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="k">if</span> <span class="n">t2p</span> <span class="ow">in</span> <span class="n">aps</span> <span class="k">else</span> <span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">t2p</span><span class="p">][</span>
+                        <span class="n">pos</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+                    <span class="n">s2</span><span class="p">,</span> <span class="n">p_s2</span> <span class="o">=</span> <span class="n">aps</span><span class="p">[</span><span class="n">t2</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="k">if</span> <span class="n">t2</span> <span class="ow">in</span> <span class="n">aps</span> <span class="k">else</span> <span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">t2</span><span class="p">][</span>
+                        <span class="n">pos</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">s1p</span><span class="p">,</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="n">t1p</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="n">t1</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+                    <span class="n">s2p</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="n">t2p</span><span class="p">][</span><span class="n">pos</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="n">t2</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span>
+                    <span class="n">p_s1p</span><span class="p">,</span> <span class="n">p_s1</span><span class="p">,</span> <span class="n">p_s2p</span><span class="p">,</span> <span class="n">p_s2</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span>
+
+                <span class="n">aa</span> <span class="o">=</span> <span class="p">{</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s1p</span><span class="p">,</span> <span class="n">s2p</span><span class="p">}</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">aa</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">AA</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                    
+                <span class="k">if</span> <span class="n">threshold</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="kc">True</span> <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">else</span> <span class="kc">False</span>
+                                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="n">p_s1p</span><span class="p">,</span> <span class="n">p_s1</span><span class="p">,</span> <span class="n">p_s2p</span><span class="p">,</span> <span class="n">p_s2</span><span class="p">]]):</span>
+                        <span class="k">continue</span>
+
                 <span class="k">if</span> <span class="n">s1p</span> <span class="o">!=</span> <span class="n">s1</span> <span class="ow">and</span> <span class="n">s2p</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -473,6 +505,15 @@
                             <span class="n">co</span> <span class="o">+=</span> <span class="mi">1</span>
                             <span class="n">cat</span> <span class="o">=</span> <span class="s1">&#39;C&#39;</span>
                         <span class="n">details</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detail</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;OBSERVATION&#39;</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;SIMULATION-</span><span class="si">{:4d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s1p</span><span class="p">,</span> <span class="n">s1</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s2p</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+                        <span class="n">do</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">cat</span> <span class="o">=</span> <span class="s1">&#39;D&#39;</span>
+                        <span class="n">details</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detail</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
                             
                 <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">rates</span> <span class="ow">and</span> <span class="n">probs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">p</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">_prob</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">record</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">pair</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
@@ -481,46 +522,52 @@
             <span class="k">if</span> <span class="n">rates</span> <span class="ow">and</span> <span class="n">probs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">pars</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">])</span>
                 <span class="n">cons</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">])</span>
+                <span class="n">divs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">do</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pars</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">po</span><span class="p">)</span>
                 <span class="n">cons</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+                <span class="n">divs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">do</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span>
+    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">details</span>
     
 
 <span class="k">def</span> <span class="nf">_load_matrix</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;jtt&#39;</span><span class="p">:</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span>
-                             <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;jtt&#39;</span><span class="p">)</span>
+    <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">20</span><span class="p">,))</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">modeling</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;jtt&#39;</span><span class="p">,</span> <span class="s1">&#39;jones&#39;</span><span class="p">):</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">models</span><span class="p">[</span><span class="s1">&#39;jtt&#39;</span><span class="p">])</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span>
+                             <span class="s1">&#39;ProtParCon&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;jtt&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-            <span class="k">pass</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Unsupported model for computing expected changes, &#39;</span>
                   <span class="s1">&#39;calculation aborted.&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-    <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="p">))</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">==</span> <span class="mi">20</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>
-                                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]):</span>
-                <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">])</span>
-                <span class="k">break</span>
+    
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">handle</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">==</span> <span class="mi">20</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>
+                                      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]):</span>
+            <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">])</span>
+            <span class="k">break</span>
 
-        <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">==</span> <span class="mi">20</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>
-                                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]):</span>
-                <span class="n">probs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]</span>
-                <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">handle</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">==</span> <span class="mi">20</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>
+                                      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]):</span>
+            <span class="n">probs</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">]</span>
+            <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span>
     
     
 <div class="viewcode-block" id="imc"><a class="viewcode-back" href="../../api.html#ProtParCon.imc.imc">[docs]</a><span class="k">def</span> <span class="nf">imc</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">aligner</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ancestor</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">simulator</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">asr_model</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="n">exp_model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">asr_model</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="n">exp_model</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">divergent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indpairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify molecular parallel and convergent changes.</span>
@@ -551,13 +598,18 @@
 <span class="sd">    :param ancestor: str, executable of an ancestral states reconstruction</span>
 <span class="sd">        program.</span>
 <span class="sd">    :param simulator: str, executable of an sequence simulation program.</span>
-<span class="sd">    :param toper: str, executable of an topology test program.</span>
 <span class="sd">    :param asr_model: str, model name or model file for ancestral states</span>
 <span class="sd">        reconstruction.</span>
-<span class="sd">    :param aut_model: str, model name or model file for topology test.</span>
 <span class="sd">    :param exp_model: str, model name or model file for estimate expected</span>
-<span class="sd">        changes based on simulation or replacement probability manupilation.</span>
+<span class="sd">        changes based on simulation or replacement probability manipulation.</span>
 <span class="sd">    :param n: int, number of datasets (or duplicates) should be simulated.</span>
+<span class="sd">    :param divergent: bool, identify divergent changes if True, or only</span>
+<span class="sd">        identify parallel and convergent changes if False.</span>
+<span class="sd">    :param indpairs: bool, only identify changes for independent branch pairs</span>
+<span class="sd">        if true, or identify changes for all branch pairs if False.</span>
+<span class="sd">    :param threshold: float, a probability threshold that ranges from 0.0 to</span>
+<span class="sd">        1.0. If provided, only ancestral states with probability equal or</span>
+<span class="sd">        larger than the threshold will be used, default: 0.0.</span>
 <span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
 <span class="sd">        default: False, silent mode.</span>
 <span class="sd">    :return: tuple, a dict object of counts of parallel replacements, a dict</span>
@@ -575,11 +627,12 @@
               <span class="s1">&#39;exist, exited.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sequence</span> <span class="o">=</span> <span class="n">_sequencing</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="p">,</span>
-                                                       <span class="n">ancestor</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">asr_model</span><span class="p">,</span>
-                                                       <span class="n">verbose</span><span class="p">)</span>
+    <span class="n">basename</span> <span class="o">=</span> <span class="n">utilities</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">_sequencing</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">asr_model</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sequence</span> <span class="o">=</span> <span class="n">rs</span>
 
-    <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">aup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="n">basename_more</span> <span class="o">=</span> <span class="n">utilities</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">aup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
     <span class="n">h1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="s1">&#39;BranchPair&#39;</span><span class="p">]</span>
     <span class="n">h2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="s1">&#39;Position&#39;</span><span class="p">,</span> <span class="s1">&#39;BranchPair&#39;</span><span class="p">,</span> <span class="s1">&#39;R1&#39;</span><span class="p">,</span> <span class="s1">&#39;R2&#39;</span><span class="p">,</span> <span class="s1">&#39;Dataset&#39;</span><span class="p">]</span>
     
@@ -602,34 +655,37 @@
     <span class="n">tips</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;NODE&#39;</span><span class="p">)]</span>
     <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     
-    <span class="n">tree</span><span class="p">,</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span> <span class="o">=</span> <span class="n">_pc</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span>
-                                    <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">details</span> <span class="o">=</span> <span class="n">_pc</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span>
+                                          <span class="n">length</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">indpairs</span><span class="p">,</span>
+                                          <span class="n">threshold</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">simulator</span><span class="p">:</span>
         <span class="n">freq</span> <span class="o">=</span> <span class="n">_frequencing</span><span class="p">(</span><span class="n">tips</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">ts</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;newick&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">exp_model</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">sim</span><span class="p">(</span><span class="n">simulator</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">exp_model</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span>
-                        <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>  <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">.tsv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="n">sim</span><span class="o">.</span><span class="n">_guess</span><span class="p">(</span><span class="n">simulator</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 
-            <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">_load</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Identifying parallel and convergent amino acid replacements in &#39;</span>
-                 <span class="s1">&#39;simulated sequences.&#39;</span><span class="p">)</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">detail</span> <span class="o">=</span> <span class="n">_pc</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">sim</span><span class="p">(</span><span class="n">simulator</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">exp_model</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span>
+                    <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>  <span class="n">outfile</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+            <span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">_load</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">tree</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">detail</span> <span class="o">=</span> <span class="n">_pc</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">aps</span><span class="p">,</span>
+                                                  <span class="n">size</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span>
+                                                  <span class="n">indpairs</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">par</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">pars</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
                 <span class="n">cons</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">con</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+                <span class="n">divs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">div</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
                 <span class="n">pars</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">cons</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">con</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="n">divs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">div</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
             <span class="n">details</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">detail</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;No exp_model was assigned, no sequences simulated, expected P&amp;C not calculated.&#39;</span><span class="p">)</span>
-        
-    <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span><span class="p">])</span> <span class="ow">and</span> <span class="n">save</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">details</span><span class="p">])</span> <span class="ow">and</span> <span class="n">save</span><span class="p">:</span>
         <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Writing identified parallel and convergent amino acid &#39;</span>
              <span class="s1">&#39;replacements to files.&#39;</span><span class="p">)</span>
-        <span class="n">bn</span> <span class="o">=</span> <span class="n">utilities</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
-        <span class="n">counts</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">bn</span><span class="p">,</span> <span class="s1">&#39;.counts.tsv&#39;</span><span class="p">])</span>
-        <span class="n">changes</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">bn</span><span class="p">,</span> <span class="s1">&#39;.details.tsv&#39;</span><span class="p">])</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">basename_more</span><span class="p">,</span> <span class="s1">&#39;.counts.tsv&#39;</span><span class="p">])</span>
+        <span class="n">changes</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">basename_more</span><span class="p">,</span> <span class="s1">&#39;.details.tsv&#39;</span><span class="p">])</span>
         
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">changes</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
             <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h1</span><span class="p">)))</span>
@@ -638,12 +694,14 @@
                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pars</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
             <span class="n">o</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s1">&#39;C</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]))</span>
                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cons</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s1">&#39;D</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]))</span>
+                         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">divs</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
             
             <span class="n">c</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h2</span><span class="p">)))</span>
             <span class="n">c</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">detail</span><span class="p">)</span>
                          <span class="k">for</span> <span class="n">detail</span> <span class="ow">in</span> <span class="n">details</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">length</span></div>
+    <span class="k">return</span> <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span><span class="p">,</span> <span class="n">divs</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="n">length</span></div>
 
 
 <div class="viewcode-block" id="_tester"><a class="viewcode-back" href="../../api.html#ProtParCon.imc._tester">[docs]</a><span class="k">def</span> <span class="nf">_tester</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
@@ -789,41 +847,38 @@
     
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;SEQUENCE&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the sequence data file.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-tree&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--tree&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the NEWICK format tree file.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-aligner&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--aligner&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the executable of an alignment program&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ancestor&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-a&#39;</span><span class="p">,</span> <span class="s1">&#39;--ancestor&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the executable of an ancestral states &#39;</span>
                             <span class="s1">&#39;reconstruction program.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-simulator&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--simulator&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the executable of an sequence simulation &#39;</span>
                             <span class="s1">&#39;program.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-asr_model&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--asr_model&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Model name or model file for ancestral states &#39;</span>
                             <span class="s1">&#39;reconstruction.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-exp_model&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--exp_model&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Model name or model file for sequence simulation.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--number&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Number of datasets (or duplicates) should be &#39;</span>
                             <span class="s1">&#39;simulated.&#39;</span><span class="p">)</span>
 
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke verbose or silent (default) process mode.&#39;</span><span class="p">)</span>
     
     <span class="n">args</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">SEQUENCE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">tree</span>
-    <span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">aligner</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">ancestor</span>
-    <span class="n">simulator</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">simulator</span>
-    <span class="n">asr_model</span><span class="p">,</span> <span class="n">exp_model</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">asr_model</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">exp_model</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">v</span>
     
-    <span class="n">imc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="o">=</span><span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span><span class="o">=</span><span class="n">ancestor</span><span class="p">,</span> <span class="n">simulator</span><span class="o">=</span><span class="n">simulator</span><span class="p">,</span>
-        <span class="n">asr_model</span><span class="o">=</span><span class="n">asr_model</span><span class="p">,</span> <span class="n">exp_model</span><span class="o">=</span><span class="n">exp_model</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-        <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">imc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="n">tree</span><span class="p">,</span> <span class="n">aligner</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">aligner</span><span class="p">,</span> <span class="n">ancestor</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ancestor</span><span class="p">,</span>
+        <span class="n">simulator</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">simulator</span><span class="p">,</span> <span class="n">asr_model</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">asr_model</span><span class="p">,</span>
+        <span class="n">exp_model</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">exp_model</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 
@@ -837,7 +892,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, FEI YUAN.
+        &copy; Copyright 2018, FEI YUAN
 
     </p>
   </div>
@@ -854,32 +909,16 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'1.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -25,9 +25,9 @@ from collections import namedtuple, Counter, defaultdict
 from Bio import Phylo, SeqIO, AlignIO
 from scipy.stats import poisson
 
-import msa, asr, aut, sim, utilities
-from utilities import modeling
-from models import models
+from ProtParCon import msa, asr, aut, sim, utilities
+from ProtParCon.utilities import modeling
+from ProtParCon.models import models
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'

@@ -1,5 +1,4 @@
-from ProtParCon.imc import imc
-from ProtParCon.imc import detect
+from ProtParCon.imc import imc, detect
 from ProtParCon.asr import asr
 from ProtParCon.aut import aut
 from ProtParCon.mlt import mlt

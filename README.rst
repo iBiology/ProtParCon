@@ -18,33 +18,51 @@ Work-Flow of ProtParCon
 =======================
 
 ProtParCon processes a set of orthologous protein sequences with known
-phylogenetic relationships in six stages: MSA, ASR, IDENTIFY, SIM, IDENTIFY,
-and TEST (Figure 1).
+phylogenetic relationships in six stages:
 
-![workflow](Flowchart.png "Overview of the ProtParCon analytical scheme.")
+- MSA
+- ASR
+- IDENTIFY
+- SIM
+- IDENTIFY,
+- TEST
+
+.. figure:: https://www.mdpi.com/genes/genes-10-00181/article_deploy/html/images/genes-10-00181-g001.png
+    :alt: Overview of the ProtParCon analytical scheme
+    :align: center
+
+    Overview of the ProtParCon analytical scheme
 
 During the multiple sequence alignment (MSA) stage, protein sequences are
-aligned while gaps and ambiguous character states are trimmed. In the
-ancestral state reconstruction (ASR) stage, ancestral character states at
+aligned while gaps and ambiguous character states are trimmed.
+
+In the ancestral state reconstruction (ASR) stage, ancestral character states at
 each site are inferred for each internal node in the reconstructed tree.
+
 Observed parallel and convergent amino acid replacements for pairs of branches
 are identified in the IDENTIFY stage. Parallel replacements are denoted by P
-(red) and convergent replacements by C (blue). Simulations are conducted in
-the SIM (simulation) stage. Simulated sequences are evolved according to the
-following parameters: (1) an evolutionary model (a replacement rate matrix),
-(2) the branching pattern and branch lengths of the tree estimated in the ASR
-stage, and (3) amino acid frequencies and sequence length estimated from the
-trimmed alignment. Expected parallel and convergent replacements are
-identified after the SIM stage or they are directly calculated if no
-simulation is conducted. The differences between numbers of observed and
-expected parallel and convergent replacements for branch pairs of interest
-are tested during the TEST stage. For better readability, only part of
-simulated sequences and detailed P&C data are shown. TSV (Tab Separated
-Values) format data are reformatted. Notation of branch pair, A-B, means a
-branch pair involving two branches that are leading to A and B, respectively.
-R1 and R2 represent two amino acid replacement events along two branches.
-The standard one-letter abbreviations for amino acids is used for the
-replacements.
+(red) and convergent replacements by C (blue).
+
+Simulations are conducted in the SIM (simulation) stage. Simulated sequences
+are evolved according to the following parameters:
+
+a. an evolutionary model (a replacement rate matrix)
+b. the branching pattern and branch lengths of the tree estimated in the ASR
+   stage
+c. amino acid frequencies and sequence length estimated from the trimmed
+   alignment.
+
+Expected parallel and convergent replacements are identified after the SIM
+stage or they are directly calculated if no simulation is conducted.
+
+The differences between numbers of observed and expected parallel and
+convergent replacements for branch pairs of interest are tested during the
+TEST stage. For better readability, only part of simulated sequences and
+detailed P&C data are shown. TSV (Tab Separated Values) format data are
+reformatted. Notation of branch pair, A-B, means a branch pair involving two
+branches that are leading to A and B, respectively. R1 and R2 represent two
+amino acid replacement events along two branches. The standard one-letter
+abbreviations for amino acids is used for the replacements.
 
 Walk-through of an example
 ==========================

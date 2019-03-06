@@ -39,8 +39,8 @@ try:
 except ImportError:
     from ProtParCon.utilities import indent
 
-from utilities import basename, Tree
-from mlt import mlt
+from ProtParCon.utilities import basename, Tree
+from ProtParCon.mlt import mlt
 from Bio import Phylo
 
 LEVEL = logging.INFO

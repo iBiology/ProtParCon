@@ -7,7 +7,7 @@ Using ProtParCon in terminal
 Check ProtParCon command-line toolsets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After ProtParCon has been installed, you should also have a six command-line 
+After ProtParCon has been installed, you should also have six command-line
 tools installed, they are: msa, asr, mlt, aut, imc, and sim. To check the 
 availability and usage of any of these command-line tools, you can type 
 the name of the command-line tool with '-h' flag in a terminal to see the 
@@ -28,14 +28,14 @@ the toolsets shipped by ProtParCon. For example, the following command will
 align a sequence file named `seq.fa` using `MUSCLE` and save the alignment 
 output to a file named `alignment.fasta`::
 
-    $ msa muslce seq.fa -o alignment.fasta
+    $ msa muscle seq.fa -o alignment.fasta
     
 In the following example, `imc` is used to automate sequence alignment, 
 ancestral states reconstruction, sequence 
 simulation, and identify parallel and convergent amino acid replacements 
 both in the reconstructed ancestral sequences and the simulated sequences::
 
-    $ imc seq.fa tree.newick -aligner muscle -ancestor codeml -simulator seqgen
+    $ imc seq.fa tree.newick -l muscle -a codeml -s seqgen
     
 After running the above command, there are several files stored in your current
 work directory. You can get the information about identified parallel and 
@@ -88,7 +88,7 @@ Infer ML tree using IQ-TREE and save the best ML tree to a file named
 Infer ML tree using RAxML and save the ML tree to a file named
 'msa.RAxML.ML.newick' (default name)::
     
-    $ imc-mlt raxml msa.fa
+    $ mlt raxml msa.fa
     
 Infer ML tree using PjyML and save the ML tree to a file named
 'msa.PhyML.ML.newick' (default name)::
@@ -111,14 +111,15 @@ rate variation and estimating ML base frequencies of 20 amino acids via PhyML::
 
     $ mlt PhyML msa.fa -o tree.newick -model LG+G8+F
 
-The same as the above example, use '-gamma' and '-freq' options::
+The same as the above example, use '-g' and '-f' options::
 
-    $ mlt PhyML msa.fa -o tree.newick -model LG -gamma 9, -freq estimate
+    $ mlt PhyML msa.fa -o tree.newick -m LG -g 9, -f estimate
 
 Infer ML tree with a start tree and/or constraint tree via `start_tree` and
 `constraint_tree` options::
 
-    $ mlt raxml msa.fa -o tree.newick -model LG+G8+I -stree /path/to/the/start/tree/file -ctree /path/to/the/constraint/tree/file
+    $ mlt raxml msa.fa -o tree.newick -m LG+G8+I -p
+    /path/to/the/start/tree/file -q /path/to/the/constraint/tree/file
 
 
 Reconstruct ancestral states using CODEML and save the ancestral states output
@@ -138,25 +139,25 @@ to a file named `ancestors.tsv` via '-o' option::
     
 Reconstruct ancestral states via CODEML using WAG model (-model option)::
 
-    $ asr codeml msa.fa tree.newick -model WAG
+    $ asr codeml msa.fa tree.newick -m WAG
 
 Reconstruct ancestral states via RAxML using 'WAG' model::
 
-    $ asr raxml msa.fa tree.newick -model WAG
+    $ asr raxml msa.fa tree.newick -m WAG
     
 Reconstruct ancestral states using LG model with 8 Gamma categories and
 a ML estimate of base frequencies of 20 amino acids via RAxML::
 
-    $ asr raxml msa.fa tree.newick -model LG+G8+F
+    $ asr raxml msa.fa tree.newick -m LG+G8+F
     
-Do the same thing as the above example, but use '-gamma' and '-frq' options::
+Do the same thing as the above example, but use '-g' and '-f' options::
      
-    $ asr raxml msa.fa tree.newick -model LG -gamma 8 -freq estimate
+    $ asr raxml msa.fa tree.newick -m LG -g 8 -f estimate
 
 Use a specified model (or matrix) file along with complicated modeling
 information for ancestral states reconstruction::
     
-    $ asr codeml msa.fa tree.newick -model /path/to/my/own/model -gamma=8 -freq estimate
+    $ asr codeml msa.fa tree.newick -m /path/to/my/own/model -g 8 -f estimate
 
 .. note::
 
@@ -173,17 +174,18 @@ Use Seq-Gen to simulate 200 protein datasets with the length set to 500 amino
 acids and substitution model set to LG with 8 Gamma categories to account for
 among sites rate variation::
 
-    $ sim seqgen tree.newick -length 500 -n 200 -model LG -gamma 8
+    $ sim seqgen tree.newick -l 500 -n 200 -m LG -g 8
 
 Use Seq-Gen to simulate 200 protein datasets with the length and base
 frequencies of 20 amino acids extracted from a multiple protein sequence
 alignment file::
 
-    $ sim seqgen tree.newick -n 200 -model LG -gamma=8 -msa /path/to/the/multiple/sequence/alignment/file -freq estimate
+    $ sim seqgen tree.newick -n 200 -m LG -g 8 -r
+    /path/to/the/multiple/sequence/alignment/file -f estimate
 
-Topology test (AU test) using imc-aut::
+Topology test (AU test) using `aut`::
 
-    $ aut iqtree msa.fa tree.newick -model WAG
+    $ aut iqtree msa.fa tree.newick -m WAG
 
 
 Identify parallel and convergent amino acid replacements using ancestral states

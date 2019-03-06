@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ProtParCon at a glance &mdash; ProtParCon 1.0 documentation</title>
+  <title>ProtParCon at a glance &mdash; ProtParCon 2.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Install ProtParCon" href="install.html" />
-    <link rel="prev" title="ProtParCon 1.0 documentation" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="ProtParCon 2.0 documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                1.0
+                2.0
               </div>
             
           
@@ -85,6 +87,7 @@
               <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#work-flow-of-protparcon">Work-Flow of ProtParCon</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#walk-through-of-an-example">Walk-through of an example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#what-just-happened">What just happened?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#what-else">What else?</a></li>
@@ -117,12 +120,12 @@
 <p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#msa">msa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#asr">asr</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#imc">imc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#sim">sim</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#aut">aut</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-ProtParCon.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-ProtParCon.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-ProtParCon.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-ProtParCon.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-ProtParCon.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-ProtParCon.mlt">mlt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#utilities">utilities</a></li>
 </ul>
 </li>
@@ -203,6 +206,49 @@ identification. Therefore, it can be used as a general tool to do MSA,
 ASR, and simulation under a common interface by using various
 pre-existed programs under hood.</p>
 </div>
+<div class="section" id="work-flow-of-protparcon">
+<h1>Work-Flow of ProtParCon<a class="headerlink" href="#work-flow-of-protparcon" title="Permalink to this headline">¶</a></h1>
+<p>ProtParCon processes a set of orthologous protein sequences with known
+phylogenetic relationships in six stages:</p>
+<ul class="simple">
+<li>MSA</li>
+<li>ASR</li>
+<li>IDENTIFY</li>
+<li>SIM</li>
+<li>IDENTIFY,</li>
+<li>TEST</li>
+</ul>
+<div class="figure align-center" id="id1">
+<img alt="Overview of the ProtParCon analytical scheme" src="https://www.mdpi.com/genes/genes-10-00181/article_deploy/html/images/genes-10-00181-g001.png" />
+<p class="caption"><span class="caption-text">Overview of the ProtParCon analytical scheme</span></p>
+</div>
+<p>During the multiple sequence alignment (MSA) stage, protein sequences are
+aligned while gaps and ambiguous character states are trimmed.</p>
+<p>In the ancestral state reconstruction (ASR) stage, ancestral character states at
+each site are inferred for each internal node in the reconstructed tree.</p>
+<p>Observed parallel and convergent amino acid replacements for pairs of branches
+are identified in the IDENTIFY stage. Parallel replacements are denoted by P
+(red) and convergent replacements by C (blue).</p>
+<p>Simulations are conducted in the SIM (simulation) stage. Simulated sequences
+are evolved according to the following parameters:</p>
+<ol class="loweralpha simple">
+<li>an evolutionary model (a replacement rate matrix)</li>
+<li>the branching pattern and branch lengths of the tree estimated in the ASR
+stage</li>
+<li>amino acid frequencies and sequence length estimated from the trimmed
+alignment.</li>
+</ol>
+<p>Expected parallel and convergent replacements are identified after the SIM
+stage or they are directly calculated if no simulation is conducted.</p>
+<p>The differences between numbers of observed and expected parallel and
+convergent replacements for branch pairs of interest are tested during the
+TEST stage. For better readability, only part of simulated sequences and
+detailed P&amp;C data are shown. TSV (Tab Separated Values) format data are
+reformatted. Notation of branch pair, A-B, means a branch pair involving two
+branches that are leading to A and B, respectively. R1 and R2 represent two
+amino acid replacement events along two branches. The standard one-letter
+abbreviations for amino acids is used for the replacements.</p>
+</div>
 <div class="section" id="walk-through-of-an-example">
 <h1>Walk-through of an example<a class="headerlink" href="#walk-through-of-an-example" title="Permalink to this headline">¶</a></h1>
 <p>In order to show you what ProtParCon brings to the table, we’ll walk you through
@@ -212,6 +258,7 @@ acid replacements at the protein sequence level.</p>
 replacements within an orthologous protein:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ProtParCon</span> <span class="k">import</span> <span class="n">imc</span>
 
+<span class="c1"># Replace the path with real path on your system</span>
 <span class="n">sequence</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/orthologous/protein/sequence&#39;</span>
 <span class="n">tree</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/phylogenetic/tree&#39;</span>
 <span class="n">muscle</span> <span class="o">=</span> <span class="s1">&#39;path/to/the/executable/of/muscle/alignment/program&#39;</span>
@@ -327,7 +374,7 @@ ProtParCon. Thanks for you interest!</p>
         <a href="install.html" class="btn btn-neutral float-right" title="Install ProtParCon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="ProtParCon 1.0 documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="ProtParCon 2.0 documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -336,7 +383,7 @@ ProtParCon. Thanks for you interest!</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, FEI YUAN.
+        &copy; Copyright 2018, FEI YUAN
 
     </p>
   </div>
@@ -353,32 +400,16 @@ ProtParCon. Thanks for you interest!</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'1.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

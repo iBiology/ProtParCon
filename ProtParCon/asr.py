@@ -33,11 +33,11 @@ from subprocess import PIPE, Popen
 try:
     from textwrap import indent
 except ImportError:
-    from utilities import indent
+    from ProtParCon.utilities import indent
 
 from Bio import Phylo, AlignIO
-from utilities import basename, modeling, Tree
-from models import models
+from ProtParCon.utilities import basename, modeling, Tree
+from ProtParCon.models import models
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'

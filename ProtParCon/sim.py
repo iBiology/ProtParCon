@@ -30,12 +30,12 @@ from io import StringIO
 try:
     from textwrap import indent
 except ImportError:
-    from utilities import indent
+    from ProtParCon.utilities import indent
 from collections import Counter
 from subprocess import PIPE, Popen
 
-from utilities import basename, modeling, Tree
-from models import models
+from ProtParCon.utilities import basename, modeling, Tree
+from ProtParCon.models import models
 from Bio import Phylo, AlignIO
 
 LEVEL = logging.INFO

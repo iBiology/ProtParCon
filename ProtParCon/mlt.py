@@ -35,12 +35,12 @@ import argparse
 try:
     from textwrap import indent
 except ImportError:
-    from utilities import indent
+    from ProtParCon.utilities import indent
 from collections import namedtuple
 from subprocess import PIPE, Popen, DEVNULL
 
 from Bio import Phylo, AlignIO
-from utilities import basename, modeling
+from ProtParCon.utilities import basename, modeling
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
