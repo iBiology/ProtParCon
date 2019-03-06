@@ -11,21 +11,21 @@ then all the files and directories generated during testing will be removed
 upon all tests finished.
 """
 
-MUSCLE = r"C:\Users\tianz\bin\muscle.exe"
+MUSCLE = None
 MAFFT = None
 CLUSTAL = None
 
 # Path to the executables of ancestral states reconstruction programs
-CODEML = r"C:\Users\tianz\bin\codeml.exe"
+CODEML = None
 RAXML = None
 
 # Path to the executables of ML tree inference programs
 FASTTREE = None
-IQTREE = r"C:\Users\tianz\bin\iqtree.exe"
+IQTREE = None
 PHYML = None
 
 # Path to the executables of ML tree inference programs
-EVOLVER = r"C:\Users\tianz\bin\evolver.exe"
+EVOLVER = None
 SEQGEN = None
 
 CLEANUP = True
