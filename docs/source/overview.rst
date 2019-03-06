@@ -14,6 +14,37 @@ identification. Therefore, it can be used as a general tool to do MSA,
 ASR, and simulation under a common interface by using various
 pre-existed programs under hood.
 
+Work-Flow of ProtParCon
+=======================
+
+ProtParCon processes a set of orthologous protein sequences with known
+phylogenetic relationships in six stages: MSA, ASR, IDENTIFY, SIM, IDENTIFY,
+and TEST (Figure 1).
+
+![workflow](Flowchart.png "Overview of the ProtParCon analytical scheme.")
+
+During the multiple sequence alignment (MSA) stage, protein sequences are
+aligned while gaps and ambiguous character states are trimmed. In the
+ancestral state reconstruction (ASR) stage, ancestral character states at
+each site are inferred for each internal node in the reconstructed tree.
+Observed parallel and convergent amino acid replacements for pairs of branches
+are identified in the IDENTIFY stage. Parallel replacements are denoted by P
+(red) and convergent replacements by C (blue). Simulations are conducted in
+the SIM (simulation) stage. Simulated sequences are evolved according to the
+following parameters: (1) an evolutionary model (a replacement rate matrix),
+(2) the branching pattern and branch lengths of the tree estimated in the ASR
+stage, and (3) amino acid frequencies and sequence length estimated from the
+trimmed alignment. Expected parallel and convergent replacements are
+identified after the SIM stage or they are directly calculated if no
+simulation is conducted. The differences between numbers of observed and
+expected parallel and convergent replacements for branch pairs of interest
+are tested during the TEST stage. For better readability, only part of
+simulated sequences and detailed P&C data are shown. TSV (Tab Separated
+Values) format data are reformatted. Notation of branch pair, A-B, means a
+branch pair involving two branches that are leading to A and B, respectively.
+R1 and R2 represent two amino acid replacement events along two branches.
+The standard one-letter abbreviations for amino acids is used for the
+replacements.
 
 Walk-through of an example
 ==========================
@@ -27,6 +58,7 @@ replacements within an orthologous protein::
 
     from ProtParCon import imc
 
+    # Replace the path with real path on your system
     sequence = 'path/to/the/orthologous/protein/sequence'
     tree = 'path/to/the/phylogenetic/tree'
     muscle = 'path/to/the/executable/of/muscle/alignment/program'
