@@ -26,7 +26,6 @@ from Bio import Phylo, SeqIO, AlignIO
 from scipy.stats import poisson
 
 from ProtParCon import msa, asr, aut, sim, utilities
-from ProtParCon.utilities import modeling
 from ProtParCon.models import models
 
 LEVEL = logging.INFO
@@ -341,7 +340,7 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
 
 def _load_matrix(model):
     probs, pi = np.zeros((20, 20)), np.zeros((20,))
-    model = modeling(model).name
+    model = utilities.modeling(model).name
     if model.lower() in ('jtt', 'jones'):
         handle = StringIO(models['jtt'])
         model = os.path.join(os.path.dirname(os.path.dirname(__file__)),
@@ -673,7 +672,15 @@ Sequence data file covers a wide range of files and formats:
     parse.add_argument('-n', '--number', default=100, type=int,
                        help='Number of datasets (or duplicates) should be '
                             'simulated.')
-
+    parse.add_argument('-p', '--probability', default=0.0, type=float,
+                       help='a probability threshold that ranges from 0.0 to '
+                            '1.0. If provided, only ancestral states with '
+                            'probability equal or larger than the threshold '
+                            'will be used, default: 0.0')
+    parse.add_argument('-i', '--indpairs', default=True, type=bool,
+                       help='Only identify changes for independent branch '
+                            'pairs if true (default), or identify changes for '
+                            'all branch pairs if False')
     parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
@@ -683,6 +690,7 @@ Sequence data file covers a wide range of files and formats:
     imc(s, tree=tree, aligner=args.aligner, ancestor=args.ancestor,
         simulator=args.simulator, asr_model=args.asr_model,
         exp_model=args.exp_model, n=args.number,
+        threshold=args.probability, indpairs=args.indpairs,
         verbose=args.verbose, save=True)
 
 
