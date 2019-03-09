@@ -24,7 +24,6 @@
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -230,7 +229,7 @@
 <span class="k">if</span> <span class="n">LOGFILE</span><span class="p">:</span>
     <span class="n">HANDLERS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOGFILE</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">LOGFILEMODE</span><span class="p">))</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">handlers</span><span class="o">=</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">LEVEL</span><span class="p">)</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;[iMC]&#39;</span><span class="p">)</span>
@@ -399,7 +398,7 @@
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 
-<div class="viewcode-block" id="msa"><a class="viewcode-back" href="../../api.html#ProtParCon.msa.msa">[docs]</a><span class="k">def</span> <span class="nf">msa</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">trimming</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="msa"><a class="viewcode-back" href="../../api.html#ProtParCon.msa.msa">[docs]</a><span class="k">def</span> <span class="nf">msa</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">trimming</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    General use function for multiple sequence alignment (MSA).</span>
 
@@ -410,10 +409,10 @@
 <span class="sd">        the sequence file without known FASTA file extension, aligner is the </span>
 <span class="sd">        name of the aligner program in lowercase, and fasta is the extension </span>
 <span class="sd">        for fasta format file.</span>
-<span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
-<span class="sd">        default: False, silent mode.</span>
 <span class="sd">    :param trimming: bool, trim gaps and ambiguous sites if True, otherwise,</span>
 <span class="sd">        leave them untouched.</span>
+<span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
+<span class="sd">        default: False, silent mode.</span>
 <span class="sd">    :return: str, path to the aligned sequence output file (in FASTA format).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -436,21 +435,25 @@
         
         <span class="k">if</span> <span class="ow">not</span> <span class="n">outfile</span><span class="p">:</span>
             <span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">basename</span><span class="p">(</span><span class="n">sequence</span><span class="p">),</span> <span class="n">aligner</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">])</span>
-
-        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Aligning sequence </span><span class="si">{}</span><span class="s1"> using </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">aligner</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
-        <span class="n">outfile</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
-        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully align sequence, alignment was saved to &#39;</span>
-             <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outfile</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">outfile</span><span class="p">):</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found pre-existing alignment file.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Aligning sequence </span><span class="si">{}</span><span class="s1"> using </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span>
+                                                         <span class="n">aligner</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
+            <span class="n">outfile</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully aligned sequence, alignment was saved to &#39;</span>
+                 <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outfile</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Sequence: </span><span class="si">{}</span><span class="s1"> is not a file or does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">trimming</span><span class="p">:</span>
-        <span class="n">clean</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">basename</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="s1">&#39;.trimmed.fa&#39;</span><span class="p">])</span>
+        <span class="n">clean</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">basename</span><span class="p">(</span><span class="n">outfile</span><span class="p">),</span> <span class="s1">&#39;.trimmed.fasta&#39;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">clean</span><span class="p">):</span>
+            <span class="n">outfile</span> <span class="o">=</span> <span class="n">clean</span>
             <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found pre-existing trimmed alignment.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">trim</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">clean</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-            <span class="n">outfile</span> <span class="o">=</span> <span class="n">clean</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">outfile</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">clean</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">outfile</span></div>
 
 

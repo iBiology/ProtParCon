@@ -42,7 +42,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'sphinx.ext.todo',
-    'recommonmark'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

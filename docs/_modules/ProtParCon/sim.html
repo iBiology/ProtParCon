@@ -24,7 +24,6 @@
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -226,9 +225,9 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">Popen</span>
 
-<span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">modeling</span><span class="p">,</span> <span class="n">Tree</span>
+<span class="kn">from</span> <span class="nn">ProtParCon.utilities</span> <span class="k">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">modeling</span><span class="p">,</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">trim</span>
 <span class="kn">from</span> <span class="nn">ProtParCon.models</span> <span class="k">import</span> <span class="n">models</span>
-<span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span><span class="p">,</span> <span class="n">AlignIO</span>
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="k">import</span> <span class="n">Phylo</span><span class="p">,</span> <span class="n">AlignIO</span><span class="p">,</span> <span class="n">SeqIO</span>
 
 <span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
 <span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
@@ -237,13 +236,12 @@
 <span class="k">if</span> <span class="n">LOGFILE</span><span class="p">:</span>
     <span class="n">HANDLERS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOGFILE</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">LOGFILEMODE</span><span class="p">))</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">handlers</span><span class="o">=</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">LEVEL</span><span class="p">)</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;[iMC]&#39;</span><span class="p">)</span>
 <span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
 
-<span class="n">MODELS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;ProtParCon&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 <span class="n">AMINO_ACIDS</span> <span class="o">=</span> <span class="s1">&#39;ARNDCQEGHILKMFPSTWYV&#39;</span>
 <span class="n">MC_DAT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;0          * 0: paml format (mc.paml); 1:paup format (mc.nex)</span>
 <span class="si">{}</span><span class="s2">         * random number seed (odd number)</span>
@@ -407,8 +405,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span>
         <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
-            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Using </span><span class="si">{}</span><span class="s1"> model for ancestral states reconstruction.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">name</span><span class="p">))</span>
+            <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Using </span><span class="si">{}</span><span class="s1"> model for simulation.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
                 <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">models</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span>
             <span class="n">mf</span> <span class="o">=</span> <span class="n">name</span>
@@ -572,18 +569,80 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">outfile</span></div>
 
+
+<span class="k">def</span> <span class="nf">_seq2info</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="n">tree</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">frequency</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">):</span>
+                <span class="n">handle</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">aln</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Specified sequence </span><span class="si">{}</span><span class="s1"> is not a valid multiple &#39;</span>
+                          <span class="s1">&#39;sequence alignment, fetch info failed.&#39;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">frequency</span>
+                <span class="n">records</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="o">.</span><span class="n">description</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">seq</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">aln</span><span class="p">}</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#TREE&#39;</span><span class="p">):</span>
+                <span class="n">ts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">ts</span><span class="p">),</span> <span class="s1">&#39;newick&#39;</span><span class="p">)</span>
+                <span class="n">records</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;NODE&#39;</span><span class="p">):</span>
+                                <span class="n">name</span><span class="p">,</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                                <span class="n">records</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">seq</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The first line of non FASTA file does not start &#39;</span>
+                      <span class="s1">&#39;with #TREE, can not find a tree for simulating.&#39;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                
+            <span class="k">if</span> <span class="n">records</span><span class="p">:</span>
+                <span class="n">AA</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">AMINO_ACIDS</span><span class="p">)</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span><span class="n">a</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">})</span>
+                <span class="n">sites</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">records</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sites</span><span class="p">):</span>
+                    <span class="n">aa</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+                    <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">AA</span><span class="p">):</span>
+                        <span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">fs</span> <span class="o">+=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span>
+                <span class="n">total</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+                <span class="k">if</span> <span class="n">total</span><span class="p">:</span>
+                    <span class="n">frequency</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{:.8f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span><span class="p">)</span>
+                                 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Sequence </span><span class="si">{}</span><span class="s1"> is not a file or does not exist, &#39;</span>
+              <span class="s1">&#39;simulation aborted.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tree</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">frequency</span>
+
         
-<div class="viewcode-block" id="sim"><a class="viewcode-back" href="../../api.html#ProtParCon.sim.sim">[docs]</a><span class="k">def</span> <span class="nf">sim</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="n">msa</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;empirical&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">invp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="sim"><a class="viewcode-back" href="../../api.html#ProtParCon.sim.sim">[docs]</a><span class="k">def</span> <span class="nf">sim</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;empirical&#39;</span><span class="p">,</span>
+        <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">invp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sequence simulation via EVOLVER.</span>
 
 <span class="sd">    :param exe: str, path to the executable of EVOLVER.</span>
 <span class="sd">    :param tree: str, path to the tree (must has branch lengths and in NEWICK</span>
-<span class="sd">        format).</span>
-<span class="sd">    :param length: int, the number of the amino acid sites need to be simulated.</span>
-<span class="sd">    :param freq: list or None, base frequencies of 20 amino acids.</span>
+<span class="sd">        format). If not provided, sequence file need to be a tsv file</span>
+<span class="sd">        consisting a tree with branch lengths and sequences. If both tree and</span>
+<span class="sd">        sequence in tsv format file were provided, the tree in tsv file will</span>
+<span class="sd">        be ignored.</span>
+<span class="sd">    :param sequence: str, path to a multiple sequence alignment file in FASTA</span>
+<span class="sd">        format or a tsv file generated by function `asr()` that have a line</span>
+<span class="sd">        contains a tree with branch lengths. If provided, the length and base</span>
+<span class="sd">        amino acid frequencies will be calculated based on the leaf sequences.</span>
 <span class="sd">    :param model: str, name of a model a filename of a model file.</span>
+<span class="sd">    :param length: int, the number of the amino acid sites need to be simulated,</span>
+<span class="sd">        default: 0, the length will be obtained from the sequence.</span>
+<span class="sd">    :param freq: str, &quot;empirical&quot;, &quot;estimate&quot;, or a comma separated string of</span>
+<span class="sd">        base frequencies of 20  amino acids in the order of</span>
+<span class="sd">        &quot;ARNDCQEGHILKMFPSTWYV&quot;.</span>
 <span class="sd">    :param n: int, number of datasets (or duplicates) need to be simulated.</span>
 <span class="sd">    :param seed: int, the seed used to initiate the random number generator.</span>
 <span class="sd">    :param gamma: int, 0 means discrete Gamma model not in use, any</span>
@@ -597,74 +656,84 @@
 <span class="sd">        [basename].[program].ML.newick, where basename is the filename of the</span>
 <span class="sd">        sequence file without extension, program is the name of the ML inference</span>
 <span class="sd">        program, and newick is the extension for NEWICK format tree file.</span>
+<span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
+<span class="sd">        default: False, silent mode.</span>
 <span class="sd">    :return: str, path to the simulation output file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
     
-    <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
-        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Unscaled tree: </span><span class="si">{}</span><span class="s1">, cannot simulate sequences without branch&#39;</span>
-              <span class="s1">&#39;lengths.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Unscaled tree: </span><span class="si">{}</span><span class="s1">, cannot simulate sequences without branch&#39;</span>
+                  <span class="s1">&#39;lengths.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tree</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sequence</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">_seq2info</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">l</span><span class="p">,</span> <span class="n">freqs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span>
+        
+    <span class="k">elif</span> <span class="n">sequence</span><span class="p">:</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">_seq2info</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Neither tree or a sequence file contains a tree was provided, &#39;</span>
+              <span class="s1">&#39;simulation aborted.&#39;</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     
-    <span class="n">fs</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">msa</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">msa</span><span class="p">):</span>
-            <span class="n">aln</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">msa</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="n">aln</span><span class="o">.</span><span class="n">get_alignment_length</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">freq</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span>
-                <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span><span class="n">a</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">})</span>
-                <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">aln</span><span class="p">:</span>
-                    <span class="n">counts</span> <span class="o">+=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span>
-                <span class="n">total</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                                  <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">]))</span>
-                <span class="k">if</span> <span class="n">total</span><span class="p">:</span>
-                    <span class="n">fs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{:.8f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span><span class="p">)</span>
-                          <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Calculate amino acid frequencies failed, zero amino&#39;</span>
-                         <span class="s1">&#39;acid found, use empirical frequency instead.&#39;</span><span class="p">)</span>
-                    <span class="n">fs</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;MSA </span><span class="si">{}</span><span class="s1"> is not a file or does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msa</span><span class="p">))</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">length</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">length</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
             <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid length, length should be a integer.&#39;</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Neither length or msa was provided, simulation aborted.&#39;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">l</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Neither valid sequence nor argument length was specified, &#39;</span>
+                  <span class="s1">&#39;failed to obtain length, simulation aborted.&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">freqs</span> <span class="k">if</span> <span class="n">freq</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="n">freq</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">freq</span> <span class="o">==</span> <span class="s1">&#39;equal&#39;</span><span class="p">:</span>
             <span class="n">fs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0.05&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span>
         <span class="k">elif</span> <span class="n">freq</span> <span class="o">==</span> <span class="s1">&#39;estimate&#39;</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">freqs</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">fs</span><span class="p">:</span>
-                <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Failed to get observed amino acid frequency, use model &#39;</span>
-                     <span class="s1">&#39;frequency instead.&#39;</span><span class="p">)</span>
+                <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Failed to get observed amino acid frequency from &#39;</span>
+                     <span class="s1">&#39;sequence, use the default frequency of model instead.&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">freq</span> <span class="o">==</span> <span class="s1">&#39;empirical&#39;</span><span class="p">:</span>
             <span class="n">fs</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">elif</span> <span class="n">freq</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">freq</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">19</span><span class="p">:</span>
             <span class="n">fs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">0.000001</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Specified frequencies do not add up to 1.0, simulation &#39;</span>
+                      <span class="s1">&#39;aborted.&#39;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Unknown frequency encounter, use model frequency instead.&#39;</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Unknown frequency encounter, use the default frequency of &#39;</span>
+                 <span class="s1">&#39;model instead.&#39;</span><span class="p">)</span>
             <span class="n">fs</span> <span class="o">=</span> <span class="kc">None</span>
             
     <span class="k">try</span><span class="p">:</span>
         <span class="n">seed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="k">if</span> <span class="n">seed</span> <span class="k">else</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Invalid seed, generating seed using random number generator.&#39;</span><span class="p">)</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Invalid seed, use generated random number instead.&#39;</span><span class="p">)</span>
         <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
     
     <span class="n">name</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="n">_guess</span><span class="p">(</span><span class="n">exe</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">outfile</span><span class="p">:</span>
         <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.simulations.tsv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span>
-                <span class="n">invp</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">outfile</span><span class="p">):</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Found pre-existing simulated sequences.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outfile</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span>
+                      <span class="n">invp</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outfile</span></div>
     
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -681,22 +750,26 @@
 <span class="s2">&quot;&quot;&quot;</span>
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
     <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;ProtParCon-sim&#39;</span><span class="p">,</span>
-                                    <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXE TREE [OPTIONS]&#39;</span><span class="p">,</span>
+                                    <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> EXE [OPTIONS]&#39;</span><span class="p">,</span>
                                     <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
 
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;EXE&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the executable of the sequence &#39;</span>
                             <span class="s1">&#39;simulation program.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;TREE&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--tree&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of a tree file or a tree string in &#39;</span>
                             <span class="s1">&#39;newick format.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--msa&#39;</span><span class="p">,</span>
-                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the MSA (sequence) file.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--length&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--sequence&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the sequence file (a MSA file or a &#39;</span>
+                            <span class="s1">&#39;TSV file storing tree and sequences) file.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--length&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;the number of the amino acid sites need to &#39;</span>
-                            <span class="s1">&#39;be simulated&#39;</span><span class="p">)</span>
+                            <span class="s1">&#39;be simulated, default: 0, the length will be &#39;</span>
+                            <span class="s1">&#39;obtained from the sequence.&#39;</span><span class="p">)</span>
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--frequency&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;empirical&#39;</span><span class="p">,</span>
-                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Comma separated state frequencies.&#39;</span><span class="p">)</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;String, can be &quot;empirical&quot;, &quot;estimate&quot;, or a comma&#39;</span>
+                            <span class="s1">&#39; separated string of base frequencies of 20 amino &#39;</span>
+                            <span class="s1">&#39;acids in the order of &quot;ARNDCQEGHILKMFPSTWYV&quot;.&#39;</span><span class="p">)</span>
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--model&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;JTT&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Name of the evolutionary model or filename of the &#39;</span>
                             <span class="s1">&#39;model file.&#39;</span><span class="p">)</span>
@@ -715,14 +788,15 @@
     <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Pathname of the output file for storing &#39;</span>
                             <span class="s1">&#39;simulated sequences.&#39;</span><span class="p">)</span>
-    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span><span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke verbose or silent (default) process mode.&#39;</span><span class="p">)</span>
     
     <span class="n">args</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">exe</span><span class="p">,</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">EXE</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">TREE</span>
 
-    <span class="n">sim</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">msa</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">msa</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
-        <span class="n">freq</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span>
+    <span class="n">sim</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">tree</span><span class="o">=</span><span class="n">tree</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span>
+        <span class="n">length</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+        <span class="n">seed</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span>
         <span class="n">alpha</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="n">invp</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">invp</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
         <span class="n">verbose</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
 

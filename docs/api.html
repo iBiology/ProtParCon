@@ -24,7 +24,6 @@
         <script type="text/javascript" src="_static/jquery.js"></script>
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -320,7 +319,7 @@ program.</li>
 
 <dl class="function">
 <dt id="ProtParCon.msa.msa">
-<code class="descclassname">ProtParCon.msa.</code><code class="descname">msa</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile=''</em>, <em>verbose=False</em>, <em>trimming=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#msa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa.msa" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ProtParCon.msa.</code><code class="descname">msa</code><span class="sig-paren">(</span><em>exe</em>, <em>seq</em>, <em>outfile=''</em>, <em>trimming=False</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/msa.html#msa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.msa.msa" title="Permalink to this definition">¶</a></dt>
 <dd><p>General use function for multiple sequence alignment (MSA).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -334,10 +333,10 @@ default: [basename].[aligner].fasta, where basename is the filename of
 the sequence file without known FASTA file extension, aligner is the 
 name of the aligner program in lowercase, and fasta is the extension 
 for fasta format file.</li>
-<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
-default: False, silent mode.</li>
 <li><strong>trimming</strong> – bool, trim gaps and ambiguous sites if True, otherwise,
 leave them untouched.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
 </ul>
 </td>
 </tr>
@@ -669,31 +668,8 @@ or return all branch pairs if False.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="ProtParCon.imc._tester">
-<code class="descclassname">ProtParCon.imc.</code><code class="descname">_tester</code><span class="sig-paren">(</span><em>obs</em>, <em>exp</em>, <em>values</em>, <em>alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#_tester"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc._tester" title="Permalink to this definition">¶</a></dt>
-<dd><p>One sample T-test to determine whether the observed value is statistically
-significantly different to the expected value.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>obs</strong> – int, observed value.</li>
-<li><strong>exps</strong> – list or tuple, a sequence of expected values.</li>
-<li><strong>alpha</strong> – float, significance level.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float, p value of the T-test.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="ProtParCon.imc.imc">
-<code class="descclassname">ProtParCon.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>save=False</em>, <em>asr_model='JTT'</em>, <em>exp_model=''</em>, <em>n=100</em>, <em>divergent=True</em>, <em>indpairs=True</em>, <em>threshold=0.0</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc.imc" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ProtParCon.imc.</code><code class="descname">imc</code><span class="sig-paren">(</span><em>sequence</em>, <em>tree=''</em>, <em>aligner=''</em>, <em>ancestor=''</em>, <em>simulator=''</em>, <em>asr_model='JTT'</em>, <em>exp_model='JTT'</em>, <em>n=100</em>, <em>divergent=True</em>, <em>indpairs=True</em>, <em>threshold=0.0</em>, <em>exp_prob=False</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/imc.html#imc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.imc.imc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identify molecular parallel and convergent changes.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -728,9 +704,10 @@ If sequence is ancestors or simulations, then tree is not necessary.</li>
 program.</li>
 <li><strong>simulator</strong> – str, executable of an sequence simulation program.</li>
 <li><strong>asr_model</strong> – str, model name or model file for ancestral states
-reconstruction.</li>
+reconstruction, default: JTT.</li>
 <li><strong>exp_model</strong> – str, model name or model file for estimate expected
-changes based on simulation or replacement probability manipulation.</li>
+changes based on simulation or replacement probability manipulation,
+default: JTT.</li>
 <li><strong>n</strong> – int, number of datasets (or duplicates) should be simulated.</li>
 <li><strong>divergent</strong> – bool, identify divergent changes if True, or only
 identify parallel and convergent changes if False.</li>
@@ -739,6 +716,9 @@ if true, or identify changes for all branch pairs if False.</li>
 <li><strong>threshold</strong> – float, a probability threshold that ranges from 0.0 to
 1.0. If provided, only ancestral states with probability equal or
 larger than the threshold will be used, default: 0.0.</li>
+<li><strong>exp_prob</strong> – bool, calculate the probability of expected changes if set
+to True and the exp_model contains a probability matrix. Time consuming
+process, be patient for the calculation.</li>
 <li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
 default: False, silent mode.</li>
 </ul>
@@ -879,7 +859,7 @@ program, and newick is the extension for NEWICK format tree file.</li>
 
 <dl class="function">
 <dt id="ProtParCon.sim.sim">
-<code class="descclassname">ProtParCon.sim.</code><code class="descname">sim</code><span class="sig-paren">(</span><em>exe</em>, <em>tree</em>, <em>model='JTT'</em>, <em>msa=''</em>, <em>length=100</em>, <em>freq='empirical'</em>, <em>n=100</em>, <em>seed=0</em>, <em>gamma=4</em>, <em>alpha=0.5</em>, <em>invp=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim.sim" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ProtParCon.sim.</code><code class="descname">sim</code><span class="sig-paren">(</span><em>exe</em>, <em>tree=''</em>, <em>sequence=''</em>, <em>model='JTT'</em>, <em>length=100</em>, <em>freq='empirical'</em>, <em>n=100</em>, <em>seed=0</em>, <em>gamma=4</em>, <em>alpha=0.5</em>, <em>invp=0</em>, <em>outfile=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/sim.html#sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.sim.sim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sequence simulation via EVOLVER.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -888,10 +868,20 @@ program, and newick is the extension for NEWICK format tree file.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>exe</strong> – str, path to the executable of EVOLVER.</li>
 <li><strong>tree</strong> – str, path to the tree (must has branch lengths and in NEWICK
-format).</li>
-<li><strong>length</strong> – int, the number of the amino acid sites need to be simulated.</li>
-<li><strong>freq</strong> – list or None, base frequencies of 20 amino acids.</li>
+format). If not provided, sequence file need to be a tsv file
+consisting a tree with branch lengths and sequences. If both tree and
+sequence in tsv format file were provided, the tree in tsv file will
+be ignored.</li>
+<li><strong>sequence</strong> – str, path to a multiple sequence alignment file in FASTA
+format or a tsv file generated by function <cite>asr()</cite> that have a line
+contains a tree with branch lengths. If provided, the length and base
+amino acid frequencies will be calculated based on the leaf sequences.</li>
 <li><strong>model</strong> – str, name of a model a filename of a model file.</li>
+<li><strong>length</strong> – int, the number of the amino acid sites need to be simulated,
+default: 0, the length will be obtained from the sequence.</li>
+<li><strong>freq</strong> – str, “empirical”, “estimate”, or a comma separated string of
+base frequencies of 20  amino acids in the order of
+“ARNDCQEGHILKMFPSTWYV”.</li>
 <li><strong>n</strong> – int, number of datasets (or duplicates) need to be simulated.</li>
 <li><strong>seed</strong> – int, the seed used to initiate the random number generator.</li>
 <li><strong>gamma</strong> – int, 0 means discrete Gamma model not in use, any
@@ -905,6 +895,8 @@ needed, the initial value of alpha will be set to 0.5.</li>
 [basename].[program].ML.newick, where basename is the filename of the
 sequence file without extension, program is the name of the ML inference
 program, and newick is the extension for NEWICK format tree file.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
 </ul>
 </td>
 </tr>
