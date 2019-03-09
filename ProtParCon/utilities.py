@@ -24,7 +24,7 @@ HANDLERS = [logging.StreamHandler(sys.stdout)]
 if LOGFILE:
     HANDLERS.append(logging.FileHandler(filename=LOGFILE, mode=LOGFILEMODE))
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
+logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S', handlers=HANDLERS, level=LEVEL)
 
 logger = logging.getLogger('[iMC]')
@@ -273,18 +273,21 @@ def trim(msa, fmt='fasta', outfile='', verbose=False):
     if all(trimmed.values()):
         trimmed = {k: ''.join(v) for k, v in trimmed.items()}
         if outfile:
-            with open(outfile, 'w') as o:
-                o.writelines('>{}\n{}\n'.format(k, v)
-                             for k, v in trimmed.items())
+            try:
+                with open(outfile, 'w') as o:
+                    o.writelines('>{}\n{}\n'.format(k, v)
+                                 for k, v in trimmed.items())
+            except IOError:
+                outfile = ''
+                warn('IOError, failed to save trimmed alignment.')
     else:
-        trimmed = {k: '' for k in trimmed.keys()}
+        trimmed = {}
+        warn('Successfully removed all gaps and ambiguous characters, but '
+             'no site was left after trimming.')
         if outfile:
-            warn('Successfully removed all gaps and ambiguous characters, but '
-                 'no site was left after trimming, no outfile saved.')
-        else:
-            warn('Successfully removed all gaps and ambiguous characters, but '
-                 'no site was left after trimming, empty dict returned.')
-    return trimmed
+            warn('No trimmed alignment was saved.')
+            outfile = ''
+    return trimmed, outfile
 
 
 def indent(text, prefix, predicate=None):

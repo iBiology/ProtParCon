@@ -34,9 +34,9 @@ except ImportError:
 from collections import Counter
 from subprocess import PIPE, Popen
 
-from ProtParCon.utilities import basename, modeling, Tree
+from ProtParCon.utilities import basename, modeling, Tree, trim
 from ProtParCon.models import models
-from Bio import Phylo, AlignIO
+from Bio import Phylo, AlignIO, SeqIO
 
 LEVEL = logging.INFO
 LOGFILE, LOGFILEMODE = '', 'w'
@@ -45,13 +45,12 @@ HANDLERS = [logging.StreamHandler(sys.stdout)]
 if LOGFILE:
     HANDLERS.append(logging.FileHandler(filename=LOGFILE, mode=LOGFILEMODE))
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
+logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S', handlers=HANDLERS, level=LEVEL)
 
 logger = logging.getLogger('[iMC]')
 warn, info, error = logger.warning, logger.info, logger.error
 
-MODELS = os.path.join(os.path.dirname(__file__), 'ProtParCon', 'data')
 AMINO_ACIDS = 'ARNDCQEGHILKMFPSTWYV'
 MC_DAT = """0          * 0: paml format (mc.paml); 1:paup format (mc.nex)
 {}         * random number seed (odd number)
@@ -215,8 +214,7 @@ def _evolver(exe, tree, length, freq, model, n, seed, gamma, alpha, invp,
     else:
         name = m.name
         if name.lower() in models:
-            info('Using {} model for ancestral states reconstruction.'.format(
-                    name))
+            info('Using {} model for simulation.'.format(name))
             with open(os.path.join(cwd, name), 'w') as o:
                 o.write(models[name.lower()])
             mf = name
@@ -380,18 +378,80 @@ def _seqgen(exe, tree, length, freq, model, n, seed, gamma, alpha, invp,
         shutil.rmtree(cwd)
     return outfile
 
+
+def _seq2info(sequence):
+    tree, length, frequency = None, 0, None
+    if os.path.isfile(sequence):
+        with open(sequence) as handle:
+            line = handle.readline().strip()
+            if line.startswith('>'):
+                handle.seek(0)
+                try:
+                    aln = AlignIO.read(handle, 'fasta')
+                except ValueError:
+                    error('Specified sequence {} is not a valid multiple '
+                          'sequence alignment, fetch info failed.')
+                    return tree, length, frequency
+                records = {a.description: a.seq for a in aln}
+            elif line.startswith('#TREE'):
+                ts = line.split()[1]
+                tree = Phylo.read(StringIO(ts), 'newick')
+                records = {}
+                while 1:
+                    line = handle.readline()
+                    if line:
+                        if line.strip() and not line.startswith('#'):
+                            if not line.startswith('NODE'):
+                                name, seq = line.strip().split()
+                                records[name] = seq
+                    else:
+                        break
+            else:
+                error('The first line of non FASTA file does not start '
+                      'with #TREE, can not find a tree for simulating.')
+                sys.exit(1)
+                
+            if records:
+                AA = set(AMINO_ACIDS)
+                fs = Counter({a: 0 for a in AMINO_ACIDS})
+                sites = len(list(records.values())[0])
+                for i in range(sites):
+                    aa = [v[i] for v in records.values()]
+                    if set(aa).issubset(AA):
+                        length += 1
+                        fs += Counter(aa)
+                total = float(sum(fs.values()))
+                if total:
+                    frequency = ['{:.8f}'.format(fs.get(a, 0) / total)
+                                 for a in AMINO_ACIDS]
+    else:
+        error('Sequence {} is not a file or does not exist, '
+              'simulation aborted.'.format(sequence))
+        sys.exit(1)
+    return tree, length, frequency
+
         
-def sim(exe, tree, model='JTT', msa='', length=100, freq='empirical', n=100,
-        seed=0, gamma=4, alpha=0.5, invp=0, outfile='', verbose=False):
+def sim(exe, tree='', sequence='', model='JTT', length=100, freq='empirical',
+        n=100, seed=0, gamma=4, alpha=0.5, invp=0, outfile='', verbose=False):
     """
     Sequence simulation via EVOLVER.
 
     :param exe: str, path to the executable of EVOLVER.
     :param tree: str, path to the tree (must has branch lengths and in NEWICK
-        format).
-    :param length: int, the number of the amino acid sites need to be simulated.
-    :param freq: list or None, base frequencies of 20 amino acids.
+        format). If not provided, sequence file need to be a tsv file
+        consisting a tree with branch lengths and sequences. If both tree and
+        sequence in tsv format file were provided, the tree in tsv file will
+        be ignored.
+    :param sequence: str, path to a multiple sequence alignment file in FASTA
+        format or a tsv file generated by function `asr()` that have a line
+        contains a tree with branch lengths. If provided, the length and base
+        amino acid frequencies will be calculated based on the leaf sequences.
     :param model: str, name of a model a filename of a model file.
+    :param length: int, the number of the amino acid sites need to be simulated,
+        default: 0, the length will be obtained from the sequence.
+    :param freq: str, "empirical", "estimate", or a comma separated string of
+        base frequencies of 20  amino acids in the order of
+        "ARNDCQEGHILKMFPSTWYV".
     :param n: int, number of datasets (or duplicates) need to be simulated.
     :param seed: int, the seed used to initiate the random number generator.
     :param gamma: int, 0 means discrete Gamma model not in use, any
@@ -405,74 +465,84 @@ def sim(exe, tree, model='JTT', msa='', length=100, freq='empirical', n=100,
         [basename].[program].ML.newick, where basename is the filename of the
         sequence file without extension, program is the name of the ML inference
         program, and newick is the extension for NEWICK format tree file.
+    :param verbose: bool, invoke verbose or silent process mode,
+        default: False, silent mode.
     :return: str, path to the simulation output file.
     """
     
     logger.setLevel(logging.INFO if verbose else logging.ERROR)
     
-    t = Tree(tree, leave=True)
-    if not t.length:
-        error('Unscaled tree: {}, cannot simulate sequences without branch'
-              'lengths.'.format(tree))
+    if tree:
+        t = Tree(tree, leave=True)
+        if not t.length:
+            error('Unscaled tree: {}, cannot simulate sequences without branch'
+                  'lengths.'.format(tree))
+            sys.exit(1)
+        if sequence:
+            _, l, freqs = _seq2info(sequence)
+        else:
+            l, freqs = 0, None
+        
+    elif sequence:
+        t, l, freqs = _seq2info(sequence)
+    else:
+        error('Neither tree or a sequence file contains a tree was provided, '
+              'simulation aborted.')
         sys.exit(1)
     
-    fs = None
-    if msa:
-        if os.path.isfile(msa):
-            aln = AlignIO.read(msa, 'fasta')
-            length = aln.get_alignment_length()
-            if freq == 'estimate':
-                counts = Counter({a: 0 for a in AMINO_ACIDS})
-                for a in aln:
-                    counts += Counter(a.seq)
-                total = float(sum([v for k, v in counts.items()
-                                  if k in AMINO_ACIDS]))
-                if total:
-                    fs = ['{:.8f}'.format(counts.get(aa, 0) / total)
-                          for aa in AMINO_ACIDS]
-                else:
-                    warn('Calculate amino acid frequencies failed, zero amino'
-                         'acid found, use empirical frequency instead.')
-                    fs = None
-        else:
-            error('MSA {} is not a file or does not exist.'.format(msa))
-            sys.exit(1)
-    elif length:
+    if length:
         try:
             length = int(length)
         except ValueError:
             error('Invalid length, length should be a integer.')
             sys.exit(1)
     else:
-        error('Neither length or msa was provided, simulation aborted.')
-        sys.exit(1)
+        if l:
+            length = l
+        else:
+            error('Neither valid sequence nor argument length was specified, '
+                  'failed to obtain length, simulation aborted.')
+            sys.exit(1)
+
+    fs = freqs if freq == 'estimate' else None
 
     if freq:
         if freq == 'equal':
             fs = ['0.05'] * 20
         elif freq == 'estimate':
+            fs = freqs
             if not fs:
-                warn('Failed to get observed amino acid frequency, use model '
-                     'frequency instead.')
+                warn('Failed to get observed amino acid frequency from '
+                     'sequence, use the default frequency of model instead.')
         elif freq == 'empirical':
             fs = None
         elif freq.startswith('0') and freq.count(',') == 19:
             fs = [i.strip() for i in freq.split(',')]
+            if 1 - sum([float(s) for s in fs]) > 0.000001:
+                error('Specified frequencies do not add up to 1.0, simulation '
+                      'aborted.')
+                sys.exit(1)
         else:
-            warn('Unknown frequency encounter, use model frequency instead.')
+            warn('Unknown frequency encounter, use the default frequency of '
+                 'model instead.')
             fs = None
             
     try:
         seed = int(seed) if seed else random.randint(0, 10000)
     except ValueError:
-        warn('Invalid seed, generating seed using random number generator.')
+        warn('Invalid seed, use generated random number instead.')
         seed = random.randint(0, 10000)
     
     name, func = _guess(exe)
     if not outfile:
         outfile = os.path.join(os.getcwd(), '{}.simulations.tsv'.format(name))
-    return func(exe, tree, length, fs, model, n, seed, gamma, alpha,
-                invp, outfile)
+
+    if os.path.isfile(outfile):
+        info('Found pre-existing simulated sequences.')
+    else:
+        outfile = func(exe, tree, length, fs, model, n, seed, gamma, alpha,
+                      invp, outfile)
+    return outfile
     
 
 def main():
@@ -489,22 +559,26 @@ the p-value of AU TEST for the first tree will be printed out.
 """
     formatter = argparse.RawDescriptionHelpFormatter
     parse = argparse.ArgumentParser(description=des, prog='ProtParCon-sim',
-                                    usage='%(prog)s EXE TREE [OPTIONS]',
+                                    usage='%(prog)s EXE [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
 
     parse.add_argument('EXE',
                        help='Pathname of the executable of the sequence '
                             'simulation program.')
-    parse.add_argument('TREE',
+    parse.add_argument('-t', '--tree',
                        help='Pathname of a tree file or a tree string in '
                             'newick format.')
-    parse.add_argument('-r', '--msa',
-                       help='Pathname of the MSA (sequence) file.')
-    parse.add_argument('-l', '--length', default=100,
+    parse.add_argument('-r', '--sequence',
+                       help='Pathname of the sequence file (a MSA file or a '
+                            'TSV file storing tree and sequences) file.')
+    parse.add_argument('-l', '--length', default=0,
                        help='the number of the amino acid sites need to '
-                            'be simulated')
+                            'be simulated, default: 0, the length will be '
+                            'obtained from the sequence.')
     parse.add_argument('-f', '--frequency', default='empirical',
-                       help='Comma separated state frequencies.')
+                       help='String, can be "empirical", "estimate", or a comma'
+                            ' separated string of base frequencies of 20 amino '
+                            'acids in the order of "ARNDCQEGHILKMFPSTWYV".')
     parse.add_argument('-m', '--model', default='JTT',
                        help='Name of the evolutionary model or filename of the '
                             'model file.')
@@ -523,14 +597,15 @@ the p-value of AU TEST for the first tree will be printed out.
     parse.add_argument('-o', '--output',
                        help='Pathname of the output file for storing '
                             'simulated sequences.')
-    parse.add_argument('-v','--verbose', action='store_true',
+    parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
     args = parse.parse_args()
     exe, tree = args.EXE, args.TREE
 
-    sim(exe, tree, args.model, msa=args.msa, length=args.length,
-        freq=args.frequency, n=args.number, seed=args.seed, gamma=args.gamma,
+    sim(exe, tree=tree, model=args.model, sequence=args.sequence,
+        length=args.length, freq=args.frequency, n=args.number,
+        seed=args.seed, gamma=args.gamma,
         alpha=args.alpha, invp=args.invp, outfile=args.output,
         verbose=args.verbose)
 

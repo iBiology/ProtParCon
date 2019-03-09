@@ -38,7 +38,7 @@ HANDLERS = [logging.StreamHandler(sys.stdout)]
 if LOGFILE:
     HANDLERS.append(logging.FileHandler(filename=LOGFILE, mode=LOGFILEMODE))
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
+logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S', handlers=HANDLERS, level=LEVEL)
 
 logger = logging.getLogger('[iMC]')
@@ -207,7 +207,7 @@ def _tcoffee(exe, seq, outfile):
     return outfile
 
 
-def msa(exe, seq, outfile='', verbose=False, trimming=False):
+def msa(exe, seq, outfile='', trimming=False, verbose=False):
     """
     General use function for multiple sequence alignment (MSA).
 
@@ -218,10 +218,10 @@ def msa(exe, seq, outfile='', verbose=False, trimming=False):
         the sequence file without known FASTA file extension, aligner is the 
         name of the aligner program in lowercase, and fasta is the extension 
         for fasta format file.
-    :param verbose: bool, invoke verbose or silent process mode,
-        default: False, silent mode.
     :param trimming: bool, trim gaps and ambiguous sites if True, otherwise,
         leave them untouched.
+    :param verbose: bool, invoke verbose or silent process mode,
+        default: False, silent mode.
     :return: str, path to the aligned sequence output file (in FASTA format).
     """
     
@@ -244,21 +244,25 @@ def msa(exe, seq, outfile='', verbose=False, trimming=False):
         
         if not outfile:
             outfile = '.'.join([basename(sequence), aligner, 'fasta'])
-
-        info('Aligning sequence {} using {}.'.format(sequence, aligner.upper()))
-        outfile = func(exe, sequence, outfile)
-        info('Successfully align sequence, alignment was saved to '
-             '{}.'.format(outfile))
+        
+        if os.path.isfile(outfile):
+            info('Found pre-existing alignment file.')
+        else:
+            info('Aligning sequence {} using {}.'.format(sequence,
+                                                         aligner.upper()))
+            outfile = func(exe, sequence, outfile)
+            info('Successfully aligned sequence, alignment was saved to '
+                 '{}.'.format(outfile))
     else:
         error('Sequence: {} is not a file or does not exist.'.format(seq))
         sys.exit(1)
     if trimming:
-        clean = ''.join([basename(outfile), '.trimmed.fa'])
+        clean = ''.join([basename(outfile), '.trimmed.fasta'])
         if os.path.isfile(clean):
+            outfile = clean
             info('Found pre-existing trimmed alignment.')
         else:
-            trim(outfile, outfile=clean, verbose=verbose)
-            outfile = clean
+            _, outfile = trim(outfile, outfile=clean, verbose=verbose)
     return outfile
 
 

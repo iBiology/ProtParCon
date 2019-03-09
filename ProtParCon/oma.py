@@ -25,7 +25,7 @@ HANDLERS = [logging.StreamHandler(sys.stdout)]
 if LOGFILE:
     HANDLERS.append(logging.FileHandler(filename=LOGFILE, mode=LOGFILEMODE))
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
+logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S', handlers=HANDLERS, level=LEVEL)
 
 logger = logging.getLogger('[iMC]')

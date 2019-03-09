@@ -46,7 +46,7 @@ HANDLERS = [logging.StreamHandler(sys.stdout)]
 if LOGFILE:
     HANDLERS.append(logging.FileHandler(filename=LOGFILE, mode=LOGFILEMODE))
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
+logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S', handlers=HANDLERS, level=LEVEL)
 
 logger = logging.getLogger('[iMC]')
@@ -458,7 +458,7 @@ def _raxml(exe, msa, tree, model, gamma, alpha, freq, outfile):
             for record in AlignIO.read(msa, 'fasta'):
                 ancestor[record.id] = record.seq
             
-            _write(tree, ancestor, [], outfile)
+            _write(tree, ancestor, [], {}, outfile)
             info('Successfully save ancestral states reconstruction '
                  'results to {}.'.format(outfile))
             return outfile
@@ -543,7 +543,7 @@ def _fastml(exe, msa, tree, model, gamma, alpha, freq, outfile):
             tree = os.path.join(wd, 'tree.newick.txt')
             tree = Phylo.read(tree, 'newick')
 
-            _write(tree, ancestor, [], outfile)
+            _write(tree, ancestor, [], {}, outfile)
             info('Successfully save ancestral states reconstruction '
                  'results to {}.'.format(outfile))
             return outfile
@@ -622,11 +622,18 @@ def asr(exe, msa, tree, model, gamma=4, alpha=1.8, freq='',
         
     model = modeling(model)
     asrer, func = _guess(exe)
-    if not outfile or outfile == 'iMC-default':
-        outfile = '{}.{}.tsv'.format(basename(msa), asrer)
-
-    out = func(exe, msa, tree, model, gamma, alpha, freq, outfile)
-    return out
+    if not outfile:
+        if msa.endswith('.trimmed.fasta'):
+            name = msa.replace('.trimmed.fasta', '')
+        else:
+            name = msa
+        outfile = '{}.{}.tsv'.format(basename(name), asrer)
+    
+    if os.path.isfile(outfile):
+        info('Found pre-existing ancestral state file.')
+    else:
+        outfile = func(exe, msa, tree, model, gamma, alpha, freq, outfile)
+    return outfile
 
 
 def main():
@@ -691,7 +698,7 @@ file are tab separated sequence IDs and amino acid sequences.
     args = parse.parse_args()
     exe, tree, msa, model = args.EXE, args.TREE, args.MSA, args.model
 
-    out = args.output if args.output else 'iMC-default'
+    out = args.output if args.output else ''
     
     asr(exe, msa, tree, model, gamma=args.gamma, alpha=args.alpha,
         freq=args.frequency, outfile=out, verbose=args.verbose)

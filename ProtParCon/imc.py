@@ -12,6 +12,7 @@ sequence data, optional parameters and external programs may be required.
 
 import os
 import sys
+import glob
 import shutil
 import logging
 import tempfile
@@ -25,7 +26,7 @@ from collections import namedtuple, Counter, defaultdict
 from Bio import Phylo, SeqIO, AlignIO
 from scipy.stats import poisson
 
-from ProtParCon import msa, asr, aut, sim, utilities
+from ProtParCon import msa, asr, aut, sim, detect, utilities
 from ProtParCon.models import models
 
 LEVEL = logging.INFO
@@ -35,7 +36,7 @@ HANDLERS = [logging.StreamHandler(sys.stdout)]
 if LOGFILE:
     HANDLERS.append(logging.FileHandler(filename=LOGFILE, mode=LOGFILEMODE))
 
-logging.basicConfig(format='%(asctime)s %(levelname)-8s %(name)s %(message)s',
+logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S', handlers=HANDLERS, level=LEVEL)
 
 logger = logging.getLogger('[iMC]')
@@ -87,7 +88,7 @@ def _load(tsv):
         sequences.
     :return: tuple, tree, rates (list) and sequence records (defaultdict).
     """
-    
+
     tree, rates, records, aps = None, [], defaultdict(list), {}
     with open(tsv) as handle:
         for line in handle:
@@ -127,7 +128,6 @@ def _load(tsv):
             error('Invalid sequence file {}, the file does not have '
                   'tab separated lines for sequence blocks.'.format(tsv))
             sys.exit(1)
-
     return tree, rates, records, aps, size
 
 
@@ -142,11 +142,15 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
     
     if tree:
         utilities.Tree(tree, leave=True)
+        AA, lengths, aa = set(AMINO_ACIDS), [], []
         with open(sequence) as handle:
             line = handle.readline().strip()
             if line.startswith('>'):
                 handle.seek(0)
                 records = SeqIO.parse(handle, 'fasta')
+                for record in records:
+                    lengths.append(record.seq)
+                    aa.append(set(record.seq).issubset(AA))
                 lengths = [len(record.seq) for record in records]
             else:
                 error('NEWICK format tree was provided, but the sequence file '
@@ -155,6 +159,15 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
 
         if len(set(lengths)) == 1:
             alignment = sequence
+            if all(aa):
+                trimmed = alignment
+            else:
+                trimmed = ''.join([utilities.basename(alignment),
+                                   '.trimmed.fasta'])
+                if os.path.isfile(trimmed):
+                    info('Using pre-existed trimmed alignment file.')
+                else:
+                    _, trimmed = utilities.trim(alignment, outfile=trimmed)
         else:
             if aligner:
                 aler, _ = msa._guess(aligner)
@@ -163,24 +176,26 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
                 if os.path.isfile(outfile):
                     info('Using pre-existed alignment file')
                     alignment = outfile
+                    trimmed = ''.join(
+                            [utilities.basename(alignment), '.trimmed.fasta'])
+                    if os.path.isfile(trimmed):
+                        info('Using pre-existed trimmed alignment file.')
+                    else:
+                        _, trimmed = utilities.trim(alignment, outfile=trimmed)
                 else:
-                    alignment = msa.msa(aligner, sequence, verbose=verbose,
-                                        outfile=outfile)
+                    trimmed = msa.msa(aligner, sequence, verbose=verbose,
+                                        outfile=outfile, trimming=True)
             else:
                 error('FASTA format sequence file was provided, but no '
                       'alignment program was provided.')
                 sys.exit(1)
-                
-        trimmed = ''.join([utilities.basename(alignment), '.trimmed.fa'])
-        if os.path.isfile(trimmed):
-            info('Using pre-existed trimmed alignment file.')
-        else:
-            utilities.trim(alignment, outfile=trimmed, verbose=verbose)
         
         if trimmed:
             if ancestor:
-                if trimmed.endswith('.trimmed.fa'):
-                    name = trimmed.replace('.trimmed.fa', '')
+                print(trimmed)
+                print(trimmed.endswith('.trimmed.fasta'))
+                if trimmed.endswith('.trimmed.fasta'):
+                    name = trimmed.replace('.trimmed.fasta', '')
                 else:
                     name = trimmed
                 
@@ -259,23 +274,21 @@ def _prob(tree, rates, record, pos, pair, probs, pi):
     return p, c
 
 
-def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
-        indpairs=True, threshold=0.0):
-    branches, pairs = _pairing(tree)
+def _pc(tree, rates, records, aps, size, length, probs, pi, indpairs,
+        threshold):
+    branches, pairs = _pairing(tree, indpairs=indpairs)
     pars, cons, divs = defaultdict(list), defaultdict(list), defaultdict(list)
     details = []
 
     detail = namedtuple('replacement', 'category position pair r1 r2 dataset')
-    AA = set(AMINO_ACIDS)
     for i in range(size):
         record = {k: v[i] for k, v in records.items()}
-
         for pair in pairs:
             (t1p, t1), (t2p, t2) = pair
             name = '-'.join([t1, t2])
             po, pe, co, ce, do = 0, 0, 0, 0, 0
             for pos in range(length):
-                if aps:
+                if threshold and aps:
                     s1p, p_s1p = aps[t1p][pos] if t1p in aps else (record[t1p][
                         pos], 1.0)
                     s1, p_s1 = aps[t1][pos] if t1 in aps else (record[t1][
@@ -284,26 +297,19 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
                         pos], 1.0)
                     s2, p_s2 = aps[t2][pos] if t2 in aps else (record[t2][
                         pos], 1.0)
-                else:
-                    s1p, s1 = record[t1p][pos], record[t1][pos]
-                    s2p, s2 = record[t2p][pos], record[t2][pos]
-                    p_s1p, p_s1, p_s2p, p_s2 = 1.0, 1.0, 1.0, 1.0
-
-                aa = {s1, s2, s1p, s2p}
-                if not aa.issubset(AA):
-                    continue
-                    
-                if threshold:
                     if not all([True if float(p) >= threshold else False
                                 for p in [p_s1p, p_s1, p_s2p, p_s2]]):
                         continue
+                else:
+                    s1p, s1 = record[t1p][pos], record[t1][pos]
+                    s2p, s2 = record[t2p][pos], record[t2][pos]
 
                 if s1p != s1 and s2p != s2:
                     if s1 == s2:
                         if size == 1 and i == 0:
                             label = 'OBSERVATION'
                         else:
-                            label = 'SIMULATION-{:4d}'.format(i + 1)
+                            label = 'SIMULATION-{:05d}'.format(i + 1)
                         r1, r2 = '{}{}'.format(s1p, s1), '{}{}'.format(s2p, s2)
                         if s1p == s2p:
                             po += 1
@@ -316,13 +322,13 @@ def _pc(tree, rates, records, aps, size, length, probs=None, pi=None,
                         if size == 1 and i == 0:
                             label = 'OBSERVATION'
                         else:
-                            label = 'SIMULATION-{:4d}'.format(i + 1)
+                            label = 'SIMULATION-{:05d}'.format(i + 1)
                         r1, r2 = '{}{}'.format(s1p, s1), '{}{}'.format(s2p, s2)
                         do += 1
                         cat = 'D'
                         details.append(detail(cat, pos, name, r1, r2, label))
                             
-                if size == 1 and i == 0 and rates and probs is not None:
+                if i == 0 and size == 1 and rates and probs is not None:
                     p, c = _prob(tree, rates, record, pos, pair, probs, pi)
                     pe += p
                     ce += c
@@ -372,9 +378,9 @@ def _load_matrix(model):
     return probs, pi
     
     
-def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
-        asr_model='JTT', exp_model='', n=100, divergent=True, indpairs=True,
-        threshold=0.0, verbose=False):
+def imc(sequence, tree='', aligner='', ancestor='', simulator='',
+        asr_model='JTT', exp_model='JTT', n=100, divergent=True, indpairs=True,
+        threshold=0.0, exp_prob=False, verbose=False):
     
     """
     Identify molecular parallel and convergent changes.
@@ -406,9 +412,10 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
         program.
     :param simulator: str, executable of an sequence simulation program.
     :param asr_model: str, model name or model file for ancestral states
-        reconstruction.
+        reconstruction, default: JTT.
     :param exp_model: str, model name or model file for estimate expected
-        changes based on simulation or replacement probability manipulation.
+        changes based on simulation or replacement probability manipulation,
+        default: JTT.
     :param n: int, number of datasets (or duplicates) should be simulated.
     :param divergent: bool, identify divergent changes if True, or only
         identify parallel and convergent changes if False.
@@ -417,6 +424,9 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
     :param threshold: float, a probability threshold that ranges from 0.0 to
         1.0. If provided, only ancestral states with probability equal or
         larger than the threshold will be used, default: 0.0.
+    :param exp_prob: bool, calculate the probability of expected changes if set
+        to True and the exp_model contains a probability matrix. Time consuming
+        process, be patient for the calculation.
     :param verbose: bool, invoke verbose or silent process mode,
         default: False, silent mode.
     :return: tuple, a dict object of counts of parallel replacements, a dict
@@ -452,16 +462,20 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
                 h1.extend(['SIM-{}'.format(i + 1) for i in range(n)])
                 
             else:
-                probs, pi = _load_matrix(exp_model)
-                if probs is not None:
-                    h1.append('EXP')
+                if exp_prob:
+                    probs, pi = _load_matrix(exp_model)
+                    if probs is not None:
+                        h1.append('EXP')
     else:
         h1.append('EXP')
         h1.extend(['SIM-{}'.format(i + 1) for i in range(size)])
 
     tips = [v[0] for k, v in records.items() if not k.startswith('NODE')]
     length = len(tips[0])
-    
+    if size > 1:
+        info('Estimating expected changes ... ')
+    else:
+        info('Identifying observed changes ...')
     tree, pars, cons, divs, details = _pc(tree, rates, records, aps, size,
                                           length, probs, pi, indpairs,
                                           threshold)
@@ -476,8 +490,9 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
         
         if s and os.path.isfile(s):
             tree, rates, records, aps, size = _load(s)
+            info('Estimating expected changes ... ')
             tree, par, con, div, detail = _pc(tree, rates, records, aps,
-                                                  size, length, probs, pi,
+                                                  size, length, None, None,
                                                   indpairs, threshold)
 
             for k, v in par.items():
@@ -488,7 +503,7 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
                 divs[k].extend(div[k])
             details.extend(detail)
 
-    if any([pars, cons, divs, details]) and save:
+    if any([pars, cons, divs, details]):
         info('Writing identified parallel and convergent amino acid '
              'replacements to files.')
         counts = ''.join([basename_more, '.counts.tsv'])
@@ -511,121 +526,8 @@ def imc(sequence, tree='', aligner='', ancestor='', simulator='', save=False,
     return pars, cons, divs, details, length
 
 
-def _tester(obs, exp, values, alpha=0.05):
-    """
-    One sample T-test to determine whether the observed value is statistically
-    significantly different to the expected value.
-    
-    :param obs: int, observed value.
-    :param exps: list or tuple, a sequence of expected values.
-    :param alpha: float, significance level.
-    :return: float, p value of the T-test.
-    """
-    
-    try:
-        from scipy import stats
-    except ImportError:
-        warn('SciPy package not installed, statistical test aborted.')
-        return None
-    
-    t = stats.ttest_1samp(values, obs)
-    return t[1]
-
-
-def _poisson(obs, exp, values):
-    p = poisson.cdf(obs, exp) if obs <= exp else 1 - poisson.cdf(obs, exp)
-    return p
-
-
-def detect(pair=None, pars=None, cons=None, wd='', tester=None, printout=True):
-    if pars is None or cons is None:
-        wd = wd if wd else os.getcwd()
-        if wd and os.path.isdir(wd):
-            fn = os.path.join(wd, 'parcon.counts.tsv')
-            if os.path.isfile(fn):
-                pars, cons = {}, {}
-                with open(fn) as f:
-                    for line in f:
-                        blocks = line.strip().split()
-                        if blocks[0] == 'P':
-                            pars[blocks[1]] = blocks[2:]
-                        elif blocks[0] == 'C':
-                            cons[blocks[1]] = blocks[2:]
-            else:
-                error('Result {} is not a file or does not exist, detect '
-                      'aborted.'.format(fn))
-                sys.exit(1)
-        else:
-            error('The wd {} is not a directory or does not exist, detect '
-                  'aborted.'.format(wd))
-            sys.exit(1)
-    elif not isinstance(pars, dict) and not isinstance(cons, dict):
-        error('Invalid pars and cons, they need to be dict objects, detect '
-              'aborted.')
-        sys.exit(1)
-    
-    if isinstance(pair, str):
-        pairs = [pair]
-    elif isinstance(pair, (list, tuple)):
-        pairs = pair
-    else:
-        info('No interested branch pair assigned, doing test for all branch pairs.')
-        pairs = list(pars.keys())
-        
-    ps = []
-    for p in pairs:
-        if p in pars:
-            ps.append(p)
-        else:
-            pr = '-'.join(p.split('-')[::-1])
-            if pr in pars:
-                ps.append(pr)
-            else:
-                warn('Invalid branch pair {} was ignored'.format(p))
-        
-    R = namedtuple('result', 'bp po pe p1 co ce p2')
-    results = []
-    for item in ps:
-        p, c = pars[item], cons[item]
-        tester = tester if tester else _poisson
-        (po, pe, *pv), (co, ce, *cv) = p, c
-        po, pe, pv = int(po), float(pe), [int(i) for i in pv]
-        co, ce, cv = int(co), float(ce), [int(i) for i in cv]
-        
-        p1, p2 = tester(po, pe, pv), tester(co, ce, cv)
-
-        results.append(R(*[item, po, pe, p1, co, ce, p2]))
-
-    if printout and results:
-        top = ''.join(['+', '-' * 78, '+'])
-        h1 = ''.join(['|', ' ' * 34, '|',
-                      'Parallelism'.center(21), '|',
-                      'Convergence'.center(21), '|'])
-        line1 = ''.join(['+', '-' * 34, '+', '------+', '------+', '-------+',
-                        '------+', '------+', '-------+'])
-        h2 = ''.join(['|', 'Branch Pair'.center(34), '|']
-                     + [' Obs. | Exp. |P-value|'] * 2)
-        print('Parallel and convergent amino acid replacements among {} '
-              'branch pairs'.format(len(results)))
-        print(top)
-        print(h1)
-        print(line1)
-        print(h2)
-        for result in results:
-            print(line1)
-            bp = result.bp.center(34)
-            empty = 'None'.center(7)
-            po, pe = str(result.po).center(6), '{:5.4f}'.format(result.pe)
-            p1 = '{:2.1E}'.format(result.p1) if result.p1 else empty
-            co, ce = str(result.co).center(6), '{:5.4f}'.format(result.ce)
-            p2 = '{:2.1E}'.format(result.p2) if result.p2 else empty
-            print('|{}|'.format('|'.join([bp, po, pe, p1, co, ce, p2])))
-        print(top)
-    return results
-
-
 def main():
-    des = """identifying parallel and convergent amino acid replacements in
+    des = """Identifying parallel and convergent amino acid replacements in
 orthologous protein sequences"""
     
     epilog = """
@@ -648,7 +550,8 @@ Sequence data file covers a wide range of files and formats:
 """
 
     formatter = argparse.RawDescriptionHelpFormatter
-    parse = argparse.ArgumentParser(description=des, prog='ProtParCon-ProtParCon',
+    parse = argparse.ArgumentParser(description=des,
+                                    prog='imc',
                                     usage='%(prog)s SEQUENCE [OPTIONS]',
                                     formatter_class=formatter, epilog=epilog)
     
@@ -667,7 +570,7 @@ Sequence data file covers a wide range of files and formats:
     parse.add_argument('-m', '--asr_model', default='JTT',
                        help='Model name or model file for ancestral states '
                             'reconstruction.')
-    parse.add_argument('-r', '--exp_model',
+    parse.add_argument('-r', '--exp_model', default='JTT',
                        help='Model name or model file for sequence simulation.')
     parse.add_argument('-n', '--number', default=100, type=int,
                        help='Number of datasets (or duplicates) should be '
@@ -677,10 +580,12 @@ Sequence data file covers a wide range of files and formats:
                             '1.0. If provided, only ancestral states with '
                             'probability equal or larger than the threshold '
                             'will be used, default: 0.0')
-    parse.add_argument('-i', '--indpairs', default=True, type=bool,
-                       help='Only identify changes for independent branch '
-                            'pairs if true (default), or identify changes for '
-                            'all branch pairs if False')
+    parse.add_argument('-i', '--indpairs', action='store_false',
+                       help='Identify changes for all branch pairs.')
+    parse.add_argument('-c', '--exp_prob', action='store_true',
+                       help='Calculate the probability of expected changes if '
+                            'the exp_model contains a probability matrix. '
+                            'Highly time consuming, be patient.')
     parse.add_argument('-v', '--verbose', action='store_true',
                        help='Invoke verbose or silent (default) process mode.')
     
@@ -689,9 +594,9 @@ Sequence data file covers a wide range of files and formats:
     
     imc(s, tree=tree, aligner=args.aligner, ancestor=args.ancestor,
         simulator=args.simulator, asr_model=args.asr_model,
-        exp_model=args.exp_model, n=args.number,
+        exp_model=args.exp_model, n=args.number, exp_prob=args.exp_prob,
         threshold=args.probability, indpairs=args.indpairs,
-        verbose=args.verbose, save=True)
+        verbose=args.verbose)
 
 
 if __name__ == '__main__':

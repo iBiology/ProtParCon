@@ -26,7 +26,9 @@ ASR = {'evolver': EVOLVER, 'seq-gen': SEQGEN}
 class TestSim(unittest.TestCase):
     def setUp(self):
         self.msa = os.path.join(PATH, 'tests', 'data', 'sim', 'msa.fa')
+        self.anc = os.path.join(PATH, 'tests', 'data', 'sim', 'asr.tsv')
         self.tree = os.path.join(PATH, 'tests', 'data', 'sim', 'tree.newick')
+        self.out = os.path.join(PATH, 'tests', 'data', 'sim', 'sim.out')
         self.rm = ''
     
     def tearDown(self):
@@ -40,49 +42,64 @@ class TestSim(unittest.TestCase):
                 logging.warning('Failed to cleanup testing data {} due to:'
                                 '\n\t{}'.format(self.rm, err))
             
-    @unittest.skipIf(not all(ASR.values()), 'No ASR program provided.')
+    @unittest.skipIf(not all(ASR.values()), 'No simulate program provided.')
     def test__guess(self):
         aligners = set(ASR.keys())
         self.assertSetEqual(aligners, set(_guess(a)[0] for a in ASR.values()))
     
     @unittest.skipIf(EVOLVER is None, 'No EVOLVER executable provided.')
     def test_evolver_default(self):
-        out = sim(EVOLVER, self.tree)
+        out = sim(EVOLVER, self.tree, length=100)
         self.assertTrue(os.path.isfile(out))
         self.rm = out
-        
+
+    @unittest.skipIf(EVOLVER is None, 'No EVOLVER executable provided.')
+    def test_evolver_out(self):
+        out = sim(EVOLVER, self.tree, length=100, outfile=self.out)
+        self.assertTrue(os.path.isfile(out))
+        self.assertEqual(out, self.out)
+        self.rm = out
+
     @unittest.skipIf(EVOLVER is None, 'No EVOLVER executable provided.')
     def test_evolver_msa(self):
-        out = sim(EVOLVER, self.tree, msa=self.msa)
+        out = sim(EVOLVER, self.tree, sequence=self.msa, outfile=self.out)
         self.assertTrue(os.path.isfile(out))
+        self.assertEqual(out, self.out)
         self.rm = out
-        
+
     @unittest.skipIf(EVOLVER is None, 'No EVOLVER executable provided.')
-    def test_evolver_msa_outfile(self):
-        outfile = os.path.join(PATH, 'tests', 'data', 'sim',
-                               'evolver.output.simulation.tsv')
-        out = sim(EVOLVER, self.tree, msa=self.msa, outfile=outfile, n=10)
+    def test_evolver_anc(self):
+        out = sim(EVOLVER, self.tree, sequence=self.anc, outfile=self.out)
         self.assertTrue(os.path.isfile(out))
-        self.assertEqual(outfile, out)
-        self.rm = outfile
+        self.assertEqual(out, self.out)
+        self.rm = out
 
     @unittest.skipIf(SEQGEN is None, 'No Seq-Gen executable provided.')
     def test_seqgen_default(self):
-        out = sim(SEQGEN, self.tree)
+        out = sim(SEQGEN, self.tree, length=100, outfile=self.out)
         self.assertTrue(os.path.isfile(out))
+        self.assertEqual(out, self.out)
+        self.rm = out
+
+    @unittest.skipIf(SEQGEN is None, 'No Seq-Gen executable provided.')
+    def test_seqgen_out(self):
+        out = sim(SEQGEN, self.tree, msa=self.msa, outfile=self.out)
+        self.assertTrue(os.path.isfile(out))
+        self.assertEqual(out, self.out)
         self.rm = out
 
     @unittest.skipIf(SEQGEN is None, 'No Seq-Gen executable provided.')
     def test_seqgen_msa(self):
-        out = sim(SEQGEN, self.tree, msa=self.msa)
+        out = sim(SEQGEN, self.tree, msa=self.msa, outfile=self.out, n=10)
         self.assertTrue(os.path.isfile(out))
+        self.assertEqual(out, self.out)
         self.rm = out
 
     @unittest.skipIf(SEQGEN is None, 'No Seq-Gen executable provided.')
-    def test_seqgen_msa_wd(self):
+    def test_seqgen_anc(self):
         outfile = os.path.join(PATH, 'tests', 'data', 'sim',
                                'seqgen.output.simulation.tsv')
-        out = sim(SEQGEN, self.tree, msa=self.msa, outfile=outfile, n=10)
+        out = sim(SEQGEN, self.tree, msa=self.anc, outfile=outfile, n=10)
         self.assertTrue(os.path.isfile(out))
         self.assertEqual(outfile, out)
         self.rm = outfile
