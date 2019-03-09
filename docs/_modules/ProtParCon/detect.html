@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ProtParCon.detect &mdash; ProtParCon 2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ProtParCon
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Knowing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">ProtParCon at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#work-flow-of-protparcon">Work-Flow of ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#walk-through-of-an-example">Walk-through of an example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-just-happened">What just happened?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-else">What else?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html#what-s-next">What’s next?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installing ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Install ProtParCon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html#install-protparcon-to-a-virtual-environment-recommended">Install ProtParCon to a virtual environment (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html#things-that-are-good-to-know">Things that are good to know</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Using ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage-python.html">Use ProtParCon in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#import-protparcon">Import ProtParCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#align-multiple-sequences">Align multiple sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#infer-maximum-likelihood-tree">Infer Maximum-Likelihood tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#reconstruct-ancestral-states">Reconstruct ancestral states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#simulate-protein-sequences">Simulate protein sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#topology-test">Topology test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-python.html#identify-molecular-convergence-in-proteins">Identify molecular convergence in proteins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage-shell.html">Using ProtParCon in terminal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-shell.html#check-protparcon-command-line-toolsets">Check ProtParCon command-line toolsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-shell.html#using-toolsets-in-terminal">Using toolsets in terminal</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Extending ProtParCon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.msa">msa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.asr">asr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.detect">detect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.sim">sim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.aut">aut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#module-ProtParCon.mlt">mlt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#utilities">utilities</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ProtParCon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ProtParCon.detect</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ProtParCon.detect</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">poisson</span>
+
+<span class="n">LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="n">LOGFILE</span><span class="p">,</span> <span class="n">LOGFILEMODE</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span>
+
+<span class="n">HANDLERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)]</span>
+<span class="k">if</span> <span class="n">LOGFILE</span><span class="p">:</span>
+    <span class="n">HANDLERS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOGFILE</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">LOGFILEMODE</span><span class="p">))</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(name)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">handlers</span><span class="o">=</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">LEVEL</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;[iTOL]&#39;</span><span class="p">)</span>
+<span class="n">warn</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span>
+
+
+<div class="viewcode-block" id="_tester"><a class="viewcode-back" href="../../api.html#ProtParCon.detect._tester">[docs]</a><span class="k">def</span> <span class="nf">_tester</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    One sample T-test to determine whether the observed value is statistically</span>
+<span class="sd">    significantly different to the expected value.</span>
+
+<span class="sd">    :param obs: int, observed value.</span>
+<span class="sd">    :param exp: float, the expected value.</span>
+<span class="sd">    :param values: list or tuple, a list of expected values where exp was</span>
+<span class="sd">        calculated.</span>
+<span class="sd">    :param alpha: float, significance level.</span>
+<span class="sd">    :return: float, p value of the T-test.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;SciPy package not installed, statistical test aborted.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="n">t</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<span class="k">def</span> <span class="nf">_poisson</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span> <span class="k">if</span> <span class="n">obs</span> <span class="o">&lt;=</span> <span class="n">exp</span> <span class="k">else</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">poisson</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">exp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span>
+
+
+<div class="viewcode-block" id="detect"><a class="viewcode-back" href="../../api.html#ProtParCon.detect.detect">[docs]</a><span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="n">branchpair</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cons</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wd</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">tester</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+           <span class="n">printout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pairwise comparison for parallel and convergent amino acid replacements in</span>
+<span class="sd">    protein sequences.</span>
+
+<span class="sd">    :param branchpair: list, a list of branch pairs need to be tested.</span>
+<span class="sd">    :param pars: dict, a dict object stores parallel changes.</span>
+<span class="sd">    :param cons: dict, a dict object stores convergent changes.</span>
+<span class="sd">    :param wd: str, path to the work directory. Without specifying, it will be</span>
+<span class="sd">        set to current work directory. A file ends with &#39;.counts.tsv&#39; in the</span>
+<span class="sd">        work directory will be used if neither pars nor cons was provided.</span>
+<span class="sd">    :param fn: str: path to the result file.</span>
+<span class="sd">    :param tester: function, a function for test the differences.</span>
+<span class="sd">    :param printout: bool, print out the test results (default) or only return</span>
+<span class="sd">        the test result without printing them out.</span>
+<span class="sd">    :param verbose: bool, invoke verbose or silent process mode,</span>
+<span class="sd">        default: False, silent mode.</span>
+<span class="sd">    :return: list, a list of test results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">pars</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cons</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="n">wd</span> <span class="k">if</span> <span class="n">wd</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">wd</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">wd</span><span class="p">):</span>
+            <span class="n">fns</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="s1">&#39;*.counts.tsv&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">fns</span><span class="p">:</span>
+                <span class="n">fn</span> <span class="o">=</span> <span class="n">fns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;No result file was found, detect aborted.&#39;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">fn</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+                <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Result </span><span class="si">{}</span><span class="s1"> is not a file or does not exist, detect &#39;</span>
+                      <span class="s1">&#39;aborted.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s1">&#39;The wd </span><span class="si">{}</span><span class="s1"> is not a directory or does not exist, detect &#39;</span>
+                  <span class="s1">&#39;aborted.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wd</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">pars</span><span class="p">,</span> <span class="n">cons</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">blocks</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;P&#39;</span><span class="p">:</span>
+                    <span class="n">pars</span><span class="p">[</span><span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="k">elif</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>
+                    <span class="n">cons</span><span class="p">[</span><span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+                    
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cons</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Invalid pars and cons, they need to be dict objects, detect &#39;</span>
+              <span class="s1">&#39;aborted.&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">branchpair</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">branchpair</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">branchpair</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="n">branchpair</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">info</span><span class="p">(</span><span class="s1">&#39;No interested branch branchpair assigned, doing test for all &#39;</span>
+             <span class="s1">&#39;branch pairs.&#39;</span><span class="p">)</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pars</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    
+    <span class="n">ps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pars</span><span class="p">:</span>
+            <span class="n">ps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pr</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">pars</span><span class="p">:</span>
+                <span class="n">ps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Invalid branch branchpair </span><span class="si">{}</span><span class="s1"> was ignored&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+    
+    <span class="n">R</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="s1">&#39;bp po pe p1 co ce p2&#39;</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">pars</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="n">cons</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="n">tester</span> <span class="o">=</span> <span class="n">tester</span> <span class="k">if</span> <span class="n">tester</span> <span class="k">else</span> <span class="n">_poisson</span>
+        <span class="p">(</span><span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="o">*</span><span class="n">pv</span><span class="p">),</span> <span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">,</span> <span class="o">*</span><span class="n">cv</span><span class="p">)</span> <span class="o">=</span> <span class="n">p</span><span class="p">,</span> <span class="n">c</span>
+        <span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">pv</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">po</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">pe</span><span class="p">),</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pv</span><span class="p">]</span>
+        <span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">co</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">ce</span><span class="p">),</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cv</span><span class="p">]</span>
+        
+        <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">tester</span><span class="p">(</span><span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">pv</span><span class="p">),</span> <span class="n">tester</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">,</span> <span class="n">cv</span><span class="p">)</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">item</span><span class="p">,</span> <span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">,</span> <span class="n">p2</span><span class="p">]))</span>
+    
+    <span class="k">if</span> <span class="n">printout</span> <span class="ow">and</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">78</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">])</span>
+        <span class="n">h1</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">34</span><span class="p">,</span> <span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="s1">&#39;Parallelism&#39;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="s1">&#39;|&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Convergence&#39;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="s1">&#39;|&#39;</span><span class="p">])</span>
+        <span class="n">line1</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">34</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;------+&#39;</span><span class="p">,</span> <span class="s1">&#39;------+&#39;</span><span class="p">,</span> <span class="s1">&#39;-------+&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;------+&#39;</span><span class="p">,</span> <span class="s1">&#39;------+&#39;</span><span class="p">,</span> <span class="s1">&#39;-------+&#39;</span><span class="p">])</span>
+        <span class="n">h2</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="s1">&#39;Branch Pair&#39;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">34</span><span class="p">),</span> <span class="s1">&#39;|&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+            <span class="s1">&#39; Obs. | Exp. |P-value|&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parallel and convergent amino acid replacements among </span><span class="si">{}</span><span class="s1"> &#39;</span>
+              <span class="s1">&#39;branch pairs&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">h1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span>
+            <span class="n">bp</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">bp</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">34</span><span class="p">)</span>
+            <span class="n">empty</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+            <span class="n">po</span><span class="p">,</span> <span class="n">pe</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">po</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{:5.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">pe</span><span class="p">)</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:2.1E}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">p1</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">p1</span> <span class="k">else</span> <span class="n">empty</span>
+            <span class="n">co</span><span class="p">,</span> <span class="n">ce</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">co</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{:5.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">ce</span><span class="p">)</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:2.1E}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">p2</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">p2</span> <span class="k">else</span> <span class="n">empty</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|</span><span class="si">{}</span><span class="s1">|&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">bp</span><span class="p">,</span> <span class="n">po</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">co</span><span class="p">,</span> <span class="n">ce</span><span class="p">,</span> <span class="n">p2</span><span class="p">])))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+    
+    <span class="n">output</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="s1">&#39;pairwise.comparison.tsv&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;branchpair</span><span class="se">\t</span><span class="s1">P_Obs</span><span class="se">\t</span><span class="s1">P_Exp</span><span class="se">\t</span><span class="s1">p1</span><span class="se">\t</span><span class="s1">C_Obs</span><span class="se">\t</span><span class="s1">C_Exp</span><span class="se">\t</span><span class="s1">p2</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span>
+                <span class="s1">&#39;</span><span class="si">{}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{:.4f}</span><span class="se">\t</span><span class="si">{:2.1E}</span><span class="se">\t</span><span class="si">{}</span><span class="se">\t</span><span class="si">{:.4f}</span><span class="se">\t</span><span class="si">{:2.1E}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+    <span class="n">info</span><span class="p">(</span><span class="s1">&#39;Successfully saved comparison results to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">des</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Pairwise comparison for parallel and convergent amino acid</span>
+<span class="s2">replacements in protein sequences&quot;&quot;&quot;</span>
+    
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Only support Poisson test or one-sample t test, if you expect other tests,</span>
+<span class="s2">please implement the test by yourself and using detect() in Python instead of</span>
+<span class="s2">command line.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+    
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span>
+    <span class="n">parse</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">des</span><span class="p">,</span>
+                                    <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;detect&#39;</span><span class="p">,</span>
+                                    <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(prog)s</span><span class="s1"> RESULT [OPTIONS]&#39;</span><span class="p">,</span>
+                                    <span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;RESULT&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to the result file contains identified &#39;</span>
+                            <span class="s1">&#39;parallel and convergent changes.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--branchpair&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Comma separated branch pairs.&#39;</span><span class="p">)</span>
+    <span class="n">parse</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                       <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Invoke verbose or silent (default) process mode.&#39;</span><span class="p">)</span>
+    
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">result</span><span class="p">,</span> <span class="n">bp</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">RESULT</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">branchpair</span>
+    
+    <span class="n">detect</span><span class="p">(</span><span class="n">bp</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="n">result</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+    
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -201,8 +201,10 @@ command line.
     
     args = parse.parse_args()
     result, bp = args.RESULT, args.branchpair
+    if bp:
+        bp = bp.split(',')
     
-    detect(bp, fn=result, verbose=args.verbose)
+    detect(branchpair=bp, fn=result, verbose=args.verbose)
     
 
 if __name__ == '__main__':

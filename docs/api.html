@@ -121,6 +121,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.msa">msa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.asr">asr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.imc">imc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.detect">detect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.sim">sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.aut">aut</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ProtParCon.mlt">mlt</a></li>
@@ -727,6 +728,66 @@ default: False, silent mode.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">tuple, a dict object of counts of parallel replacements, a dict
 object of counts of convergent replacements, a list consists of details
 of replacements (namedtuple) and the p-value of AU Test (float or None).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ProtParCon.detect">
+<span id="detect"></span><h2>detect<a class="headerlink" href="#module-ProtParCon.detect" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="ProtParCon.detect._tester">
+<code class="descclassname">ProtParCon.detect.</code><code class="descname">_tester</code><span class="sig-paren">(</span><em>obs</em>, <em>exp</em>, <em>values</em>, <em>alpha=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/detect.html#_tester"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.detect._tester" title="Permalink to this definition">¶</a></dt>
+<dd><p>One sample T-test to determine whether the observed value is statistically
+significantly different to the expected value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obs</strong> – int, observed value.</li>
+<li><strong>exp</strong> – float, the expected value.</li>
+<li><strong>values</strong> – list or tuple, a list of expected values where exp was
+calculated.</li>
+<li><strong>alpha</strong> – float, significance level.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">float, p value of the T-test.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="ProtParCon.detect.detect">
+<code class="descclassname">ProtParCon.detect.</code><code class="descname">detect</code><span class="sig-paren">(</span><em>branchpair=None</em>, <em>pars=None</em>, <em>cons=None</em>, <em>wd=''</em>, <em>fn=''</em>, <em>tester=None</em>, <em>printout=True</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ProtParCon/detect.html#detect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ProtParCon.detect.detect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pairwise comparison for parallel and convergent amino acid replacements in
+protein sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>branchpair</strong> – list, a list of branch pairs need to be tested.</li>
+<li><strong>pars</strong> – dict, a dict object stores parallel changes.</li>
+<li><strong>cons</strong> – dict, a dict object stores convergent changes.</li>
+<li><strong>wd</strong> – str, path to the work directory. Without specifying, it will be
+set to current work directory. A file ends with ‘.counts.tsv’ in the
+work directory will be used if neither pars nor cons was provided.</li>
+<li><strong>fn</strong> – str: path to the result file.</li>
+<li><strong>tester</strong> – function, a function for test the differences.</li>
+<li><strong>printout</strong> – bool, print out the test results (default) or only return
+the test result without printing them out.</li>
+<li><strong>verbose</strong> – bool, invoke verbose or silent process mode,
+default: False, silent mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list, a list of test results.</p>
 </td>
 </tr>
 </tbody>

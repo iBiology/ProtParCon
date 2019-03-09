@@ -26,6 +26,12 @@ imc
     :members:
     :private-members:
 
+detect
+~~~~~~
+
+.. automodule:: ProtParCon.detect
+   :members:
+   :private-members:
 
 sim
 ~~~

@@ -4,7 +4,7 @@
 import os
 from setuptools import setup, find_packages
 
-VERSION = '2.0'
+VERSION = '3.0'
 
 wd = os.path.abspath(os.path.dirname(__file__))
 
@@ -33,7 +33,8 @@ setup(name='ProtParCon',
                               'mlt=ProtParCon.mlt:main',
                               'asr=ProtParCon.asr:main',
                               'aut=ProtParCon.aut:main',
-                              'sim=ProtParCon.sim:main']
+                              'sim=ProtParCon.sim:main',
+                              'detect=ProtParCon.detect:main']
           },
       include_package_data=True,
       classifiers=[
