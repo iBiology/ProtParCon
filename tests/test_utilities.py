@@ -207,7 +207,7 @@ class TestTree(unittest.TestCase):
                                 '\n\t{}'.format(self.rm, err))
 
     def test_log(self):
-        with self.assertLogs('[IMPC]', level='INFO') as cm:
+        with self.assertLogs('[iMC]', level='INFO') as cm:
             Tree(self.s + 'abc')
         self.assertRegex(cm.output[0], r'ERROR.*Invalid tree:.*a NEWICK.*.')
 
@@ -342,13 +342,13 @@ class TestTrim(unittest.TestCase):
         msa = os.path.join(DATA, 'msa.fa')
         trimmed = {'A': 'ARGPSSSRILAILAVAFIL', 'B': 'ARGPSTSRFLVILAVAFIL',
                    'C': 'ARGPTNSRFLVILAVAFLL', 'D': 'VRVPSTSRFLVILAVAFLL'}
-        self.assertDictEqual(trimmed, trim(msa))
+        self.assertDictEqual(trimmed, trim(msa)[0])
 
     def test_trim_fmt(self):
         msa = os.path.join(DATA, 'msa.phylip')
         trimmed = {'A': 'ARGPSSSRILAILAVAFIL', 'B': 'ARGPSTSRFLVILAVAFIL',
                    'C': 'ARGPTNSRFLVILAVAFLL', 'D': 'VRVPSTSRFLVILAVAFLL'}
-        self.assertDictEqual(trimmed, trim(msa, fmt='phylip-relaxed'))
+        self.assertDictEqual(trimmed, trim(msa, fmt='phylip-relaxed')[0])
 
     def test_trim_outfile(self):
         msa = os.path.join(DATA, 'msa.phylip')
@@ -356,7 +356,7 @@ class TestTrim(unittest.TestCase):
         trimmed = {'A': 'ARGPSSSRILAILAVAFIL', 'B': 'ARGPSTSRFLVILAVAFIL',
                    'C': 'ARGPTNSRFLVILAVAFLL', 'D': 'VRVPSTSRFLVILAVAFLL'}
         
-        out = trim(msa, fmt='phylip-relaxed', outfile=name)
+        out, outfile = trim(msa, fmt='phylip-relaxed', outfile=name)
         self.assertTrue(os.path.isfile(name))
         self.assertDictEqual(trimmed, out)
         rs = AlignIO.read(name, 'fasta')
@@ -366,5 +366,4 @@ class TestTrim(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
-    pass
+    unittest.main(warnings='ignore')

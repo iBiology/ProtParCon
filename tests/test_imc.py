@@ -7,6 +7,7 @@ import shutil
 import logging
 import unittest
 
+
 PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 wd = os.path.join(PATH, 'tests', 'data', 'imc')
 
@@ -16,8 +17,10 @@ from ProtParCon.imc import imc
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import settings
 
+logger = logging.getLogger('[iMC]')
+logger.setLevel(logging.INFO if settings.VERBOSE else logging.ERROR)
+
 CLEANUP = settings.CLEANUP
-# CLEANUP = True
 
 MUSCLE = settings.MUSCLE
 CODEML = settings.CODEML
@@ -26,7 +29,7 @@ EVOLVER = settings.EVOLVER
 SEQGEN = settings.SEQGEN
 
 
-class TestAUT(unittest.TestCase):
+class TestIMC(unittest.TestCase):
     def setUp(self):
         self.seq = os.path.join(wd, 'sequence.fa')
         self.msa = os.path.join(wd, 'msa.fa')
@@ -50,9 +53,9 @@ class TestAUT(unittest.TestCase):
         outs = {'sequence.muscle.codeml.tsv',
                 'sequence.muscle.codeml.counts.tsv',
                 'sequence.muscle.codeml.details.tsv',
-                'sequence.muscle.fa', 'sequence.muscle.trimmed.fa'}
+                'sequence.muscle.fasta', 'sequence.muscle.trimmed.fasta'}
         pars, cons, divs, details, _ = imc(self.seq, self.tree, aligner=MUSCLE,
-                                           ancestor=CODEML, save=True)
+                                           ancestor=CODEML)
         self.assertIsNotNone(pars)
         self.assertIsNotNone(cons)
         self.assertIsNotNone(divs)
@@ -67,12 +70,11 @@ class TestAUT(unittest.TestCase):
                 'sequence.muscle.codeml.tsv',
                 'sequence.muscle.codeml.counts.tsv',
                 'sequence.muscle.codeml.details.tsv',
-                'sequence.muscle.fa',
-                'sequence.muscle.trimmed.fa'}
+                'sequence.muscle.fasta',
+                'sequence.muscle.trimmed.fasta'}
         pars, cons, divs, details, _ = imc(self.seq, tree=self.tree,
                                            aligner=MUSCLE, ancestor=CODEML,
-                                           simulator=EVOLVER,
-                                           save=True, verbose=True)
+                                           simulator=EVOLVER)
         self.assertIsNotNone(pars)
         self.assertIsNotNone(cons)
         self.assertIsNotNone(divs)
@@ -87,10 +89,9 @@ class TestAUT(unittest.TestCase):
                 'msa.codeml.tsv',
                 'msa.codeml.counts.tsv',
                 'msa.codeml.details.tsv',
-                'msa.trimmed.fa'}
+                'msa.trimmed.fasta'}
         pars, cons, divs, details, _ = imc(self.msa, tree=self.tree,
-                                           ancestor=CODEML,  simulator=EVOLVER,
-                                           save=True, verbose=True)
+                                           ancestor=CODEML,  simulator=EVOLVER)
         self.assertIsNotNone(pars)
         self.assertIsNotNone(cons)
         self.assertIsNotNone(divs)
@@ -101,7 +102,7 @@ class TestAUT(unittest.TestCase):
     @unittest.skipIf(EVOLVER is None, 'No valid executable provided.')
     def test_imc_asr_evolver_iqtree(self):
         outs = {'asr.counts.tsv', 'asr.details.tsv'}
-        pars, cons, divs, details, _ = imc(self.asr, save=True, verbose=True)
+        pars, cons, divs, details, _ = imc(self.asr)
         self.assertIsNotNone(pars)
         self.assertIsNotNone(cons)
         self.assertIsNotNone(divs)
@@ -112,11 +113,10 @@ class TestAUT(unittest.TestCase):
     def test_imc_threshold(self):
         outs = {'sequence.muscle.codeml.tsv',
                 'sequence.muscle.codeml.counts.tsv',
-                'sequence.muscle.codeml.details.tsv', 'sequence.muscle.fa',
-                'sequence.muscle.trimmed.fa'}
+                'sequence.muscle.codeml.details.tsv', 'sequence.muscle.fasta',
+                'sequence.muscle.trimmed.fasta'}
         pars, cons, divs, details, _ = imc(self.seq, self.tree, aligner=MUSCLE,
-                                           ancestor=CODEML,  threshold=0.5,
-                                           save=True, verbose=True)
+                                           ancestor=CODEML,  threshold=0.5)
         self.assertIsNotNone(pars)
         self.assertIsNotNone(cons)
         self.assertIsNotNone(divs)
@@ -126,4 +126,4 @@ class TestAUT(unittest.TestCase):
 
   
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(warnings='ignore')

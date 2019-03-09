@@ -143,15 +143,15 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
     if tree:
         utilities.Tree(tree, leave=True)
         AA, lengths, aa = set(AMINO_ACIDS), [], []
+
         with open(sequence) as handle:
             line = handle.readline().strip()
             if line.startswith('>'):
                 handle.seek(0)
                 records = SeqIO.parse(handle, 'fasta')
                 for record in records:
-                    lengths.append(record.seq)
+                    lengths.append(len(record.seq))
                     aa.append(set(record.seq).issubset(AA))
-                lengths = [len(record.seq) for record in records]
             else:
                 error('NEWICK format tree was provided, but the sequence file '
                       'was not in the FASTA format.')
@@ -172,7 +172,7 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
             if aligner:
                 aler, _ = msa._guess(aligner)
                 outfile = ''.join([utilities.basename(sequence),
-                                  '.{}.fa'.format(aler)])
+                                  '.{}.fasta'.format(aler)])
                 if os.path.isfile(outfile):
                     info('Using pre-existed alignment file')
                     alignment = outfile
@@ -192,8 +192,6 @@ def _sequencing(sequence, tree, aligner, ancestor, wd, asr_model, verbose):
         
         if trimmed:
             if ancestor:
-                print(trimmed)
-                print(trimmed.endswith('.trimmed.fasta'))
                 if trimmed.endswith('.trimmed.fasta'):
                     name = trimmed.replace('.trimmed.fasta', '')
                 else:

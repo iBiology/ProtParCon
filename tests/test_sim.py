@@ -83,14 +83,14 @@ class TestSim(unittest.TestCase):
 
     @unittest.skipIf(SEQGEN is None, 'No Seq-Gen executable provided.')
     def test_seqgen_out(self):
-        out = sim(SEQGEN, self.tree, msa=self.msa, outfile=self.out)
+        out = sim(SEQGEN, self.tree, sequence=self.msa, outfile=self.out)
         self.assertTrue(os.path.isfile(out))
         self.assertEqual(out, self.out)
         self.rm = out
 
     @unittest.skipIf(SEQGEN is None, 'No Seq-Gen executable provided.')
     def test_seqgen_msa(self):
-        out = sim(SEQGEN, self.tree, msa=self.msa, outfile=self.out, n=10)
+        out = sim(SEQGEN, self.tree, sequence=self.msa, outfile=self.out, n=10)
         self.assertTrue(os.path.isfile(out))
         self.assertEqual(out, self.out)
         self.rm = out
@@ -99,11 +99,11 @@ class TestSim(unittest.TestCase):
     def test_seqgen_anc(self):
         outfile = os.path.join(PATH, 'tests', 'data', 'sim',
                                'seqgen.output.simulation.tsv')
-        out = sim(SEQGEN, self.tree, msa=self.anc, outfile=outfile, n=10)
+        out = sim(SEQGEN, self.tree, sequence=self.anc, outfile=outfile, n=10)
         self.assertTrue(os.path.isfile(out))
         self.assertEqual(outfile, out)
         self.rm = outfile
         
   
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(warnings='ignore')

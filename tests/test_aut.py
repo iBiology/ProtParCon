@@ -15,6 +15,9 @@ from ProtParCon.aut import aut
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import settings
 
+logger = logging.getLogger('[iMC]')
+logger.setLevel(logging.INFO if settings.VERBOSE else logging.ERROR)
+
 CLEANUP = settings.CLEANUP
 
 IQTREE = settings.IQTREE
@@ -43,27 +46,27 @@ class TestAUT(unittest.TestCase):
         print('AU TEST P-value: {} (test default)'.format(aup))
         self.assertLessEqual(0.0, aup)
 
-    @unittest.skipIf(IQTREE is None, 'No IQ-TREE executable was provided.')
-    def test_aut_model(self):
-        aup, _, _ = aut(IQTREE, self.msa, self.tree, model='JTT')
-        print('AU TEST P-value: {} (test JTT model)'.format(aup))
-        self.assertLessEqual(0.0, aup)
+    # @unittest.skipIf(IQTREE is None, 'No IQ-TREE executable was provided.')
+    # def test_aut_model(self):
+    #     aup, _, _ = aut(IQTREE, self.msa, self.tree, model='JTT')
+    #     print('AU TEST P-value: {} (test JTT model)'.format(aup))
+    #     self.assertLessEqual(0.0, aup)
 
-    @unittest.skipIf(IQTREE is None, 'No IQ-TREE executable was provided.')
-    def test_aut_trees(self):
-        aup, _, _ = aut(IQTREE, self.msa, self.trees, model='JTT')
-        print('AU TEST P-value: {} (test multiple trees)'.format(aup))
-        self.assertLessEqual(0.0, aup)
+    # @unittest.skipIf(IQTREE is None, 'No IQ-TREE executable was provided.')
+    # def test_aut_trees(self):
+    #     aup, _, _ = aut(IQTREE, self.msa, self.trees, model='JTT')
+    #     print('AU TEST P-value: {} (test multiple trees)'.format(aup))
+    #     self.assertLessEqual(0.0, aup)
 
-    @unittest.skipIf(IQTREE is None, 'No IQ-TREE executable was provided.')
-    def test_aut_outfile(self):
-        out = os.path.join(PATH, 'tests', 'data', 'aut', 'iMC.autest.txt')
-        aup, _, _ = aut(IQTREE, self.msa, self.tree, outfile=out)
-        print('AU TEST P-value: {} (test outfile)'.format(aup))
-        self.assertLessEqual(0.0, aup)
-        self.assertTrue(os.path.isfile(out))
-        self.rm = out
+    # @unittest.skipIf(IQTREE is None, 'No IQ-TREE executable was provided.')
+    # def test_aut_outfile(self):
+    #     out = os.path.join(PATH, 'tests', 'data', 'aut', 'iMC.autest.txt')
+    #     aup, _, _ = aut(IQTREE, self.msa, self.tree, outfile=out)
+    #     print('AU TEST P-value: {} (test outfile)'.format(aup))
+    #     self.assertLessEqual(0.0, aup)
+    #     self.assertTrue(os.path.isfile(out))
+    #     self.rm = out
 
   
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(warnings='ignore')

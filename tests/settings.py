@@ -11,24 +11,25 @@ then all the files and directories generated during testing will be removed
 upon all tests finished.
 """
 
-MUSCLE = None
-MAFFT = None
-CLUSTAL = None
+MUSCLE = 'muscle' 
+MAFFT = 'mafft'
+CLUSTAL = 'clustalo'
 
 # Path to the executables of ancestral states reconstruction programs
-CODEML = None
-RAXML = None
+CODEML = 'codeml'
+RAXML = 'raxml'
 
 # Path to the executables of ML tree inference programs
-FASTTREE = None
-IQTREE = None
-PHYML = None
+FASTTREE = 'FastTree'
+IQTREE = 'iqtree'
+PHYML = 'PhyML'
 
 # Path to the executables of ML tree inference programs
-EVOLVER = None
-SEQGEN = None
+EVOLVER = 'evolver'
+SEQGEN = 'seq-gen'
 
 CLEANUP = True
+VERBOSE = True
 
 # The following executables are used by myself, I have all these executables
 # installed into $HOME/bin directory and the directory is a part of $PATH.

@@ -73,25 +73,22 @@ def _iqtree(exe, msa, tree, model, seed):
 
     """
     
-    if tree.startswith('(') and tree.endswith(';'):
-        tree = Phylo.read(StringIO(tree), 'newick')
-        number = 1
-    else:
-        trees = Phylo.parse(tree, 'newick')
-        number = sum(1 for t in trees)
+    trees = Phylo.parse(tree, 'newick')
+    number = sum(1 for t in trees)
         
-    wd = tempfile.mkdtemp()
-    args = [exe, '-s', msa, '-zb', '1000', '-au', '-nt', '1', '-pre',
+    wd = tempfile.mkdtemp(dir=os.path.dirname(os.path.abspath(msa)))
+    args = [exe, '-s', 'msa.fasta', '-zb', '10000', '-au', '-nt', '1', '-pre',
             'autest', '-n', '0']
     if model:
         args.extend(['-m', model])
     else:
         args.extend(['-m', 'TEST'])
     
+    shutil.copy(msa, os.path.join(wd, 'msa.fasta'))
+
     t1, t2 = '', ''
     if number == 1:
         info('One tree found in tree file, inferring ML tree.')
-        msa = shutil.copy(msa, wd)
         mltree = mlt(exe, msa, model=model)
         if mltree:
             trees = os.path.join(wd, 'trees.newick')
@@ -103,19 +100,20 @@ def _iqtree(exe, msa, tree, model, seed):
             with open(trees, 'w') as o, open(mltree) as f2:
                 t2 = f2.read().strip()
                 o.write('{}\n{}\n'.format(t1, t2))
-                args.extend(['-z', trees])
+                args.extend(['-z', 'trees.newick'])
         else:
             error('Infer ML tree failed, AU TEST aborted.')
             sys.exit(1)
     else:
         with open(tree) as f:
             t1, t2 = f.readline().strip(), f.readline().strip()
-        args.extend(['-z', tree])
+        shutil.copy(tree, os.path.join(wd, 'trees.newick'))
+        args.extend(['-z', 'trees.newick'])
     
     try:
         info('Running AU TEST (IQ-TREE) using the following command:\n\t'
              '{}'.format(' '.join(args)))
-        process = Popen(args, cwd=wd, stdout=os.devnull, stderr=PIPE,
+        process = Popen(args, cwd=wd, stdout=PIPE, stderr=PIPE,
                         universal_newlines=True)
         code = process.wait()
         if code:
@@ -169,7 +167,9 @@ def aut(exe, msa, tree, model='', seed=0, outfile='', verbose=False):
         error('Alignment {} is not a file or does not exist.'.format(msa))
         sys.exit(1)
     
-    Tree(tree, leave=True)
+    if not os.path.isfile(tree):
+        error('Tree {} is not a file a does not exist.'.format(tree))
+        sys.exit(1)
     
     if not isinstance(model, str):
         error('Argument model accepts a string for the name of the model or '
