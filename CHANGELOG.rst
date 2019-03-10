@@ -1,6 +1,14 @@
 Changelog
 =========
 
+[3.1] - 2019-03-09
+==================
+
+Changed
+~~~~~~~
+
+- Fixed the wrong version number in docs.
+
 [3.0] - 2019-03-09
 ==================
 
